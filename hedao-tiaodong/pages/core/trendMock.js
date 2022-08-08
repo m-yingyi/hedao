@@ -25,7 +25,7 @@ export default {
         "publishContent": "string",
         "isFocus": true,
         "isPush": true,
-        "isLike": true,
+        "isLike": false,
         "likeNum": 0,
         "commentsNum": 0,
         "createId": 0,

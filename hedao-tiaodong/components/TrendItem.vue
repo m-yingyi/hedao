@@ -17,8 +17,8 @@
 					<span>近期{{trend.likeNum}}人加入</span>
 				</div>
 				<div class="contentShareWrap">
-					<img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${trend.isLike? '3' : '2'}.png`" @click="handleHeart">
-					<span class="btn-like">{{trend.likeNum}}</span>
+					<img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${trend.isLike? '3' : '2'}.png`" @click="handleHeart(trend.isLike)">
+					<span v-if="trend.isLike" class="btn-like">{{trend.likeNum}}</span>
 					<div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
 				</div>
 			</div>
@@ -76,15 +76,26 @@ export default {
         });
       }
     },
-    handleHeart() {
-      uni.showToast({
-        title: this.heartIcon === 3 ? '你已经点赞过了' : '点赞成功',
-        icon: 'none'
-      })
-      this.heartCount = 1
-      this.heartIcon = 3
+    handleHeart(isLike) {
+      // TODO: 请求接口 /api/collection/model
+      if(isLike) {
+        uni.showToast({
+          title: '取消点赞',
+          icon: 'none'
+        })
+        
+      } else {
+        uni.showToast({
+          title: '点赞成功',
+          icon: 'none'
+        })
+
+      }
+      // this.heartCount = 1
+      // this.heartIcon = 3
     },
     handleImgLists() {
+      console.group('111')
       this.imgLists = trend.imgLists.map(item => item.thumbnail);
       console.log(this.imgLists)
     }

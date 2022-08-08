@@ -210,7 +210,7 @@
 					</ul>
 				</div>
 				<div class="left-right-padding36">
-					<a class="core-index-gray-btn" id="coreMoreGoods">查看全部</a>
+					<a class="core-index-gray-btn" id="coreMoreGoods" @click="goStoreTab()">查看全部</a>
 				</div>
 			</div>
 			<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;">
@@ -224,14 +224,15 @@
 			</template>
 		</div>
 		<div class="core-index-container bg-white" v-if="currentItem === 2">
-			<TrendItem :source-data="list" :heart-count="heartCount" :heart-icon="heartIcon" />
+			<GoodsLists />
 		</div>
 	</view>
 </template>
 
 <script>
 import BaseSpace from '@/components/BaseSpace.vue';
-import TrendItem from '../../components/TrendItem.vue';
+import TrendItem from '@/components/TrendItem.vue';
+import GoodsLists from '@/components/GoodsLists.vue';
 // TODO: 会员列表
 import MemberList from './memberListCode.js'
 // TODO: 用户主页信息
@@ -241,7 +242,8 @@ import TrendMock from './trendMock.js'
 	export default {
 		components: {
 			TrendItem,
-			BaseSpace
+			BaseSpace,
+			GoodsLists,
 		},
 		data() {
 			return {
@@ -292,6 +294,9 @@ import TrendMock from './trendMock.js'
 				} else {
 					this.memberList = [...this.memberList, ...this.memberHideList];
 				}
+			},
+			goStoreTab() {
+				this.changeTab(2);
 			}
 		}
 	}
