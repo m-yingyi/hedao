@@ -1,0 +1,96 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/mine/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/framer-originator/index",
+			"style": {
+				"navigationBarTitleText": "认证创作者"
+			}
+		},
+		{
+			"path": "pages/core/index",
+			"style": {
+				"navigationBarTitleText": "主页"
+			}
+		},
+		{
+			"path": "pages/find/index",
+			"style": {
+				"navigationBarTitleText": "发现"
+			}
+		},
+		{
+			"path": "pages/system-setting/index",
+			"style": {
+				"navigationBarTitleText": "系统设置"
+			}
+		},
+		{
+			"path": "pages/question/index",
+			"style": {
+				"navigationBarTitleText": "常见问题"
+			}
+		},
+		{
+			"path": "pages/call/index",
+			"style": {
+				"navigationBarTitleText": "联系客服"
+			}
+		},
+		{
+			"path": "pages/register/index",
+			"style": {
+				"navigationBarTitleText": "完成注册"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "盒岛",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#ffffff"
+	},
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#37a2f2",
+		"borderStyle": "#f0f0f0",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabBar/icon_xcx_02.png",
+				"selectedIconPath": "static/tabBar/icon_xcx_02_2.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/find/index",
+				"iconPath": "static/tabBar/icon_xcx_03.png",
+				"selectedIconPath": "static/tabBar/icon_xcx_03_2.png",
+				"text": "发现"
+			},
+			{
+				"pagePath": "pages/mine/index",
+				"iconPath": "static/tabBar/icon_xcx_04.png",
+				"selectedIconPath": "static/tabBar/icon_xcx_04_2.png",
+				"text": "我的"
+			}
+		]
+	}
+}

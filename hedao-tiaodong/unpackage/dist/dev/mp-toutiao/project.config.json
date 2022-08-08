@@ -1,0 +1,50 @@
+{
+  "setting": {
+    "urlCheck": false
+  },
+  "appid": "tt77f90144e8c79f3c01",
+  "projectname": "idol-ios",
+  "condition": {
+    "miniprogram": {
+      "current": 1659781201341,
+      "list": [
+        {
+          "id": 1659781201341,
+          "name": "登陆",
+          "pathName": "pages/login/index",
+          "query": "",
+          "scene": "990001",
+          "launchFrom": "scan",
+          "location": "qr_code"
+        },
+        {
+          "id": 1659781493983,
+          "name": "我的",
+          "pathName": "pages/mine/index",
+          "query": "",
+          "scene": "990001",
+          "launchFrom": "scan",
+          "location": "qr_code"
+        },
+        {
+          "id": 1659785918006,
+          "name": "主页",
+          "pathName": "pages/core/index",
+          "query": "",
+          "scene": "990001",
+          "launchFrom": "scan",
+          "location": "qr_code"
+        },
+        {
+          "id": 1659786103614,
+          "name": "发现",
+          "pathName": "pages/find/index",
+          "query": "",
+          "scene": "990001",
+          "launchFrom": "scan",
+          "location": "qr_code"
+        }
+      ]
+    }
+  }
+}

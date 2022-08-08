@@ -1,0 +1,1 @@
+<view class="content"><block tt:if="{{isLogin}}"><trend-item vue-id="8dda190e-1" source-data="{{list}}" heart-count="{{heartCount}}" heart-icon="{{heartIcon}}" bind:__l="__l"></trend-item></block><block tt:if="{{!isLogin}}"><view class="noLogin"><view>未关注创作者<text data-event-opts="{{[['tap',[['e0',['$event']]]]]}}" bindtap="__e">去发现</text></view></view></block></view>

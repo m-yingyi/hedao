@@ -1,0 +1,24 @@
+<template>
+	<view class="content">
+		盒岛创作商店是盒岛免费开放给第三方用户（非平台提供内容）使用的平台<br/>
+		<p class="content-txt">盒岛平台以社交+创作+电商为理念，致力为创作者搭建一个属于他们的新型社交电商平台，并帮助他们获得更多收入，更加自由</p>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+			}
+		},
+		onLoad() {
+
+		},
+		methods: {
+		}
+	}
+</script>
+
+<style>
+	@import url("./index.css");
+</style>

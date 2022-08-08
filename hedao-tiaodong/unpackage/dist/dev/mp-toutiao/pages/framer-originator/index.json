@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "认证创作者",
+  "usingComponents": {
+    "fixed-foot": "/components/FixedFoot"
+  }
+}

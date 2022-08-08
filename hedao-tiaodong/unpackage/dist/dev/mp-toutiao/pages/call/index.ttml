@@ -1,0 +1,1 @@
+<view class="content"><base-space vue-id="136344ea-1" left-txt="常见QQ" right-txt="827491999" bind:__l="__l"></base-space><base-space vue-id="136344ea-2" right-arrow="{{true}}" left-txt="常见问题" data-event-opts="{{[['^onClick',[['navigateTo']]]]}}" bind:onClick="__e" bind:__l="__l"></base-space></view>

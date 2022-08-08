@@ -1,0 +1,9 @@
+.content {
+	width: 100%;
+	padding: 36upx;
+	box-sizing: border-box;
+	font-size: 28upx;
+}
+.content-txt{
+	padding-top: 36upx;
+}

@@ -1,0 +1,19 @@
+.content {
+	width: 100%;
+	padding: 36upx;
+	box-sizing: border-box;
+}
+.head-tab-item {
+	display: inline-block;
+	padding: 22upx 24upx;
+	box-sizing: border-box;
+	border-radius: 5upx;
+	background-color: #f0f0f0;
+	color: #333333;
+	font-size: 28upx;
+	margin: 0 36upx 36upx 0;
+}
+.tab-img {
+	width: 100%;
+	margin-bottom: 36upx;
+}

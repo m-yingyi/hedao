@@ -1,0 +1,486 @@
+.contain {
+	width: 100%;
+}
+figure {
+    position: relative;
+    margin-top: -74upx;
+    width: 100%;
+    height: auto;
+    padding: 0 36upx;
+    box-sizing: border-box;
+    margin-bottom: 48upx;
+    z-index: 2;
+}
+figure .photoBox {
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-right: 20upx;
+    border: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+.img-box-border {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200upx;
+    height: 200upx;
+    border-radius: 50%;
+	margin-right: 0;
+    margin-bottom: 42upx;
+    background: url(/static/yun/imgs/png_302.png) no-repeat center;
+    background-size: cover;
+    padding: 10upx;
+    box-sizing: border-box;
+}
+figure .photoBox .img-box-border>img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+figure .user-age-box {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+figure .user-age-box .user {
+    font-size: 38upx;
+    font-weight: bold;
+    margin-top: 36upx;
+}
+.userFlag {
+    display: flex;
+    align-items: center;
+    font-size: 28upx;
+    color: #999;
+    margin: 16upx 0 4upx 0;
+}
+.userFlag img {
+    width: 27upx;
+    height: 27upx;
+    margin-right: 14upx;
+}
+figure .user-age-box .new-user {
+    display: flex;
+}
+figure .user-age-box .user-age, figure .user-age-box .link-wb, #btn_wb {
+    width: 80upx;
+    height: 36upx;
+    font-size: 20upx;
+    border-radius: 3upx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1upx solid #F0F0F0;
+    color: #999999;
+    margin-right: 10upx;
+    margin-top: 14upx;
+}
+figure .user-info {
+    padding-bottom: 48upx;
+    padding: 26upx 0;
+    text-align: center;
+}
+.user-info>div {
+    word-break: break-word;
+    font-size: 28upx;
+    line-height: 1.5;
+    color: #999999;
+}
+.member-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 726upx;
+    height: 80upx;
+    margin: 0 auto;
+    margin-bottom: 48upx;
+}
+.member-link > div {
+    width: 100%;
+    height: 78upx;
+    color: #666666;
+    font-size: 28upx;
+    border-radius: 10upx;
+    border: 1upx solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.member-link > div {
+    width: 100%;
+    height: 78upx;
+    color: #666666;
+    font-size: 28upx;
+    border-radius: 10upx;
+    border: 1upx solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.contentUserWrap {
+    height: 92upx;
+    border-top: 1upx solid #f0f0f0;
+    border-bottom: 10upx solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 24upx;
+    padding: 0 24upx;
+    box-sizing: border-box;
+    margin-bottom: 20upx;
+}
+.leftImg {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+}
+.leftImg img {
+    height: 36upx;
+    width: 36upx;
+    border-radius: 50%;
+    margin-right: -14upx;
+    border: 1upx solid white;
+}
+.leftImg span {
+    color: #999;
+    margin-left: 24upx;
+}
+.contentShareWrap {
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+.contentShareWrap img {
+    width: 14upx;
+    height: 24upx;
+    margin-left: 20upx;
+}
+.menu {
+    width: 100%;
+    height: 60upx;
+    color: #999;
+    font-size: 32upx;
+    display: flex;
+    justify-content: center;
+}
+.menu>div {
+    width: 22%;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    height: 60upx;
+}
+.menu .menu-li {
+    width: 100% !important;
+    width: 197upx;
+    height: 60upx;
+    position: relative;
+}
+.menu .blackTxt {
+    color: #333;
+}
+.menu .redLine {
+    width: 44upx;
+    height: 6upx;
+    background-color: #37a2f2;
+    border-radius: 3upx;
+    position: absolute;
+    z-index: 9;
+    bottom: 6upx;
+    left: 50%;
+    margin-left: -22upx;
+}
+.core-index-container {
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 8upx 0;
+}
+.core-index-box {
+    padding: 48upx 36upx;
+    box-sizing: border-box;
+    background-color: #fff;
+    font-size: 28upx;
+    margin-bottom: 8upx;
+}
+.core-index-title {
+    font-size: 38upx;
+    font-weight: bold;
+    margin-bottom: 24upx;
+}
+/* 会员模块 */
+.member-card {
+    padding: 12upx 0 0 0;
+    box-sizing: border-box;
+    color: #c89c5b;
+    position: relative;
+    background-color: white;
+}
+.member-card-new {
+    position: relative;
+    height: 420upx;
+    border-radius: 20upx;
+    color: white;
+    overflow: hidden;
+}
+.member-card-new .opacity {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.3);
+    width: 100%;
+    height: 100%;
+}
+.member-card-new .box {
+    padding: 36upx;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    font-size: 24upx;
+    z-index: 3;
+}
+.member-card-new .member-user-img {
+    width: 101upx;
+    height: 101upx;
+    border-radius: 50%;
+    border: 4upx solid rgba(255,255,255,0.7);
+    margin-right: 24upx;
+    z-index: 3;
+}
+.member-card-new .size-wrap {
+    flex: 1;
+    height: 108upx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+    color: #c89c5b;
+}
+.member-card-new .size-title {
+    font-size: 32upx;
+    line-height: 32upx;
+    z-index: 3;
+    padding-bottom: 20upx;
+    color: white;
+}
+.member-card-new .size-txt {
+    font-size: 24upx;
+    line-height: 24upx;
+    z-index: 3;
+    color: rgba(255, 255, 255, .7);
+}
+.member-card-new .member-vip-img {
+    width: 90upx;
+    height: 40upx;
+    margin-top: 14upx;
+    z-index: 3;
+}
+.member-card .flex-betweem, .member-card-new .flex-betweem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 88upx;
+    width: 100%;
+    padding: 0 36upx;
+    box-sizing: border-box;
+    font-size: 28upx;
+    color: #987238;
+    z-index: 3;
+}
+.member-card-new .flex-betweem, .white-num, .member-card-new .flex-betweem span {
+    color: white;
+    z-index: 3;
+}
+.member-line {
+    width: 100%;
+    height: 1upx;
+    background-color: rgba(255,255,255,0.3);
+    z-index: 3;
+    position: absolute;
+    top: 182upx;
+    left: 0;
+}
+.white-num span {
+    color: white;
+    font-weight: bold;
+    padding-left: 20upx;
+}
+.white-num span:first-child {
+    padding-right: 20upx;
+}
+.member-card-new .btn-white {
+    height: 50upx;
+    line-height: 20upx;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 25upx;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24upx;
+    color: #333333;
+    width: 200upx;
+    position: absolute;
+    bottom: 40upx;
+    left: 36upx;
+    z-index: 3;
+}
+.support-wrap {
+    border-bottom: none;
+    border-top: 1px solid #f0f0f0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    background-color: white;
+}
+.support-wrap h3 {
+	font-size: 22upx;line-height: 22upx;color: #999999;padding: 36upx 0 16upx 0;
+}
+.support-wrap > div{
+	font-size: 26upx;
+}
+.core-index-blue-btn, .core-index-txtBlue-btn, .core-index-gray-btn {
+    height: 88upx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #37a2f2;
+    font-size: 32upx;
+    border-radius: 10upx;
+    cursor: pointer;
+    margin-top: 36upx;
+}
+/* 目标 */
+.core-index-target {
+    margin-bottom: 38upx;
+    position: relative;
+}
+.core-index-txt-block {
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+.core-index-txt-block > span {
+    display: inline-block;
+    font-size: 28upx;
+    margin-right: 36upx;
+}
+.txt-block-blue {
+    color: #37a2f2;
+}
+.font-bold {
+    font-weight: bold;
+}
+.core-index-right-absolute {
+    position: absolute;
+    right: 0;
+}
+.core-index-line10 {
+    width: 100%;
+    height: 8upx;
+    background-color: #dedede;
+    border-radius: 4upx;
+    margin: 22upx 0;
+    position: relative;
+}
+.line10-blue {
+    background-color: #37a2f2;
+    position: absolute;
+    left: 0;
+    height: 08upx;
+    max-width: 100%;
+    border-radius: 4upx;
+}
+.core-index-txt-font24 {
+    font-size: 24upx;
+}
+.list {
+    display: flex;
+}
+.list ul {
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10upx;
+    padding-bottom: 0;
+    box-sizing: border-box;
+}
+.list ul li:nth-child(odd) {
+    margin-right: 1.5%;
+}
+.list ul li {
+    width: 100%;
+    margin-bottom: 10upx;
+    background-color: white;
+}
+.list ul li>a {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    height: 508upx;
+    overflow: hidden;
+}
+.list ul li>a>img {
+    width: 100%;
+    vertical-align: top;
+}
+.list ul li >div {
+    position: relative;
+    width: 100%;
+    height: auto;
+    font-size: 24upx;
+    line-height: 24upx;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    padding: 14upx;
+    box-sizing: border-box;
+}
+.list ul li .l-txt {
+    position: relative;
+    height: 60upx;
+    width: 240upx;
+}
+.list ul li .l-txt h1 {
+    margin: 2upx 0 10upx 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.list ul li .l-txt>span {
+    display: block;
+    font-size: 24upx;
+    line-height: 24upx;
+    color: #999;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.left-right-padding36 {
+    width: 100%;
+    padding: 0 36upx;
+    box-sizing: border-box;
+}
+.core-index-gray-btn {
+    background-color: #f5fafe;
+    color: #37a2f2;
+}
+.top-icon-btn {
+	height: 88upx;
+}

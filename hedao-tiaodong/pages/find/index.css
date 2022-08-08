@@ -1,0 +1,95 @@
+.content {
+	width: 100%;
+}
+.find-user {
+	padding: 0 20upx;
+	box-sizing: border-box;
+}
+.find-balance {
+	width: 100%;
+}
+.find-tab {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	height: 88upx;
+	border-bottom: 1upx solid #f0f0f0;
+	padding: 0 16upx;
+	box-sizing: border-box;
+}
+.find-tab > div {
+	font-size: 28upx;
+	color: #999999;
+	margin-right: 66upx;
+}
+.find-tab-check {
+	font-weight: bold;
+	color: #333333 !important;
+}
+.list {
+    background-color: #f0f0f0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+.list ul {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    padding: 10upx;
+    padding-bottom: 0;
+    box-sizing: border-box;
+}
+.list ul li {
+    width: 49.25%;
+    margin-bottom: 10upx;
+    background-color: white;
+}
+.list ul li>a {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    height: 360upx;
+    overflow: hidden;
+}
+.list ul li>a>image {
+	width: 100%;
+}
+.list ul li >div {
+    position: relative;
+    width: 100%;
+    height: auto;
+    font-size: 24upx;
+    line-height: 24upx;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    padding: 14upx;
+    box-sizing: border-box;
+}
+.list ul li .l-txt {
+    position: relative;
+    height: 60upx;
+    width: 240upx;
+}
+.list ul li .l-txt h1 {
+    margin: 2upx 0 10upx 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.list ul li .l-txt>span {
+    display: block;
+    font-size: 24upx;
+    line-height: 24upx;
+    color: #999;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

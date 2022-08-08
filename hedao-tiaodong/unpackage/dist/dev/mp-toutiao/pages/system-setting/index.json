@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "系统设置",
+  "usingComponents": {
+    "base-model": "/components/BaseModel",
+    "base-space": "/components/BaseSpace"
+  }
+}

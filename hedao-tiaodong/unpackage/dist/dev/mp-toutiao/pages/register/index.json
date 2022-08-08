@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "完成注册",
+  "usingComponents": {
+    "base-button": "/components/BaseButton"
+  }
+}

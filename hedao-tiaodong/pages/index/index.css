@@ -1,0 +1,132 @@
+figure {
+    position: relative;
+    margin: 0 0 32upx 0;
+    width: 100%;
+    height: auto;
+    padding: 0 20upx;
+    box-sizing: border-box;
+    z-index: 2;
+}
+figure .photoBox {
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-right: 20upx;
+    border: none;
+    padding: 0;
+    margin-bottom: 0;
+	font-size: 28upx;
+}
+.contentWrap {
+    justify-content: space-between;
+    font-size: 28upx;
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-right: 20upx;
+    height: 100upx;
+}
+.contentHeadImg, .contentFootImg, .contentShareWrap{
+    display: flex;
+    align-items: center;
+    font-size: 24upx;
+}
+.contentHeadImg img, .contentFootImg img {
+    border-radius: 50%;
+    height: 65upx;
+    width: 65upx;
+    margin-right: 16upx;
+}
+.contentFootImg img{
+    width: 40upx;
+    height: 40upx;
+    margin-right: -6upx;
+    border: 1upx solid white;
+}
+.contentFootImg span {
+    margin-left: 24upx;
+}
+.contentPreViews img {
+    width: 100%;
+}
+.contentUserWrap {
+    height: 82upx;
+}
+.contentShareWrap img {
+    width: 42upx;
+    height: 42upx;
+    margin-left: 52upx;
+}
+.contentShareWrap .btnHeart {
+	width: 48upx;
+    height: 42upx;
+}
+.btn-like {
+    font-size: 28upx;
+    margin-left: 12upx;
+}
+.copyAddr {
+    position: fixed;
+    top: -1100upx;
+}
+.supportNum {
+    display: block;
+    color: #999999;
+    font-size: 24upx;
+    padding-top: 12upx;
+    padding-left: 2upx;
+}
+.addItem {
+    color: #333333;
+    font-size: 28upx;
+    padding-left: 2upx;
+    padding-top: 4upx;
+    font-weight: bold;
+    word-break: break-all;
+}
+.contentPreViews .previewsNum {
+    position: absolute;
+    right: 36upx;
+    top: 36upx;
+    border-radius: 30upx;
+    background: rgba(0,0,0,0.5);
+    width: 70upx;
+    height: 50upx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24upx;
+}
+.contentPreViews {
+    position: relative;
+    width: calc(100% + 54upx);
+    margin-left: -36upx;
+    height: auto;
+}
+.cont-pre-img {
+    width: 100%;
+}
+
+.content {
+    height: 100vh;
+}
+
+/* 未登录 */
+.noLogin {
+    font-size: 28upx;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}
+
+.noLogin view {
+    text-align: center;
+    color: #999999;
+}
+
+.noLogin text {
+    color: #296ead;
+    margin-left: 10upx;
+}

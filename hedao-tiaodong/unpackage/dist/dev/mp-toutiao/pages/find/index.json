@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "发现",
+  "usingComponents": {
+    "base-space": "/components/BaseSpace",
+    "user-item": "/components/UserItem"
+  }
+}
