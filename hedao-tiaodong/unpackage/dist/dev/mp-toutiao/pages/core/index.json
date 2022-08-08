@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "主页",
-  "usingComponents": {
-    "trend-item": "/components/TrendItem",
-    "base-space": "/components/BaseSpace"
-  }
-}

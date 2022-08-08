@@ -1,1 +1,0 @@
-<view class="content"><view class="flex align-center register-box _div">账号<label class="register-box-txt _span">13660720100</label></view><view class="flex align-center register-item _div">输入密码</view><view class="flex align-center register-item _div">确认密码</view><base-button vue-id="cd8e36b4-1" text="登录" bind:__l="__l"></base-button></view>

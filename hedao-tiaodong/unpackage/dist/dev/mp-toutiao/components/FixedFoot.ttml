@@ -1,1 +1,0 @@
-<view data-event-opts="{{[['tap',[['handleClick',['$event']]]]]}}" class="flex theme-bg-color align-center justify-center fixed-foot _div data-v-13eedb92" bindtap="__e">{{''+text+''}}</view>

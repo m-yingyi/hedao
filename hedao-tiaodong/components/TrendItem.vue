@@ -14,7 +14,7 @@
 					<img src="/static/yun/imgs1.5/icon_xiezhen_17.png">
 					<img
 						src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300">
-					<span>近期8人加入</span>
+					<span>近期{{trend.likeNum}}人加入</span>
 				</div>
 				<div class="contentShareWrap">
 					<img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${trend.isLike? '3' : '2'}.png`" @click="handleHeart">
