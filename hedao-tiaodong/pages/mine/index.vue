@@ -15,7 +15,7 @@
 				</div>
 			</template>
 			<template v-else>
-				<div class="click-login">点击登陆</div>
+				<div class="click-login" @click="login">点击登陆</div>
 			</template>
 		</div>
 		<BaseSpace right-arrow left-txt="我的主页" left-url="/static/yun/icons/icon_xcx_01.png" @onClick="navigateTo('../../pages/core/index')"/>
@@ -37,7 +37,7 @@ import BaseSpace from '@/components/BaseSpace.vue';
 		},
 		data() {
 			return {
-				isLogin: true, // 未登录
+				isLogin: false, // 未登录
 				isHide: true, // 我的：隐藏
 			}
 		},
@@ -49,6 +49,9 @@ import BaseSpace from '@/components/BaseSpace.vue';
 				uni.navigateTo({
 					url
 				})
+			},
+			login() {
+				
 			}
 		}
 	}
