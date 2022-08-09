@@ -4,6 +4,7 @@ import API from './api';
 const methodsToken = []
 
 const baseUrl = 'http://api.hedaoapp.com/api';
+const tokenHead = 'Bearer ';
 
 const post = (url, data, callback) => {
 	let token = uni.getStorageSync('token') || '';
@@ -13,7 +14,7 @@ const post = (url, data, callback) => {
 		header: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
-			'Authorization': token,
+			'Authorization': tokenHead + token,
 			// 'Content-Type': 'application/x-www-form-urlencoded', //自定义请求头信息
 		},
 		method: 'POST',
@@ -30,19 +31,20 @@ const post = (url, data, callback) => {
 
 }
 
-const get = (url, callback) => {
+const get = (url, data, callback) => {
 	uni.showLoading({
 		title: '加载中'
 	});
 	let token = uni.getStorageSync('token') || '';
 	uni.request({
-		url: url,
+		url: baseUrl + url,
 		header: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/x-www-form-urlencoded', //自定义请求头信息
-			'Authorization': token,
+			'Authorization': tokenHead + token,
 		},
 		method: 'GET',
+		data,
 		success: (response) => {
 			uni.hideLoading();
 			callback(response.data);

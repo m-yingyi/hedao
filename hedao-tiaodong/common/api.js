@@ -12,5 +12,14 @@ export default {
         checkName: '/auth/check-name',
         refreshToken: '/auth/refresh-token',
         tikTokLogin: '/auth/tik-tok-login'
+    },
+    works: {
+        trendsPage: '/works/trends-page',
+    },
+    find: {
+        findPage: '/find/find-page-by-type',
+    },
+    collection: {
+        collectionModel: '/collection/model',
     }
 };
