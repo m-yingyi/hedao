@@ -80,12 +80,15 @@ import API from '@/common/api.js';
 							uni.setStorageSync('token', data.token);
 							uni.setStorageSync('refreshToken', data.refreshToken);
 							uni.setStorageSync('userInfo', data.userInfo);
+							title = '登录成功';
+							uni.switchTab({
+								url: '../../pages/find/index'
+							})
 						} catch (e) {
 							console.log('e',e)
 							// error
 						}
 					})
-					title = '登录成功';
 				}
 				if (title) {
 					uni.showToast({
