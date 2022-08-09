@@ -295,8 +295,13 @@ import TrendMock from './trendMock.js'
 					this.memberList = [...this.memberList, ...this.memberHideList];
 				}
 			},
+			// 跳转商品tab
 			goStoreTab() {
 				this.changeTab(2);
+			},
+			// 获取创作者主页信息
+			getCreateInfo() {
+				
 			}
 		}
 	}

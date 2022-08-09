@@ -1,6 +1,8 @@
 <template>
-	<view class="content">
-		<TrendItem v-if="isLogin" :source-data="list" :heart-count="heartCount" :heart-icon="heartIcon"/>
+	<view :class="isLogin ? 'content': 'content-noLogin'">
+		<template v-if="isLogin">
+			<TrendItem v-for="item in trendLists" v-key="item.id" :trend="item"/>
+		</template>
 		<view class="noLogin" v-if="!isLogin">
 			<view>
 				未关注创作者<text @click="this.goFind()">去发现</text>
@@ -11,6 +13,8 @@
 
 <script>
 import TrendItem from '../../components/TrendItem.vue';
+import Request from '@/common/require.js';
+import API from '@/common/api.js';
 	export default {
 		components: {
 			TrendItem
@@ -25,10 +29,14 @@ import TrendItem from '../../components/TrendItem.vue';
 				heartCount: '点赞',
 				heartIcon: 2,
 				isLogin: false,
+				trendLists: [],
 			}
 		},
 		onLoad() {
-
+			// 检查是否登录
+			const token = uni.getStorageSync('token');
+			this.isLogin = !!token;
+			this.getTrendInfo();
 		},
 		methods: {
 			// 跳转发现页
@@ -36,6 +44,18 @@ import TrendItem from '../../components/TrendItem.vue';
 				uni.switchTab({
 					url: '/pages/find/index'
 				});
+			},
+			// 获取首页关注
+			getTrendInfo() {
+				let params = {
+					type: 2, //首页关注
+					pageIndex: 1,
+					pageSize: 6,
+				}
+				Request.get(API.works.trendsPage, params, ({data}) => {
+					this.trendLists = data.items || [];
+					console.log(this.trendLists)
+				})
 			}
 		}
 	}

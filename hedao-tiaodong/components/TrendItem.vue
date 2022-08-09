@@ -17,20 +17,22 @@
 					<span>近期{{trend.likeNum}}人加入</span>
 				</div>
 				<div class="contentShareWrap">
-					<img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${trend.isLike? '3' : '2'}.png`" @click="handleHeart(trend.isLike)">
+					<img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${trend.isLike? '3' : '2'}.png`" @click="handleHeart(trend.isLike, trend.id, trend.createId)">
 					<span v-if="trend.isLike" class="btn-like">{{trend.likeNum}}</span>
 					<div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
 				</div>
 			</div>
 			<div class="addItem">新的绘画素材已发布了</div>
-			<div class="supportNum">前往主页</div>
+			<div class="supportNum" @click="goCore(trend.createId)">前往主页</div>
 		</figure>
-		<div class="no-data">没有更多了</div>
+		<div v-if="isBottom" class="no-data">没有更多了</div>
 	</view>
 </template>
 
 <script>
 import UserItem from '@/components/UserItem.vue';
+import Request from '@/common/require.js';
+import API from '@/common/api.js';
 export default {
   components: {
     UserItem,
@@ -52,6 +54,10 @@ export default {
     trend: {
       type: Object,
       default: () => {}
+    },
+    isBottom: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -76,21 +82,21 @@ export default {
         });
       }
     },
-    handleHeart(isLike) {
+    handleHeart(isLike, id, createId) {
       // TODO: 请求接口 /api/collection/model
-      if(isLike) {
+      const useInfo = uni.getStorageSync('useInfo');
+      const titles = ['取消点赞', '点赞成功'];
+      Request.post(API.collection.collectionModel, {
+        itemId: id,// 作品发布id
+        itemType: 2, // 点赞
+        producerUserId: useInfo.useId,// 用户ID
+        createId, // 非评论点赞需提供创作者ID
+      }, (res) => {
         uni.showToast({
-          title: '取消点赞',
+          title: titles[res.data.state+1],
           icon: 'none'
         })
-        
-      } else {
-        uni.showToast({
-          title: '点赞成功',
-          icon: 'none'
-        })
-
-      }
+      })
       // this.heartCount = 1
       // this.heartIcon = 3
     },
@@ -98,6 +104,11 @@ export default {
       console.group('111')
       this.imgLists = trend.imgLists.map(item => item.thumbnail);
       console.log(this.imgLists)
+    },
+    goCore(createId) {
+      uni.navigateTo({
+					url: `../../pages/core/index?createId=${createId}`
+				})
     }
   },
 };

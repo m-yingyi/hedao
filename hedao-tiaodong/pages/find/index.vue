@@ -43,6 +43,7 @@ import mockData from './mock.js';
 			}
 		},
 		onLoad() {
+			console.log(uni.getStorageSync('token'))
 		},
 		methods: {
 			navigateTo() {
