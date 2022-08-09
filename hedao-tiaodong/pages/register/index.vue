@@ -30,6 +30,8 @@
 
 <script>
 import BaseButton from '@/components/BaseButton.vue';
+import Require from '@/common/require.js';
+import API from '@/common/api.js';
 	export default {
 		components: {
 			BaseButton,
@@ -68,12 +70,27 @@ import BaseButton from '@/components/BaseButton.vue';
 				} else if ( this.confirmPassword !== this.password ) {
 					title = '密码不一致';
 				} else {
+					Require.post(API.auth.login, {
+						account: this.account,
+						password: this.password,
+					}, (res) => {
+						try {
+							console.log('res',res)
+							const data = res.data;
+							uni.setStorageSync('token', data.token);
+							uni.setStorageSync('refreshToken', data.refreshToken);
+							uni.setStorageSync('userInfo', data.userInfo);
+						} catch (e) {
+							console.log('e',e)
+							// error
+						}
+					})
 					title = '登录成功';
 				}
 				if (title) {
 					uni.showToast({
-					title,
-					icon: 'none'
+						title,
+						icon: 'none'
 					})
 					return
 				}
