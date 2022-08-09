@@ -1,0 +1,23 @@
+.content {
+	width: 100%;
+	padding: 0 88upx;
+	box-sizing: border-box;
+	font-size: 32upx;
+}
+.register-box {
+	width: 100%;
+	height: 108upx;
+	border-bottom: 1upx solid #f0f0f0;
+    display: inline-flex;
+}
+.register-box-txt {
+	padding-left: 40upx;
+    text-align: right;
+    color: #c3c3c3;
+    flex: 1;
+}
+.register-item {
+	height: 88upx;
+	width: 100%;
+	border-bottom: 1upx solid #f0f0f0;
+}

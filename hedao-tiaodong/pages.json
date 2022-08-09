@@ -59,6 +59,12 @@
 			"style": {
 				"navigationBarTitleText": "完成注册"
 			}
+		},
+		{
+			"path": "pages/edit-informa/index",
+			"style": {
+				"navigationBarTitleText": "编辑资料"
+			}
 		}
 	],
 	"globalStyle": {
