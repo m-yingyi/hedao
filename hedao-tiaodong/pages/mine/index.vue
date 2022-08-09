@@ -37,12 +37,12 @@ import BaseSpace from '@/components/BaseSpace.vue';
 		},
 		data() {
 			return {
-				isLogin: false, // 未登录
+				isLogin: uni.getStorageSync('token'),
 				isHide: true, // 我的：隐藏
 			}
 		},
 		onLoad() {
-
+			this.getUserInfo()
 		},
 		methods: {
 			navigateTo(url) {
@@ -50,8 +50,8 @@ import BaseSpace from '@/components/BaseSpace.vue';
 					url
 				})
 			},
-			login() {
-				
+			getUserInfo() {
+				// TODO
 			}
 		}
 	}

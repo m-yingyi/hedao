@@ -1,11 +1,11 @@
 <template>
   <view class="content">
-		<figure>
-			<UserItem :name="trend.nickName" :img="trend.headImg"/>
-			<div class="contentPreViews">
-				<image @click="imgPreview(imgLists, 0)" mode="widthFix" class="cont-pre-img"
-					src="http://i.hedaoapp.com/Trends/2022/6/16/221430e6b528d508ed41859ba34ed066b8a16b.jpg"/>
-				<div class="previewsNum">1/{{imgLists.length}}</div>
+		<figure v-for="(item, index) in sourceData" v-key="item.id">
+			<UserItem :name="item.nickName" :img="item.headImg"/>
+			<div class="contentPreViews" v-if="item.imgList.length">
+				<image @click="imgPreview(item.imgList, index)" mode="widthFix" class="cont-pre-img"
+					:src="item.imgList[0].originalImg"/>
+				<div class="previewsNum">1/{{item.imgList.length}}</div>
 			</div>
 			<div class="photoBox contentUserWrap justify-between">
 				<div class="contentFootImg">
@@ -14,16 +14,16 @@
 					<img src="/static/yun/imgs1.5/icon_xiezhen_17.png">
 					<img
 						src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300">
-					<span>近期{{trend.likeNum}}人加入</span>
+					<span>近期{{item.likeNum}}人加入</span>
 				</div>
 				<div class="contentShareWrap">
-					<img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${trend.isLike? '3' : '2'}.png`" @click="handleHeart(trend.isLike, trend.id, trend.createId)">
-					<span v-if="trend.isLike" class="btn-like">{{trend.likeNum}}</span>
+					<img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${item.isLike? '3' : '2'}.png`" @click="handleHeart(item.isLike, item.id, item.createId)">
+					<span v-if="item.isLike" class="btn-like">{{item.likeNum}}</span>
 					<div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
 				</div>
 			</div>
-			<div class="addItem">新的绘画素材已发布了</div>
-			<div class="supportNum" @click="goCore(trend.createId)">前往主页</div>
+			<div class="addItem">{{item.publishContent}}</div>
+			<div class="supportNum" @click="goCore(item.createId)">前往主页</div>
 		</figure>
 		<div v-if="isBottom" class="no-data">没有更多了</div>
 	</view>
@@ -73,14 +73,13 @@ export default {
       this.$emit('onClick')
     },
     // 图片预览
-    imgPreview(list, idx) {
-      if (list && list.length > 0) {
-        uni.previewImage({
-          current: list[idx],
-          urls: list,
-          indicator: "number",
-        });
-      }
+    imgPreview(data, idx) {
+      const list = data.map(item => item.originalImg)
+      uni.previewImage({
+        current: list[idx],
+        urls: list,
+        indicator: "number",
+      });
     },
     handleHeart(isLike, id, createId) {
       // TODO: 请求接口 /api/collection/model

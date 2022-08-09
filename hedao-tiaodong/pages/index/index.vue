@@ -1,7 +1,7 @@
 <template>
 	<view :class="isLogin ? 'content': 'content-noLogin'">
 		<template v-if="isLogin">
-			<TrendItem v-for="item in trendLists" v-key="item.id" :trend="item"/>
+			<TrendItem :source-data="trendLists"/>
 		</template>
 		<view class="noLogin" v-if="!isLogin">
 			<view>
@@ -28,14 +28,11 @@ import API from '@/common/api.js';
 				],
 				heartCount: '点赞',
 				heartIcon: 2,
-				isLogin: false,
+				isLogin: uni.getStorageSync('token'),
 				trendLists: [],
 			}
 		},
 		onLoad() {
-			// 检查是否登录
-			const token = uni.getStorageSync('token');
-			this.isLogin = !!token;
 			this.getTrendInfo();
 		},
 		methods: {
