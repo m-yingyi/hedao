@@ -1,4 +1,4 @@
-// api/user/creater-info/{userId}  根据用户ID获取主页信息
+// api/user/creator-info/{userId}  根据用户ID获取主页信息
 
 export default {
     "data": {

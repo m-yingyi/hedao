@@ -239,6 +239,8 @@ import MemberList from './memberListCode.js'
 import CoreInfoMock from './coreMock.js'
 // TODO: 动态页信息
 import TrendMock from './trendMock.js'
+import Request from '@/common/require.js';
+import API from '@/common/api.js';
 	export default {
 		components: {
 			TrendItem,
@@ -256,17 +258,26 @@ import TrendMock from './trendMock.js'
 				heartCount: '点赞',
 				heartIcon: 2,
 				currentItem: 0,
-				memberAllList:MemberList.data,
+				memberAllList: [],
 				memberList: [], // 显示
 				memberHideList: [], //隐藏
 				memberHideNumber: 0,
 				isHidemember: true,
-				coreInfo: CoreInfoMock.data, // 用户主页信息
+				coreInfo: [], // 用户主页信息
 				trendInfo: TrendMock.data.items, // 动态页信息
+				createId: null, // 创造者ID
 			}
 		},
-		onLoad() {
-			this.handleMemberLists();
+		onLoad(option) {
+            console.log("🚀 ~ file: index.vue ~ line 269 ~ onLoad ~ option", option)
+			if(option.createId) {
+				this.createId = option.createId;
+			} else {
+				// 用户自己的主页
+				this.createId = uni.getStorageSync('userInfo')?.userId;
+			}
+			this.getCreateInfo();
+			this.getMemberLists();
 		},
 		methods: {
 			navigateTo() {
@@ -301,7 +312,24 @@ import TrendMock from './trendMock.js'
 			},
 			// 获取创作者主页信息
 			getCreateInfo() {
-				
+				if(!this.createId) {
+					uni.showToast({
+						title: '未获取createId',
+						icon: 'none'
+					})
+					return;
+				}
+				// 接口请求
+				Request.get(API.user.creatorInfo, null, ({data}) => {
+					this.coreInfo = data;
+				})
+			},
+			// 获取会员列表
+			getMemberLists () {
+				Request.get(API.member.memberList, null, ({data}) => {
+					this.memberAllList = data;
+					this.handleMemberLists()
+				})
 			}
 		}
 	}
