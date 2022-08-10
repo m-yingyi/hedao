@@ -1,7 +1,7 @@
 <template>
 	<view :class="isLogin ? 'content': 'content-noLogin'">
 		<template v-if="isLogin">
-			<TrendItem :source-data="trendLists"/>
+			<TrendItem :source-data="trendLists" @onRefash="getTrendInfo"/>
 		</template>
 		<view class="noLogin" v-if="!isLogin">
 			<view>
@@ -30,6 +30,10 @@ import API from '@/common/api.js';
 				heartIcon: 2,
 				isLogin: uni.getStorageSync('token'),
 				trendLists: [],
+				pageProps: {
+					pageIndex: 1,
+					pageSize: 6,
+				}
 			}
 		},
 		onLoad() {
@@ -46,13 +50,19 @@ import API from '@/common/api.js';
 			getTrendInfo() {
 				let params = {
 					type: 2, //首页关注
-					pageIndex: 1,
-					pageSize: 6,
+					...this.pageProps,
 				}
 				Request.get(API.works.trendsPage, params, ({data}) => {
-					this.trendLists = data.items || [];
+					if(data?.items) {
+						this.trendLists = [...this.trendLists, ...data.items];
+					}
 					console.log(this.trendLists)
 				})
+			},
+			// 下拉分页 TODO: 暂未实现
+			scrollPage() {
+				this.pageProps.pageIndex += 1;
+				this.getTrendInfo()
 			}
 		}
 	}

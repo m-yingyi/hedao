@@ -88,6 +88,7 @@ export default {
       Request.post(API.collection.collectionModel, {
         itemId: id,// 作品发布id
         itemType: 2, // 点赞
+        businessType: 2, // 动态
         producerUserId: useInfo.useId,// 用户ID
         createId, // 非评论点赞需提供创作者ID
       }, (res) => {
@@ -95,6 +96,7 @@ export default {
           title: titles[res.data.state+1],
           icon: 'none'
         })
+        this.$emit('onRefash')
       })
       // this.heartCount = 1
       // this.heartIcon = 3
