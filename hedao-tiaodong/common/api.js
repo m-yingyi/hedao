@@ -30,5 +30,7 @@ export default {
     member: {
         memberList: '/member/member-list', // 会员列表
     },
-
+    information: {
+        list: '/information/information-list'
+    }
 };
