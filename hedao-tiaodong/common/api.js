@@ -15,6 +15,7 @@ export default {
     },
     works: {
         trendsPage: '/works/trends-page',
+        coreWorksPage: '/works/core-works-page',
     },
     find: {
         findPage: '/find/find-page-by-type',

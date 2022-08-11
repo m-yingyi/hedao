@@ -156,73 +156,21 @@
 			<div class="core-index-box" id="CoreGoods"
 				style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
 				<div class="core-index-title" style="padding-left: 36upx;">商店</div>
-				<div class="list">
-					<ul id="CoreGoodsContent">
-						<li> <a style="" href="/yun/photolist?pid=3101" data-isopen="1"> <img
-									src="http://i.hedaoapp.com/image/jpg/2022/6/1/143634b34fbe426123404c971a309b6781091f.jpg?x-oss-process=image/resize,l_540"
-									alt="作品封面"> </a>
-							<div>
-								<div class="l-txt">
-									<h1>1</h1><span>1</span>
-								</div>
-							</div>
-						</li>
-						<li> <a style="height: 360upx;" href="/goods/goodsDetails?pid=2878">
-								<div
-									style="background: url(http://i.hedaoapp.com/image/jpg/2022/5/7/100528f3516e228c694eefaaa33304c93f67a7.jpg) center no-repeat;display:block;width:100%;height:100%;background-size: cover;">
-								</div>
-							</a>
-							<div>
-								<div class="l-txt" style="height: 120upx; width: 100%">
-									<div class="line-two-title">你们的</div>
-									<div class="orange-txt"><span style="font-size: 24upx">￥</span>1<span
-											class="grag-txt-sale"></span></div>
-								</div>
-							</div>
-						</li>
-					</ul>
-					<ul id="CoreGoodsContent2">
-						<li> <a style="height: 360upx;" href="/goods/goodsDetails?pid=2882">
-								<div
-									style="background: url(http://i.hedaoapp.com/image/jpg/2022/5/7/1730461a11c985b6034a80bd400a7b22c7272e.jpg) center no-repeat;display:block;width:100%;height:100%;background-size: cover;">
-								</div>
-							</a>
-							<div>
-								<div class="l-txt" style="height: 120upx; width: 100%">
-									<div class="line-two-title">测试发货</div>
-									<div class="orange-txt"><span style="font-size: 24upx">￥</span>1<span
-											class="grag-txt-sale"></span></div>
-								</div>
-							</div>
-						</li>
-						<li> <a style="height: 360upx;" href="/mysteryBox/mysteryBox?pid=2630">
-								<div
-									style="background-image: url(http://i.hedaoapp.com/image/jpg/2022/3/24/180038e37e48f8253547519885b264b5eff269.jpg);display:block;width:100%;height:508upx;background-size: 100%;">
-								</div>
-							</a>
-							<div>
-								<div class="l-txt" style="height: 120upx">
-									<h1>测试2</h1><span>3款扭蛋&nbsp;&nbsp;</span>
-									<div class="orange-txt orange-icon">10</div>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
+				<GoodsLists :lists="worksLists" />
 				<div class="left-right-padding36">
 					<a class="core-index-gray-btn" id="coreMoreGoods" @click="goStoreTab()">查看全部</a>
 				</div>
 			</div>
 			<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;">
 				<div class="core-index-title" style="padding-left: 36upx;">动态</div>
-				<TrendItem :source-data="list" :heart-count="heartCount" :heart-icon="heartIcon" />
+				<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists"/>
 			</div>
 		</div>
 		<div class="core-index-container bg-white" v-if="currentItem === 1">
-			<TrendItem :source-data="trendLists" />
+			<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists"/>
 		</div>
 		<div class="core-index-container bg-white" v-if="currentItem === 2">
-			<GoodsLists />
+			<GoodsLists :lists="worksLists" />
 		</div>
 	</view>
 </template>
@@ -269,7 +217,9 @@ import API from '@/common/api.js';
 				pageProps: {
 					pageIndex: 1,
 					pageSize: 6,
-				}
+				},
+				isNoMoreTrend: false, // 动态列表是否到底了
+				worksLists: []
 			}
 		},
 		onLoad(option) {
@@ -313,6 +263,34 @@ import API from '@/common/api.js';
 			// 跳转商品tab
 			goStoreTab() {
 				this.changeTab(2);
+				this.pageProps = this.$option.data.pageProps;
+				console.log(this.$option.data.pageProps)
+				this.getCoreWorksLists();
+			},
+			// 获取商品信息
+			getCoreWorksLists () {
+				let params = {
+					creatorId: this.creatorId,
+					...this.pageProps,
+				}
+				Request.get(API.works.coreWorksPage, params, ({statusCode, errors, data}) => {
+					if(statusCode != 200) {
+						uni.showToast({
+							title: errors,
+							icon: 'none',
+							duration: 3000,
+						})
+						return;
+					}
+					if(data?.items) {
+						if(data.items.length === 0) {
+							// this.isNoMoreTrend = true;
+							return;
+						}
+						this.worksLists = [...this.worksLists, ...data.items];
+					}
+					console.log(this.worksLists)
+				})
 			},
 			// 获取创作者主页信息
 			getCreateInfo() {
@@ -328,6 +306,7 @@ import API from '@/common/api.js';
 					this.coreInfo = data;
 					this.creatorId = data.creatorId;
 					this.getTrendLists();
+					this.getCoreWorksLists();
 				})
 			},
 			// 获取会员列表
@@ -341,7 +320,7 @@ import API from '@/common/api.js';
 			getTrendLists() {
 				let params = {
 					type: 0, // 动态页
-					creatorId: this.creatorId,
+					createId: this.creatorId,
 					...this.pageProps,
 				}
 				Request.get(API.works.trendsPage, params, ({statusCode, errors, data}) => {
@@ -354,9 +333,18 @@ import API from '@/common/api.js';
 						return;
 					}
 					if(data?.items) {
+						if(data.items.length === 0) {
+							this.isNoMoreTrend = true;
+							return;
+						}
 						this.trendLists = [...this.trendLists, ...data.items];
 					}
 					console.log(this.trendLists)
+				})
+			},
+			goMemberPay() {
+				uni.navigateTo({
+					url: '../../pages/member-paymnet/index'
 				})
 			}
 		}
