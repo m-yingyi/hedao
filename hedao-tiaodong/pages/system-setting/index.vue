@@ -30,7 +30,17 @@ import BaseSpace from '@/components/BaseSpace.vue';
 				this.visible = true
 			},
 			onOk() {
+				uni.clearStorage();
 				this.visible = false
+				uni.showToast({
+					title: '退出成功',
+					duration: 2000,
+					complete() {
+						uni.switchTab({
+							url: '../../pages/index/index'
+						})
+					}
+				});
 			},
 			onCancel() {
 				this.visible = false

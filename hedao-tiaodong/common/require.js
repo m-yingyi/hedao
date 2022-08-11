@@ -22,7 +22,23 @@ const post = (url, data, callback) => {
 			console.log(res)
 			if (res.statusCode == 200) {
 				callback(res.data);
+			} else {
+				if (res.statusCode == 401) {
+					uni.showToast({
+						title: '请登录',
+						duration: 3000,
+						icon: 'none',
+						complete() {
+							uni.navigateTo({
+								url: '../../pages/register/index'
+							})
+						}
+					});
+					
+					return;
+				}
 			}
+
 		},
 		fail:(err)=>{
 			
@@ -46,6 +62,20 @@ const get = (url, data, callback) => {
 		method: 'GET',
 		data,
 		success: (response) => {
+			if (response.statusCode == 401) {
+				uni.showToast({
+					title: '请登录',
+					duration: 3000,
+					icon: 'none',
+					complete() {
+						uni.navigateTo({
+							url: '../../pages/register/index'
+						})
+					}
+				});
+				
+				return;
+			}
 			uni.hideLoading();
 			callback(response.data);
 		},
