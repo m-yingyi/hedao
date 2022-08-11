@@ -219,9 +219,7 @@
 			</div>
 		</div>
 		<div class="core-index-container bg-white" v-if="currentItem === 1">
-			<template v-for="item in trendInfo">
-				<TrendItem :trend="item" />
-			</template>
+			<TrendItem :source-data="trendLists" />
 		</div>
 		<div class="core-index-container bg-white" v-if="currentItem === 2">
 			<GoodsLists />
@@ -265,16 +263,22 @@ import API from '@/common/api.js';
 				isHidemember: true,
 				coreInfo: [], // 用户主页信息
 				trendInfo: TrendMock.data.items, // 动态页信息
-				createId: null, // 创造者ID
+				trendLists: [],
+				creatorId: null, // 创造者ID
+				userId: null, // 用户ID
+				pageProps: {
+					pageIndex: 1,
+					pageSize: 6,
+				}
 			}
 		},
 		onLoad(option) {
             console.log("🚀 ~ file: index.vue ~ line 269 ~ onLoad ~ option", option)
-			if(option.createId) {
-				this.createId = option.createId;
+			if(option.userId) {
+				this.userId = option.userId;
 			} else {
 				// 用户自己的主页
-				this.createId = uni.getStorageSync('userInfo')?.userId;
+				this.userId = uni.getStorageSync('userInfo')?.userId;
 			}
 			this.getCreateInfo();
 			this.getMemberLists();
@@ -312,16 +316,18 @@ import API from '@/common/api.js';
 			},
 			// 获取创作者主页信息
 			getCreateInfo() {
-				if(!this.createId) {
+				if(!this.userId) {
 					uni.showToast({
-						title: '未获取createId',
+						title: '未获取用户id',
 						icon: 'none'
 					})
 					return;
 				}
 				// 接口请求
-				Request.get(API.user.creatorInfo, null, ({data}) => {
+				Request.get(API.user.creatorInfo + this.userId, null, ({data}) => {
 					this.coreInfo = data;
+					this.creatorId = data.creatorId;
+					this.getTrendLists();
 				})
 			},
 			// 获取会员列表
@@ -329,6 +335,28 @@ import API from '@/common/api.js';
 				Request.get(API.member.memberList, null, ({data}) => {
 					this.memberAllList = data;
 					this.handleMemberLists()
+				})
+			},
+			// 获取动态信息
+			getTrendLists() {
+				let params = {
+					type: 0, // 动态页
+					creatorId: this.creatorId,
+					...this.pageProps,
+				}
+				Request.get(API.works.trendsPage, params, ({statusCode, errors, data}) => {
+					if(statusCode != 200) {
+						uni.showToast({
+							title: errors,
+							icon: 'none',
+							duration: 3000,
+						})
+						return;
+					}
+					if(data?.items) {
+						this.trendLists = [...this.trendLists, ...data.items];
+					}
+					console.log(this.trendLists)
 				})
 			}
 		}

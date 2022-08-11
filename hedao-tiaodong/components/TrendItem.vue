@@ -23,7 +23,7 @@
 				</div>
 			</div>
 			<div class="addItem">{{item.publishContent}}</div>
-			<div class="supportNum" @click="goCore(item.createId)">前往主页</div>
+			<div class="supportNum" @click="goCore(item.userId)">前往主页</div>
 		</figure>
 		<div v-if="isBottom" class="no-data">没有更多了</div>
 	</view>
@@ -81,7 +81,7 @@ export default {
         indicator: "number",
       });
     },
-    handleHeart(isLike, id, createId) {
+    handleHeart(isLike, id, creatorId) {
       // TODO: 请求接口 /api/collection/model
       const useInfo = uni.getStorageSync('useInfo');
       const titles = ['取消点赞', '点赞成功'];
@@ -90,7 +90,7 @@ export default {
         itemType: 2, // 点赞
         businessType: 2, // 动态
         producerUserId: useInfo.useId,// 用户ID
-        createId, // 非评论点赞需提供创作者ID
+        creatorId, // 非评论点赞需提供创作者ID
       }, (res) => {
         uni.showToast({
           title: titles[res.data.state+1],
@@ -106,9 +106,9 @@ export default {
       this.imgLists = trend.imgLists.map(item => item.thumbnail);
       console.log(this.imgLists)
     },
-    goCore(createId) {
+    goCore(userId) {
       uni.navigateTo({
-					url: `../../pages/core/index?createId=${createId}`
+					url: `../../pages/core/index?userId=${userId}`
 				})
     }
   },

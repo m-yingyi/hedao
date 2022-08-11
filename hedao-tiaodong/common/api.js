@@ -23,10 +23,11 @@ export default {
         collectionModel: '/collection/model',
     },
     user: {
-        creatorInfo: '/user/creator-info/3' //   暂时写死
-        // creatorInfo: '/user/creator-info/{userId}' //   根据用户ID获取主页信息
+        // creatorInfo: '/user/creator-info/3' //   暂时写死
+        creatorInfo: '/user/creator-info/' //   {userId} 根据用户ID获取主页信息
     },
     member: {
         memberList: '/member/member-list', // 会员列表
-    }
+    },
+
 };
