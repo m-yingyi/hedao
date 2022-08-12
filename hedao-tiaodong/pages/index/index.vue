@@ -39,6 +39,9 @@ import API from '@/common/api.js';
 		onLoad() {
 			this.getTrendInfo();
 		},
+		onPullDownRefresh() {
+			this.scrollPage()
+		},
 		methods: {
 			// 跳转发现页
 			goFind() {
