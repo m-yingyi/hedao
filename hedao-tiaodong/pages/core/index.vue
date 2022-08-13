@@ -29,7 +29,7 @@
 			</div>
 		</figure>
 		<div class="member-link">
-			<div v-if="!coreInfo.isFocus" style="flex: 1;" class="FollowIdol" data-isfollow="0" data-href="/yun/openmember?wid=1">
+			<div v-if="!coreInfo.isFocus" style="flex: 1;" class="FollowIdol" data-isfollow="0" data-href="/yun/openmember?wid=1" @click="this.focusHandle(coreInfo.createId)">
 				关注
 			</div>
 			<template v-else>
@@ -103,7 +103,11 @@
 							style="font-size: 24upx; color: #999999;padding-left: 20upx;display:none;">3次购买</span>
 					</div>
 					<p style="font-size: 30upx;padding-top: 18upx;">{{item.introduction}}</p>
+<<<<<<< HEAD
 					<a href="/yun/confirmAssistance?apId=6" @click="navigateTo('../../pages/member-payment/index')">
+=======
+					<a href="/yun/confirmAssistance?apId=6"  @click="goMemberPay(item.id)">
+>>>>>>> c2b9d19bf3e45c16a06085e890b256dbab9dc8f4
 						<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
 							开通
 						</div>
@@ -163,11 +167,11 @@
 			</div>
 			<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;">
 				<div class="core-index-title" style="padding-left: 36upx;">动态</div>
-				<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists"/>
+				<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 			</div>
 		</div>
 		<div class="core-index-container bg-white" v-if="currentItem === 1">
-			<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists"/>
+			<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 		</div>
 		<div class="core-index-container bg-white" v-if="currentItem === 2">
 			<GoodsLists :lists="worksLists" />
@@ -263,8 +267,8 @@ import API from '@/common/api.js';
 			// 跳转商品tab
 			goStoreTab() {
 				this.changeTab(2);
-				this.pageProps = this.$option.data.pageProps;
-				console.log(this.$option.data.pageProps)
+				this.pageProps = this.$options.data().pageProps;
+				console.log(this.$options.data().pageProps)
 				this.getCoreWorksLists();
 			},
 			// 获取商品信息
@@ -289,7 +293,7 @@ import API from '@/common/api.js';
 						}
 						this.worksLists = [...this.worksLists, ...data.items];
 					}
-					console.log(this.worksLists)
+					console.log('worksLists',this.worksLists)
 				})
 			},
 			// 获取创作者主页信息
@@ -302,9 +306,11 @@ import API from '@/common/api.js';
 					return;
 				}
 				// 接口请求
-				Request.get(API.user.creatorInfo + this.userId, null, ({data}) => {
+				Request.get(API.user.creatorInfo + this.userId, null, ({statusCode, data}) => {
+					if(statusCode!=200) return;
 					this.coreInfo = data;
 					this.creatorId = data.creatorId;
+					this.pageProps = this.$options.data().pageProps;
 					this.getTrendLists();
 					this.getCoreWorksLists();
 				})
@@ -317,7 +323,8 @@ import API from '@/common/api.js';
 				})
 			},
 			// 获取动态信息
-			getTrendLists() {
+			getTrendLists(isRefash) {
+				isRefash && (this.trendLists.length = 0);
 				let params = {
 					type: 0, // 动态页
 					createId: this.creatorId,
@@ -342,6 +349,37 @@ import API from '@/common/api.js';
 					console.log(this.trendLists)
 				})
 			},
+<<<<<<< HEAD
+=======
+			goMemberPay(id) {
+				uni.navigateTo({
+					url: `../../pages/member-payment/index?id=${id}`
+				})
+			},
+			/**
+			 * 关注创作者
+			 */
+			focusHandle(createId) {
+                console.log("🚀 ~ file: index.vue ~ line 355 ~ focusHandle ~ createId", createId)
+				Request.post(API.user.focus, {createId}, ({data, statusCode, errors}) => {
+					if (statusCode == 200) {
+						uni.showToast({
+							title: '关注成功',
+							duration: 3000,
+						});
+						setTimeout(() => {
+							this.getCreateInfo();
+						}, 2000);
+					} else {
+						uni.showToast({
+							title: errors,
+							icon: 'none',
+							duration: 3000,
+						})
+					}
+				})
+			}
+>>>>>>> c2b9d19bf3e45c16a06085e890b256dbab9dc8f4
 		}
 	}
 </script>

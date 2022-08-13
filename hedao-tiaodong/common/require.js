@@ -68,7 +68,7 @@ const get = (url, data, callback) => {
 					duration: 3000,
 					icon: 'none',
 					complete() {
-						uni.navigateTo({
+						uni.reLaunch({
 							url: '../../pages/register/index'
 						})
 					}
