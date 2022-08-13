@@ -103,7 +103,7 @@
 							style="font-size: 24upx; color: #999999;padding-left: 20upx;display:none;">3次购买</span>
 					</div>
 					<p style="font-size: 30upx;padding-top: 18upx;">{{item.introduction}}</p>
-					<a href="/yun/confirmAssistance?apId=6">
+					<a href="/yun/confirmAssistance?apId=6"  @click="goMemberPay(item.id)">
 						<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
 							开通
 						</div>
@@ -289,7 +289,7 @@ import API from '@/common/api.js';
 						}
 						this.worksLists = [...this.worksLists, ...data.items];
 					}
-					console.log(this.worksLists)
+					console.log('worksLists',this.worksLists)
 				})
 			},
 			// 获取创作者主页信息
@@ -302,7 +302,8 @@ import API from '@/common/api.js';
 					return;
 				}
 				// 接口请求
-				Request.get(API.user.creatorInfo + this.userId, null, ({data}) => {
+				Request.get(API.user.creatorInfo + this.userId, null, ({statusCode, data}) => {
+					if(statusCode!=200) return;
 					this.coreInfo = data;
 					this.creatorId = data.creatorId;
 					this.pageProps = this.$options.data().pageProps;
@@ -344,9 +345,9 @@ import API from '@/common/api.js';
 					console.log(this.trendLists)
 				})
 			},
-			goMemberPay() {
+			goMemberPay(id) {
 				uni.navigateTo({
-					url: '../../pages/member-paymnet/index'
+					url: `../../pages/member-payment/index?id=${id}`
 				})
 			},
 			/**
