@@ -1,0 +1,15 @@
+.content {
+    background: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+}
+.input-box {
+    flex: 1;
+}
+.uni-input {
+    background: #fff;
+}
+.button-box {
+    background-color: #37a2f2;
+}

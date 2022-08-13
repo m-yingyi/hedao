@@ -1,16 +1,16 @@
 <template>
 	<view class="content">
-		<div class="flex align-center register-box" @click="goName">姓名
+		<div class="flex align-center register-box">姓名
             <span class="register-box-txt">
 			    {{userInfo.nickName || '你的昵称'}} >
             </span>
         </div>
-		<div class="flex align-center register-box" @click="goEmail">邮箱
+		<div class="flex align-center register-box">邮箱
 			<span class="register-box-txt">
 			    {{userInfo.userEmail ||'你的收货邮箱'}} >
             </span>
 		</div>
-		<div class="flex align-center register-box" @click="goEmail">地址
+		<div class="flex align-center register-box">地址
 			<span class="register-box-txt">
 			    实物收货地址 >
             </span>
@@ -42,22 +42,7 @@
 			getUserInfo() {
 				// TODO
 				this.userInfo = uni.getStorageSync('userInfo');
-			},
-			goName() {
-                uni.navigateTo({
-					url: '../../pages/edit-name/index'
-				})
-            },
-            goAddress() {
-                uni.navigateTo({
-					url: '../../pages/edit-address/index'
-				})
-            },
-            goEmail() {
-                uni.navigateTo({
-					url: '../../pages/edit-email/index'
-				})
-            },
+			}
 		}
 	}
 </script>
