@@ -4,7 +4,7 @@
 			 <input
 				type="number"
 				placeholder="输入账号"
-				@blur="accountInput"
+				@input="accountInput"
 				maxlength="11"
 				/>
 		</span></div>
@@ -12,7 +12,7 @@
 			<input
 				type="number"
 				placeholder="输入密码"
-				@blur="passWordInput"
+				@input="passWordInput"
 				password
 				/>
 		</div>
@@ -20,7 +20,7 @@
 			<input
 				type="number"
 				placeholder="确认密码"
-				@blur="comfirmPassWordInput"
+				@input="comfirmPassWordInput"
 				password
 				/>
 		</div>
