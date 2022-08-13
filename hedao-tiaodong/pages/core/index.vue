@@ -103,7 +103,7 @@
 							style="font-size: 24upx; color: #999999;padding-left: 20upx;display:none;">3次购买</span>
 					</div>
 					<p style="font-size: 30upx;padding-top: 18upx;">{{item.introduction}}</p>
-					<a href="/yun/confirmAssistance?apId=6">
+					<a href="/yun/confirmAssistance?apId=6" @click="navigateTo('../../pages/member-payment/index')">
 						<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
 							开通
 						</div>
@@ -234,9 +234,9 @@ import API from '@/common/api.js';
 			this.getMemberLists();
 		},
 		methods: {
-			navigateTo() {
+			navigateTo(url) {
 				uni.navigateTo({
-					url: '../../pages/question/index'
+					url
 				})
 			},
 			changeTab(index) {
@@ -342,11 +342,6 @@ import API from '@/common/api.js';
 					console.log(this.trendLists)
 				})
 			},
-			goMemberPay() {
-				uni.navigateTo({
-					url: '../../pages/member-paymnet/index'
-				})
-			}
 		}
 	}
 </script>
