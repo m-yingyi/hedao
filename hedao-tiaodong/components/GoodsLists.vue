@@ -132,7 +132,14 @@ export default {
 .line-two-title {
     color: #333;
     font-size: 24upx;
-    margin-bottom: 60upx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 60upx;
+    line-height: 31upx;
 }
 .grag-txt-sale {
     font-size: 24upx;
