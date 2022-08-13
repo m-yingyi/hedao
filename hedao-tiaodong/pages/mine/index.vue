@@ -4,7 +4,7 @@
 			<div class="userAuth">
 				<div class="head-photo"></div>
 				<!-- <img src="/static/yun/imgs1.5/icon_xiezhen_17.png"> -->
-					<img :src="userInfo.headImg">
+					<img :src="userInfo.headImg || '/static/yun/imgs1.5/icon_xiezhen_17.png'">
 			</div>
 			<template v-if="isLogin">
 				<div class="msgAuth">
@@ -16,15 +16,15 @@
 				</div>
 			</template>
 			<template v-else>
-				<div class="click-login" @click="login">点击登陆</div>
+				<div class="click-login" @click="navigateTo('../../pages/register/index')">点击登陆</div>
 			</template>
 		</div>
-		<BaseSpace right-arrow left-txt="我的主页" left-url="/static/yun/icons/icon_xcx_01.png" @onClick="navigateTo('../../pages/core/index')"/>
-		<BaseSpace right-arrow left-txt="认证创作者" @onClick="navigateTo('../../pages/framer-originator/index')"/>
+		<BaseSpace v-if="isLogin" right-arrow left-txt="我的主页" left-url="/static/yun/icons/icon_xcx_01.png" @onClick="navigateTo('../../pages/core/index')"/>
+		<BaseSpace v-if="isLogin" right-arrow left-txt="认证创作者" @onClick="navigateTo('../../pages/framer-originator/index')"/>
 		<div class="goMyBought" v-if="!isHide">
-			<div class="mybought-box"><a href="/yun/mycollection"><span>{{userInfo.focus}}</span><span class="sect-txt">我的收藏</span></a></div>
-			<div class="mybought-box"><a href="/yun/mybought"><span>{{userInfo.trends}}</span><span class="sect-txt">在线作品</span></a></div>
-			<div class="mybought-box"><a href="/yun/assistanceVoucherList?wid=1"><span>暂未找到字段</span><span class="sect-txt">电子凭证</span></a></div>
+			<div class="mybought-box"><a href="/yun/mycollection"><span>{{userInfo.focus || 0}}</span><span class="sect-txt">我的收藏</span></a></div>
+			<div class="mybought-box"><a href="/yun/mybought"><span>{{userInfo.trends || 0}}</span><span class="sect-txt">在线作品</span></a></div>
+			<div class="mybought-box"><a href="/yun/assistanceVoucherList?wid=1"><span>{{userInfo.myBought || 0}}</span><span class="sect-txt">电子凭证</span></a></div>
 		</div>
 		<BaseSpace class="link" right-arrow left-txt="联系客服" @onClick="navigateTo('../../pages/call/index')"/>
 	</view>
@@ -38,12 +38,15 @@ import BaseSpace from '@/components/BaseSpace.vue';
 		},
 		data() {
 			return {
-				isLogin: uni.getStorageSync('token'),
+				isLogin: false,
 				isHide: false, // 我的：隐藏
 				userInfo: {},
 			}
 		},
 		onLoad() {
+			this.getUserInfo()
+		},
+		onShow() {
 			this.getUserInfo()
 		},
 		methods: {
@@ -55,6 +58,7 @@ import BaseSpace from '@/components/BaseSpace.vue';
 			getUserInfo() {
 				// TODO
 				this.userInfo = uni.getStorageSync('userInfo');
+				this.isLogin = uni.getStorageSync('token');
 			}
 		}
 	}

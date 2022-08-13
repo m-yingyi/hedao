@@ -1,7 +1,7 @@
 <template>
 	<view :class="isLogin ? 'content': 'content-noLogin'">
 		<template v-if="isLogin">
-			<TrendItem :source-data="trendLists" @onRefash="getTrendInfo"/>
+			<TrendItem :source-data="trendLists" @onRefash="() => {getTrendInfo(true)}"/>
 		</template>
 		<view class="noLogin" v-if="!isLogin">
 			<view>
@@ -28,7 +28,7 @@ import API from '@/common/api.js';
 				],
 				heartCount: '点赞',
 				heartIcon: 2,
-				isLogin: uni.getStorageSync('token'),
+				isLogin: false,
 				trendLists: [],
 				pageProps: {
 					pageIndex: 1,
@@ -36,8 +36,9 @@ import API from '@/common/api.js';
 				}
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.getTrendInfo();
+			this.isLogin = uni.getStorageSync('token');
 		},
 		onPullDownRefresh() {
 			this.scrollPage()
@@ -50,7 +51,8 @@ import API from '@/common/api.js';
 				});
 			},
 			// 获取首页关注
-			getTrendInfo() {
+			getTrendInfo(isRefash) {
+				isRefash && (this.trendLists.length = 0);
 				let params = {
 					type: 2, //首页关注
 					...this.pageProps,

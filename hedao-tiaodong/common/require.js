@@ -29,8 +29,8 @@ const post = (url, data, callback) => {
 						duration: 3000,
 						icon: 'none',
 						complete() {
-							uni.navigateTo({
-								url: '../../pages/register/index'
+							uni.switchTab({
+								url: '../../pages/mine/index'
 							})
 						}
 					});
@@ -68,9 +68,12 @@ const get = (url, data, callback) => {
 					duration: 3000,
 					icon: 'none',
 					complete() {
-						uni.reLaunch({
-							url: '../../pages/register/index'
+						uni.switchTab({
+							url: '../../pages/mine/index'
 						})
+						// uni.reLaunch({
+						// 	url: '../../pages/mine/index'
+						// })
 					}
 				});
 				

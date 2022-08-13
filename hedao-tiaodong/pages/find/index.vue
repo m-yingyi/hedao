@@ -54,7 +54,7 @@ import API from '@/common/api.js';
 				},
 			}
 		},
-		onLoad() {
+		onShow() {
 			console.log(uni.getStorageSync('token'))
 			this.getFindType();
 		},
