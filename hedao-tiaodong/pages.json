@@ -61,6 +61,12 @@
 			}
 		},
 		{
+			"path": "pages/login-acount/index",
+			"style": {
+				"navigationBarTitleText": "账号登录"
+			}
+		},
+		{
 			"path": "pages/edit-informa/index",
 			"style": {
 				"navigationBarTitleText": "编辑资料"
