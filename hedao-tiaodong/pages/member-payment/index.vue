@@ -30,12 +30,10 @@
 		<div class="support-way" style="margin-top: 20upx;">
 			<h2 style="font-size: 32upx; line-height: 32upx;font-weight:bold;padding-bottom: 20upx;">选择会员期限</h2>
 			<ul class="way-box longTime">
-				<li data-price="300" data-timetype="1" @click="clickPlan($event)" ><p><image src="/static/yun/imgs/png_201_2.png" mode="widthFix"/>一个月</p><image :src="`/static/yun/imgs/icon_yun_938${selectedPlan == 1 ? '' : '_2'}.png`"/></li>
-				<li data-price="900" data-timetype="2" @click="clickPlan($event)"><p><image src="/static/yun/imgs/png_201_2.png" mode="widthFix"/>三个月</p><image :src="`/static/yun/imgs/icon_yun_938${selectedPlan == 2 ? '' : '_2'}.png`"/></li>
-				<li data-price="1800" data-timetype="3" @click="clickPlan($event)"><p><image src="/static/yun/imgs/png_201_2.png" mode="widthFix"/>半年</p><image :src="`/static/yun/imgs/icon_yun_938${selectedPlan == 3 ? '' : '_2'}.png`"/></li>
-				<li data-price="3420" data-original="3600" data-timetype="4" @click="clickPlan($event)"><p><image src="/static/yun/imgs/png_201_2.png" mode="widthFix" />一年<span>95%折扣</span></p><image :src="`/static/yun/imgs/icon_yun_938${selectedPlan == 4 ? '' : '_2'}.png`"/></li>
-				<li data-price="6480" data-original="7200" data-timetype="5" @click="clickPlan($event)"><p><image src="/static/yun/imgs/png_201_2.png" mode="widthFix" />二年<span>90%折扣</span></p><image :src="`/static/yun/imgs/icon_yun_938${selectedPlan == 5 ? '' : '_2'}.png`"/></li>
-				<li data-price="9180" data-original="10800" data-timetype="6" @click="clickPlan($event)"><p><image src="/static/yun/imgs/png_201_2.png" mode="widthFix" />三年<span>85%折扣</span></p><image :src="`/static/yun/imgs/icon_yun_938${selectedPlan == 6 ? '' : '_2'}.png`"/></li>
+				<li v-for="(item, index) in memberTimeList" data-price="300" data-timetype="1" @click="handleCheckTime(index)">
+					<p><image src="/static/yun/imgs/png_201_2.png" mode="widthFix"/>{{item.label}}<span v-if="item.discount">{{item.discount}}</span></p>
+					<image :src="item.check ? '/static/yun/imgs/icon_yun_938.png' : '/static/yun/imgs/icon_yun_938_2.png'"/>
+				</li>
 			</ul>
 		</div>
 		<div style="height: 88upx;width: 100%;"></div>
@@ -53,22 +51,17 @@
 
 <script>
 import BaseSpace from '@/components/BaseSpace.vue';
-import Request from '@/common/require.js';
-import API from '@/common/api.js';
 	export default {
 		components: {
 			BaseSpace,
 		},
 		data() {
 			return {
-				id: null,
-				selectedPlan: 1
+				memberTimeList: [{label: '一个月', check: true},{label: '三个月', check: false},{label: '半年', check: false},{label: '一年', check: false, discount:'95%折扣'},{label: '二年', check: false, discount:'90%折扣'},{label: '三年', check: false, discount:'85%折扣'}]
 			}
 		},
-		onLoad(option) {
-            console.log("🚀 ~ file: index.vue ~ line 66 ~ onLoad ~ option", option)
-			this.id = option.id
-			this.getPlan()
+		onLoad() {
+
 		},
 		methods: {
 			navigateTo() {
@@ -76,26 +69,10 @@ import API from '@/common/api.js';
 					url: '../../pages/question/index'
 				})
 			},
-			clickPlan(e) {
-                console.log("🚀 ~ file: index.vue ~ line 77 ~ clickPlan ~ e", e)
-				this.selectedPlan = e.target.dataset.timetype;
+			handleCheckTime(index) {
+				this.memberTimeList.map((item) => item.check = false)
+				this.memberTimeList[index].check = true
 			},
-			getPlan() {
-				if(!this.id) {
-					uni.showToast({
-							title: '没有获取到ID',
-							icon: 'none',
-							duration: 3000,
-						})
-				} else {
-					// 接口请求
-				Request.get(API.member.memberPlan + this.id, null, ({statusCode, data}) => {
-                    console.log("🚀 ~ file: index.vue ~ line 92 ~ Request.get ~ data", data)
-					if(statusCode!=200) return;
-					
-				})
-				}
-			}
 		}
 	}
 </script>

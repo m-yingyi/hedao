@@ -137,7 +137,12 @@
 						<div class="core-index-txt-block">
 							<span><span class="txt-block-blue">288.2</span>/500元</span>
 							<div class="core-index-right-absolute txt-block-blue font-bold">57.64%</div>
+					<p style="font-size: 30upx;padding-top: 18upx;">{{item.introduction}}</p>
+					<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}`)">
+						<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
+							开通
 						</div>
+					</a>
 						<div class="core-index-line10">
 							<div class="line10-blue" style="width: 57.64%;"></div>
 						</div>
@@ -171,6 +176,7 @@
 					<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 				</div>
 			</div>
+			</div>
 			<div class="core-index-container bg-white" v-if="currentItem === 1">
 				<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 			</div>
@@ -180,7 +186,7 @@
 		</view>
 		<view hover-stop-propagation class="cover-view" v-if="isOpenShare">
 			<div class="cover-view-content">
-				<scroll-view :class="`model-wrap ${isShareTiktok ? 'tiktok' : 'show-share'}`">
+				<scroll-view :class="isShareTiktok ? 'tiktok model-wrap' : 'show-share model-wrap'">
 					<div class="model-title">
 						<span>分享至</span>
 						<img class="model-close-btn" src="/static/yun/imgs1/png_yun_602.png" @click="closeShare"/>
@@ -283,9 +289,9 @@ import API from '@/common/api.js';
 			this.getMemberLists();
 		},
 		methods: {
-			navigateTo() {
+			navigateTo(url) {
 				uni.navigateTo({
-					url: '../../pages/question/index'
+					url
 				})
 			},
 			changeTab(index) {

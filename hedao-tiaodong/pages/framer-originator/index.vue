@@ -3,8 +3,7 @@
 		<div class="head-tab">
 			<div v-for="(item, index) in headTab" @click="handleCheck(index)" :class="item.check ? 'theme-bg-color head-tab-item' : 'head-tab-item'">{{item.title}}</div>
 		</div>
-		<image class="tab-img" mode="widthFix" src="http://i.hedaoapp.com/image/jpg/2021/9/13/021757f47c8b7ae7d842d2ab802b70d50a1e54.jpg"/>
-		<image class="tab-img" mode="widthFix" src="http://i.hedaoapp.com/image/jpg/2021/10/10/1223042f395907742a42ee8d4a6c1d5d6a67c0.jpg"/>
+		<image v-if="item.imgList.length" v-for="item in headTab[currentIndex].imgList" class="tab-img" mode="widthFix" :src="item"/>
 		<FixedFoot :text="text"/>
 	</view>
 </template>
@@ -20,7 +19,8 @@ import API from '@/common/api.js';
 		data() {
 			return {
 				text: '前往盒岛官网认证',
-				headTab: [{label:'抖音创作者使用指南？',check: true},{label:'如何认证创作者',check: false},{label:'知识付费博主如果使用',check: false}]
+				headTab: [],
+				currentIndex: 0
 			}
 		},
 		onLoad() {
@@ -30,6 +30,7 @@ import API from '@/common/api.js';
 			handleCheck(index) {
 				this.headTab.map((item) => item.check = false)
 				this.headTab[index].check = true
+				this.currentIndex = index
 			},
 
 			getInformationList() {
@@ -37,6 +38,8 @@ import API from '@/common/api.js';
 					InformationType: 1,
 				}
 				Request.get(API.information.list, params, ({data}) => {
+					data.forEach((item) => item.check = false)
+					data[0].check = true
 					this.headTab = data
 					console.log(data)
 				})
