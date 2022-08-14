@@ -32,7 +32,7 @@ export default {
     },
     member: {
         memberList: '/member/member-list', // 会员列表
-        memberPlan: '/member/member-plan-by-plan-id/', // {palnid} 通过方案ID获取会员方案
+        memberPlan: '/member/member-plan/', // {palnid} 通过方案ID获取会员方案
     },
     information: {
         list: '/information/information-list'
