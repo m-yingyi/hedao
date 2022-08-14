@@ -484,3 +484,135 @@ figure .user-info {
 .top-icon-btn {
 	height: 88upx;
 }
+
+.share-wrap {
+    padding: 36upx;
+}
+
+.goBack-btn {
+    width: 38upx;
+    height: 32upx;
+}
+
+.share-btn {
+    width: 36upx;
+    height: 36upx;
+}
+
+.share-wrap img {
+    width: 100%;
+    height: 100%;
+}
+
+.cover-view {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.7);
+    position: fixed;
+    top: 0;
+    /* bottom: 0; */
+    right: 0;
+    left: 0;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.cover-view .model-wrap {
+    background: #f5f5f5;
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: #333;
+    overflow-y: auto;
+    border-radius: 16upx 16upx 0 0;
+}
+
+.tiktok {
+    top: 200upx;
+}
+
+.show-share {
+     bottom: 0;
+}
+
+.cover-view-content {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.model-title {
+    height: 99upx;
+    border-bottom: 1upx solid #ddd;
+    padding: 37upx 36upx;
+    display: inline-flex;
+    width: 100%;
+    font-size: 32upx;
+    box-sizing: border-box;
+}
+
+.model-title span {
+    flex: 1;
+    text-align: center;
+}
+
+.model-title img {
+    height: 26upx;
+    width: 26upx;
+}
+
+.model-content {
+    font-size: 28upx;
+    box-sizing: border-box;
+    padding: 47upx 40upx 88upx 40upx;
+    display: flex;
+    align-items: center;
+    height: 268upx;
+}
+
+.model-content .content-item {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    margin-right: 43upx;
+    cursor: pointer;
+}
+
+.model-content .content-item img {
+    width: 100upx;
+    height: 100upx;
+}
+
+.model-content .content-item span {
+    margin-top: 24upx;
+}
+
+.share-tiktok {
+    width: 100%;
+    font-size: 28upx;
+    padding: 30upx;
+    box-sizing: border-box;
+}
+
+.share-tiktok .way-two-img1 {
+    width: 100%;
+    height: 197upx;
+}
+.share-tiktok .way-two-img2 {
+    width: 100%;
+    height: 338upx;
+}
+.share-tiktok .way-two-img3 {
+    width: 100%;
+    height: 169upx;
+}
+.share-tiktok .way-two-img4 {
+    width: 100%;
+    height: 172upx;
+}
+.share-tiktok img {
+    margin: 36upx 0 35upx 0;
+}
+.share-way-two {
+    margin-top: 80upx;
+}
