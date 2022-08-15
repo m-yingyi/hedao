@@ -25,9 +25,9 @@ export default {
         collectionModel: '/collection/model',
     },
     user: {
-        // creatorInfo: '/user/creator-info/3' //   暂时写死
         creatorInfo: '/user/creator-info/', //   {userId} 根据用户ID获取主页信息
         creatorHome: '/user/creator-home/', //   {userId} 获取创作者主页综合信息
+        idolconfig: '/user/idol-config/', // 根据创作者ID获取创作者配置
         focus: '/user/focus', // 关注创作者
     },
     member: {

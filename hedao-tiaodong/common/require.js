@@ -3,7 +3,7 @@ import API from './api';
 // 需要登录的，都写到这里，否则就是不需要登录的接口
 const methodsToken = []
 
-const baseUrl = 'http://api.hedaoapp.com/api';
+const baseUrl = 'https://api.hedaoapp.com/api';
 const tokenHead = 'Bearer ';
 
 const post = (url, data, callback) => {
