@@ -1,11 +1,12 @@
 <template>
 	<view class="content">
 		<div class="support-wrap">
-            <h3 style="font-size: 26upx;color: #999999;padding: 28upx 0 20upx 0;">会员等级三码是多少的时间和你，是</h3>
+            <h3 style="font-size: 26upx;color: #999999;padding: 28upx 0 20upx 0;">{{planInfo.title}}</h3>
             
-            <div style="font-size: 26upx;"><span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span style="font-size: 60upx;padding-right:22upx;">3</span>元/月</div>
+            <div style="font-size: 26upx;"><span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span style="font-size: 60upx;padding-right:22upx;">{{planInfo.price/100}}</span>元/月</div>
             <p style="font-size: 30upx;padding: 18upx 0 32upx 0;">解锁新动态+作品集</p>
-            <img style="max-width: 550upx;max-height: 550upx;margin-bottom: 20upx;border-radius: 3px;" src="http://i.hedaoapp.com/image/jpg/2022/6/14/232027416716a841c0445e938eb75d153ad4d7.jpg">
+            <!-- <img style="max-width: 550upx;max-height: 550upx;margin-bottom: 20upx;border-radius: 3px;" src="http://i.hedaoapp.com/image/jpg/2022/6/14/232027416716a841c0445e938eb75d153ad4d7.jpg"> -->
+            <img style="max-width: 550upx;max-height: 550upx;margin-bottom: 20upx;border-radius: 3px;" :src="planInfo.imgUrl">
         </div>
 		<div class="member-card" style="padding: 36upx;border-top: 1px solid #f0f0f0;">
             <div style="padding: 0 0 36upx 0;color:black;font-weight: bold;font-size: 32upx;line-height: 32upx;">获得会员卡和特权</div>
@@ -14,7 +15,7 @@
                 <div class="box">
                     <img class="member-user-img" src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
                     <div class="size-wrap">
-                        <span class="size-title">客服小盒的会员</span>
+                        <span class="size-title">{{planInfo.userName}}的会员</span>
                         <span class="size-txt">创作者ID：1001O</span>
                     </div>
                     <img class="member-vip-img" src="/Content/yun/idolMember/png_app1.4_02.png">
@@ -22,7 +23,7 @@
                 <div class="flex-betweem">
                     <div class="member-line"></div>
                     <span>会员可解锁</span>
-                    <div class="white-num">动态<span>108</span>作品<span>7</span></div>
+                    <div class="white-num">动态<span>{{planInfo.trends}}</span>作品<span>{{planInfo.works}}</span></div>
                 </div>
                 <div class="btn-white">蓝钻会员</div>
             </div>
@@ -51,17 +52,25 @@
 
 <script>
 import BaseSpace from '@/components/BaseSpace.vue';
+import Require from '@/common/require.js';
+import API from '@/common/api.js';
 	export default {
 		components: {
 			BaseSpace,
 		},
 		data() {
 			return {
-				memberTimeList: [{label: '一个月', check: true},{label: '三个月', check: false},{label: '半年', check: false},{label: '一年', check: false, discount:'95%折扣'},{label: '二年', check: false, discount:'90%折扣'},{label: '三年', check: false, discount:'85%折扣'}]
+				memberTimeList: [{label: '一个月', check: true},{label: '三个月', check: false},{label: '半年', check: false},{label: '一年', check: false, discount:'95%折扣'},{label: '二年', check: false, discount:'90%折扣'},{label: '三年', check: false, discount:'85%折扣'}],
+				planId: null,
+				planInfo: {},
 			}
 		},
-		onLoad() {
-
+		onLoad(option) {
+        console.log("🚀 ~ file: index.vue ~ line 64 ~ onLoad ~ option", option)
+			this.planId = option.id;
+			if(this.planId) {
+				this.getMemberPlan()
+			}
 		},
 		methods: {
 			navigateTo() {
@@ -73,6 +82,12 @@ import BaseSpace from '@/components/BaseSpace.vue';
 				this.memberTimeList.map((item) => item.check = false)
 				this.memberTimeList[index].check = true
 			},
+			getMemberPlan() {
+				Require.get(API.member.memberPlan + this.planId, null , ({statusCode, data}) => {
+					if(statusCode!=200) return;
+					this.planInfo = data;
+				})
+			}
 		}
 	}
 </script>

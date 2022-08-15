@@ -72,7 +72,7 @@
 			<div class="core-index-container" v-if="currentItem === 0">
 				<div class="core-index-box">
 					<div class="core-index-title">关于</div>
-					<p id="core-index-desc"><span>这是关于盒岛的说明<br><br>客服QQ827491999,有事欢迎咨询！</span><span></span></p>
+					<p id="core-index-desc"><pre>{{aboutTip}}</pre></p>
 				</div>
 				<div class="core-index-box" style="padding-bottom: 12upx;">
 					<div class="core-index-title">会员</div>
@@ -123,7 +123,7 @@
 				</div>
 				<div class="core-index-box">
 				<div class="core-index-title">目标</div>
-				<div class="core-index-target">
+				<div class="core-index-target" v-for="item in targetDatas">
 					<div class="core-index-txt-block">
 						<span><span class="txt-block-blue">8</span>/5人</span>
 						<div class="core-index-right-absolute txt-block-blue font-bold">已达成</div>
@@ -131,9 +131,9 @@
 					<div class="core-index-line10">
 						<div class="line10-blue" style="width: 100%;"></div>
 					</div>
-					<div class="core-index-txt-font24">5个人购买</div>
+					<div class="core-index-txt-font24">{{item.introduct}}</div>
 				</div>
-				<div class="core-index-target">
+				<!-- <div class="core-index-target">
 					<div class="core-index-txt-block">
 						<span><span class="txt-block-blue">288.2</span>/500元</span>
 						<div class="core-index-right-absolute txt-block-blue font-bold">57.64%</div>
@@ -156,7 +156,7 @@
 						<div class="line10-blue" style="width: 14.41%;"></div>
 					</div>
 					<div class="core-index-txt-font24">达成2000元，，每月加更一个动态</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="core-index-box" id="CoreGoods"
 				style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
@@ -282,7 +282,9 @@ import API from '@/common/api.js';
 				isNoMoreTrend: false, // 动态列表是否到底了
 				worksLists: [],
 				isShareTiktok: false,
-				isOpenShare: false
+				isOpenShare: false,
+				targetDatas: [], // 目标
+				aboutTip: '', // 关于
 			}
 		},
 		onLoad(option) {
@@ -294,7 +296,7 @@ import API from '@/common/api.js';
 				this.userId = uni.getStorageSync('userInfo')?.userId;
 			}
 			this.getCreateInfo();
-			this.getMemberLists();
+			// this.getMemberLists();
 		},
 		methods: {
 			navigateTo(url) {
@@ -367,20 +369,34 @@ import API from '@/common/api.js';
 				// 接口请求
 				Request.get(API.user.creatorHome + this.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
+					this.targetDatas = data.creatorTargetDatas;
+					this.aboutTip = data.toppingAbout;
+					this.memberAllList = data.memberPlanDatas;
+					this.handleMemberLists()
+				})
+				Request.get(API.user.creatorInfo + this.userId, null, ({statusCode, data}) => {
+					if(statusCode!=200) return;
 					this.coreInfo = data;
 					this.creatorId = data.creatorId;
+					this.getIdolConfig();
 					this.pageProps = this.$options.data().pageProps;
 					this.getTrendLists();
 					this.getCoreWorksLists();
 				})
 			},
-			// 获取会员列表
-			getMemberLists () {
-				Request.get(API.member.memberList, null, ({data}) => {
-					this.memberAllList = data;
-					this.handleMemberLists()
+			// 获取创作者配置
+			getIdolConfig() {
+				Request.get(API.user.idolconfig + this.creatorId, null, ({statusCode, data}) => {
+					if(statusCode!=200) return;
 				})
 			},
+			// 获取会员列表
+			// getMemberLists () {
+			// 	Request.get(API.member.memberList, null, ({data}) => {
+			// 		this.memberAllList = data;
+			// 		this.handleMemberLists()
+			// 	})
+			// },
 			// 获取动态信息
 			getTrendLists(isRefash) {
 				isRefash && (this.trendLists.length = 0);
