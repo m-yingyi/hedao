@@ -122,55 +122,42 @@
 					<a class="core-index-blue-btn" href="/yun/openmember?wid=1">支持</a>
 				</div>
 				<div class="core-index-box">
-				<div class="core-index-title">目标</div>
-				<div class="core-index-target" v-for="item in targetDatas">
-					<div class="core-index-txt-block">
-						<span><span class="txt-block-blue">8</span>/5人</span>
-						<div class="core-index-right-absolute txt-block-blue font-bold">已达成</div>
+					<div class="core-index-title">目标</div>
+					<div class="core-index-target" v-for="item in targetDatas">
+						<div class="core-index-txt-block">
+							<span><span class="txt-block-blue">8</span>/5人</span>
+							<div class="core-index-right-absolute txt-block-blue font-bold">已达成</div>
+						</div>
+						<div class="core-index-line10">
+							<div class="line10-blue" style="width: 100%;"></div>
+						</div>
+						<div class="core-index-txt-font24">{{item.introduct}}</div>
 					</div>
-					<div class="core-index-line10">
-						<div class="line10-blue" style="width: 100%;"></div>
+					<!-- <div class="core-index-target">
+						<div class="core-index-txt-block">
+							<span><span class="txt-block-blue">288.2</span>/500元</span>
+							<div class="core-index-right-absolute txt-block-blue font-bold">57.64%</div>
+						</div>
+						<div class="core-index-line10">
+							<div class="line10-blue" style="width: 57.64%;"></div>
+						</div>
+						<div class="core-index-txt-font24">达成500元，更新新动态</div>
 					</div>
-					<div class="core-index-txt-font24">{{item.introduct}}</div>
-				</div>
-				<!-- <div class="core-index-target">
-					<div class="core-index-txt-block">
-						<span><span class="txt-block-blue">288.2</span>/500元</span>
-						<div class="core-index-right-absolute txt-block-blue font-bold">57.64%</div>
-					</div>
-					<div class="core-index-line10">
-						<div class="line10-blue" style="width: 57.64%;"></div>
-					</div>
-					<div class="core-index-txt-font24">达成500元，更新新动态</div>
-				</div>
-				<div class="core-index-target">
-					<div class="core-index-txt-block">
-						<span><span class="txt-block-blue">288.2</span>/2000元</span>
-						<span class="txt-block-gray">
+					<div class="core-index-target">
+						<div class="core-index-txt-block">
+							<span><span class="txt-block-blue">288.2</span>/2000元</span>
+							<span class="txt-block-gray">
 
-							<span>已到期</span>
-						</span>
-						<div class="core-index-right-absolute txt-block-blue font-bold">14.41%</div>
-					</div>
-					<div class="core-index-line10">
-						<div class="line10-blue" style="width: 14.41%;"></div>
-					</div>
-					<div class="core-index-txt-font24">达成2000元，，每月加更一个动态</div>
-				</div> -->
-			</div>
-			<div class="core-index-box" id="CoreGoods"
-				style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
-				<div class="core-index-title" style="padding-left: 36upx;">商店</div>
-				<GoodsLists :lists="worksLists" />
-				<div class="left-right-padding36">
-					<a class="core-index-gray-btn" id="coreMoreGoods" @click="goStoreTab()">查看全部</a>
+								<span>已到期</span>
+							</span>
+							<div class="core-index-right-absolute txt-block-blue font-bold">14.41%</div>
+						</div>
+						<div class="core-index-line10">
+							<div class="line10-blue" style="width: 14.41%;"></div>
+						</div>
+						<div class="core-index-txt-font24">达成2000元，，每月加更一个动态</div>
+					</div> -->
 				</div>
-			</div>
-			<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;">
-				<div class="core-index-title" style="padding-left: 36upx;">动态</div>
-				<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
-			</div>
-		</div>
 				<div class="core-index-box" id="CoreGoods"
 					style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
 					<div class="core-index-title" style="padding-left: 36upx;">商店</div>
@@ -183,7 +170,18 @@
 					<div class="core-index-title" style="padding-left: 36upx;">动态</div>
 					<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 				</div>
-			</div>
+				<div class="core-index-box" id="CoreGoods"
+					style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
+					<div class="core-index-title" style="padding-left: 36upx;">商店</div>
+					<GoodsLists :lists="worksLists" />
+					<div class="left-right-padding36">
+						<a class="core-index-gray-btn" id="coreMoreGoods" @click="goStoreTab()">查看全部</a>
+					</div>
+				</div>
+				<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;">
+					<div class="core-index-title" style="padding-left: 36upx;">动态</div>
+					<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
+				</div>
 			</div>
 			<div class="core-index-container bg-white" v-if="currentItem === 1">
 				<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>

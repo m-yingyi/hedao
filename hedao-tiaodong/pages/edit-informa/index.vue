@@ -10,7 +10,7 @@
 			    {{userInfo.userEmail ||'你的收货邮箱'}} >
             </span>
 		</div>
-		<div class="flex align-center register-box" @click="goEmail">地址
+		<div class="flex align-center register-box" @click="goAddress">地址
 			<span class="register-box-txt">
 			    实物收货地址 >
             </span>
