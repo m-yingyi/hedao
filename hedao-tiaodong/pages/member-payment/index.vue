@@ -43,7 +43,7 @@
 				<span>共计</span>
 				<span style="line-height: 72upx; padding: 0 6upx 0 28upx;font-weight: bold;">￥</span>
 				<span id="PricePay" style="font-size: 48upx;font-weight: bold;">{{planPrice / 100}}</span>
-				<span id="PriceOriginal" style="color: #cccccc; padding-left: 40upx;line-height: 106upx;display:none;text-decoration: line-through;">¥1500.00</span>
+				<span id="PriceOriginal" style="color: #cccccc; padding-left: 40upx;line-height: 106upx;display:none;text-decoration: line-through;">¥{{(planPriceOriginal / 100).toFixed(2)}}</span>
 			</div>
 			<div class="support-btn">开通</div>
 		</div>
@@ -70,6 +70,7 @@ import API from '@/common/api.js';
 				planId: null,
 				planInfo: {},
 				planPrice: 0, // 以分为单位
+				planPriceOriginal: 0, // 以分为单位
 			}
 		},
 		onLoad(option) {
@@ -98,7 +99,8 @@ import API from '@/common/api.js';
 			},
 			// 计算金额
 			calculatePrice (data) {
-				this.planPrice = this.planInfo.price * data.times * data.rate;
+				this.planPriceOriginal = this.planInfo.price * data.times;
+				this.planPrice = this.planPriceOriginal * data.rate;
 			} 
 		}
 	}
