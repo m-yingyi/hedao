@@ -1,20 +1,25 @@
 <template>
 	<view class="content">
-		<div class="flex align-center register-box">姓名
-            <span class="register-box-txt">
-			    {{userInfo.nickName || '你的昵称'}} >
-            </span>
-        </div>
-		<div class="flex align-center register-box">邮箱
-			<span class="register-box-txt">
-			    {{userInfo.userEmail ||'你的收货邮箱'}} >
-            </span>
-		</div>
-		<div class="flex align-center register-box">地址
-			<span class="register-box-txt">
-			    实物收货地址 >
-            </span>
-		</div>
+		<view class="address-box">
+			<view class="box-title">
+				<!-- 图片 -->
+				设为默认地址
+			</view>
+			<view class="box-content">
+				<view class="content-item item-name">
+					<text>收货姓名</text>
+					<input type="text" placeholder="你的收货姓名" @input="nameInput" />
+				</view>
+				<view class="content-item item-phone">
+					<text>联系方式</text>
+					<input type="number" placeholder="你的联系方式" @input="phoneInput" />
+				</view>
+				<view class="content-item item-address">
+					<text>详细地址</text>
+					<input type="text" placeholder="你的详细地址" @input="addressInput" />
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -24,10 +29,12 @@
 		},
 		data() {
 			return {
-				nikename: '',
-				email: '',
-				address: '',
 				userInfo: {},
+				addressInfo: {
+					name: '',
+					phone: '',
+					address: '',
+				}
 			}
 		},
 		onShow() {
@@ -42,7 +49,16 @@
 			getUserInfo() {
 				// TODO
 				this.userInfo = uni.getStorageSync('userInfo');
-			}
+			},
+			nameInput(e) {
+				this.addressInfo.name= e.detail.value;
+			},
+			phoneInput(e) {
+				this.addressInfo.phone = e.detail.value;
+			},
+			addressInput(e) {
+				this.addressInfo.address = e.detail.value;
+			},
 		}
 	}
 </script>
