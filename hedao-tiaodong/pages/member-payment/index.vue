@@ -1,10 +1,12 @@
 <template>
 	<view class="content">
 		<div class="support-wrap">
-            <h3 style="font-size: 26upx;color: #999999;padding: 28upx 0 20upx 0;">{{planInfo.title}}</h3>
+            <h3 style="font-size: 26upx;color: #999999;padding: 28upx 0 20upx 0;">{{planInfo.tilte}}</h3>
             
-            <div style="font-size: 26upx;"><span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span style="font-size: 60upx;padding-right:22upx;">{{planInfo.price/100}}</span>元/月</div>
-            <p style="font-size: 30upx;padding: 18upx 0 32upx 0;">解锁新动态+作品集</p>
+            <div style="font-size: 26upx;"><span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span style="font-size: 60upx;padding-right:22upx;">{{(planInfo.price/100).toFixed(2)}}</span>元/月
+				<span style="font-size: 24upx;color: #999999;margin-left: 36upx">{{planInfo.buys || 0}}次购买</span>
+			</div>
+            <p style="font-size: 30upx;padding: 18upx 0 32upx 0;">{{planInfo.introduction}}</p>
             <!-- <img style="max-width: 550upx;max-height: 550upx;margin-bottom: 20upx;border-radius: 3px;" src="http://i.hedaoapp.com/image/jpg/2022/6/14/232027416716a841c0445e938eb75d153ad4d7.jpg"> -->
             <img style="max-width: 550upx;max-height: 550upx;margin-bottom: 20upx;border-radius: 3px;" :src="planInfo.imgUrl">
         </div>
@@ -43,7 +45,7 @@
 				<span>共计</span>
 				<span style="line-height: 72upx; padding: 0 6upx 0 28upx;font-weight: bold;">￥</span>
 				<span id="PricePay" style="font-size: 48upx;font-weight: bold;">{{planPrice / 100}}</span>
-				<span id="PriceOriginal" style="color: #cccccc; padding-left: 40upx;line-height: 106upx;display:none;text-decoration: line-through;">¥{{(planPriceOriginal / 100).toFixed(2)}}</span>
+				<span v-if="planPriceOriginal !== planPrice" id="PriceOriginal" style="color: #cccccc; padding-left: 40upx;line-height: 106upx; text-decoration: line-through;">¥{{(planPriceOriginal / 100).toFixed(2)}}</span>
 			</div>
 			<div class="support-btn">开通</div>
 		</div>
@@ -95,6 +97,7 @@ import API from '@/common/api.js';
 					if(statusCode!=200) return;
 					this.planInfo = data;
 					this.planPrice = this.planInfo.price;
+					this.planPriceOriginal = this.planInfo.price;
 				})
 			},
 			// 计算金额
