@@ -33,8 +33,13 @@ export default {
     member: {
         memberList: '/member/member-list', // 会员列表
         memberPlan: '/member/member-plan/', // {palnid} 通过方案ID获取会员方案
+        memberPlanVoucher: '/member/plan-voucher', // 创建购买凭证
     },
     information: {
         list: '/information/information-list'
+    },
+    pay: {
+        payPrepaId: '/pay/prepa-id', // 获取预支付信息
+        payResult: '/pay/pay-result', // 查询订单支付结果
     }
 };

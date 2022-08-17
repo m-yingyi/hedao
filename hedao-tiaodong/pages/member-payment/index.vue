@@ -47,7 +47,7 @@
 				<span id="PricePay" style="font-size: 48upx;font-weight: bold;">{{planPrice / 100}}</span>
 				<span v-if="planPriceOriginal !== planPrice" id="PriceOriginal" style="color: #cccccc; padding-left: 40upx;line-height: 106upx; text-decoration: line-through;">¥{{(planPriceOriginal / 100).toFixed(2)}}</span>
 			</div>
-			<div class="support-btn">开通</div>
+			<div class="support-btn" @click="createOrder">开通</div>
 		</div>
 	</view>
 </template>
@@ -73,6 +73,8 @@ import API from '@/common/api.js';
 				planInfo: {},
 				planPrice: 0, // 以分为单位
 				planPriceOriginal: 0, // 以分为单位
+				planTimes: 1,
+				orderDatas: {}, // 订单数据
 			}
 		},
 		onLoad(option) {
@@ -90,6 +92,7 @@ import API from '@/common/api.js';
 			handleCheckTime(index) {
 				this.memberTimeList.map((item) => item.check = false)
 				this.memberTimeList[index].check = true
+				this.planTimes = this.memberTimeList[index].times;
 				this.calculatePrice(this.memberTimeList[index]);
 			},
 			getMemberPlan() {
@@ -104,7 +107,97 @@ import API from '@/common/api.js';
 			calculatePrice (data) {
 				this.planPriceOriginal = this.planInfo.price * data.times;
 				this.planPrice = this.planPriceOriginal * data.rate;
-			} 
+			},
+			// 创建订单
+			createOrder() {
+				uni.showLoading({
+					title: '正在创建订单',
+				});
+				Require.post(API.member.memberPlanVoucher, {
+					apId: this.planId, // 会员方案id
+					dayNum: this.planTimes * 30, // 购买天数
+				}, ({statusCode, data}) => {
+					if(statusCode!=200) return;
+					this.orderDatas = data;
+					this.payOrder(data.id);
+				})
+				uni.hideLoading();
+			},
+			// 获取支付信息并调起支付
+			payOrder(orderId) {
+					uni.showLoading({
+						title: '加载中，请稍后',
+					});
+					Require.post(API.pay.payPrepaId, {
+						orderId, // 会员方案id
+						payAmount: this.planPrice,
+					}, ({statusCode, data}) => {
+						if(statusCode!=200) return;
+						tt.pay({
+							orderInfo: data,
+							service: 5,
+							 success(res) {
+								 console.log('%c [ res ]-140', 'font-size:13px; background:pink; color:#bf2c9f;', res)
+								/**
+								 * 0：支付成功 1：支付超时 2：支付失败 3：支付关闭 4：支付取消 9：订单状态开发者自行获取。
+								 * 只要调起收银台成功，支付都会回调成功，开发者依据返回的 code 值，进行后续业务逻辑处理
+								 */
+								if (res.code == 0) {
+									// 支付成功处理逻辑，只有res.code=0时，才表示支付成功
+									// 但是最终状态要以商户后端结果为准
+								}
+								const title = '';
+								switch(res.code) {
+									case 0:
+										title = '支付成功';
+									case 1:
+										title = '支付超时';
+									case 2:
+										title = '支付失败';
+									case 3:
+										title = '支付关闭';
+									case 4:
+										title = '支付取消';
+								}
+								uni.showToast({
+									title,
+									icon: 'none',
+									duration: 2000
+								});
+							},
+							fail(res) {
+								console.log('%c [ res ]-147', 'font-size:13px; background:pink; color:#bf2c9f;', res)
+								// 调起收银台失败处理逻辑
+								uni.showToast({
+									title: '支付失败',
+									duration: 2000
+								});
+							},
+						});
+					})
+					uni.hideLoading();
+			},
+			// 支付结果查询
+			payResult(orderId) {
+				if (!orderId) return;
+				Require.post(API.pay.payResult, {orderId}, ({statusCode, data}) => {
+					if(statusCode!=200) return;
+					// state 0未支付、1已支付
+					if(data.state == 1) {
+						uni.showToast({
+							title: '已支付',
+							duration: 2000
+						});
+					} else {
+							uni.showToast({
+								title: '未支付',
+								icon: 'none',
+								duration: 2000
+						});
+					}
+				});
+			}
+			
 		}
 	}
 </script>
