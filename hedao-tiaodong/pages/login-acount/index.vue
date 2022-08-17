@@ -62,14 +62,21 @@ import API from '@/common/api.js';
 					}, (res) => {
 						try {
 							console.log('res',res)
-							const data = res.data;
-							uni.setStorageSync('token', data.token);
-							uni.setStorageSync('refreshToken', data.refreshToken);
-							uni.setStorageSync('userInfo', data.userInfo);
-							title = '登录成功';
-							uni.switchTab({
-								url: '../../pages/find/index'
-							})
+                            if(res.statusCode == 200) {
+                                const data = res.data;
+                                uni.setStorageSync('token', data.token);
+                                uni.setStorageSync('refreshToken', data.refreshToken);
+                                uni.setStorageSync('userInfo', data.userInfo);
+                                title = '登录成功';
+                                uni.switchTab({
+                                    url: '../../pages/find/index'
+                                })
+                            } else {
+                                uni.showToast({
+                                    title: res.errors,
+                                    icon: 'none'
+                                })
+                            }
 						} catch (e) {
 							console.log('e',e)
 							// error
