@@ -1,6 +1,6 @@
 <template>
 	<view hover-stop-propagation>
-		<view hover-stop-propagation class="content">
+		<view hover-stop-propagation class="content" v-if="!isOpenShare">
 			<div class="flex align-center justify-between share-wrap">
 				<div class="goBack-btn" @click="goIndex"><img src="/static/yun/imgs/icon_yun_20.png" /></div>
 				<div class="share-btn" @click="openShare"><img src="/static/yun/idolIcon/png_app_01.png" /></div>
