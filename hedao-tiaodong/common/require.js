@@ -29,6 +29,7 @@ const post = (url, data, callback) => {
 						duration: 3000,
 						icon: 'none',
 						complete() {
+							uni.clearStorage();
 							uni.switchTab({
 								url: '../../pages/mine/index'
 							})
@@ -68,6 +69,7 @@ const get = (url, data, callback) => {
 					duration: 3000,
 					icon: 'none',
 					complete() {
+						uni.clearStorage();
 						uni.switchTab({
 							url: '../../pages/mine/index'
 						})
