@@ -1,5 +1,10 @@
+.content {
+  background: #f0f0f0;
+  min-height: 100vh;
+  padding: 40upx;
+}
 .address-box {
-  
+  background: #fff;
 }
 
 .address-box .box-title {

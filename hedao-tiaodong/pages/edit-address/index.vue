@@ -3,6 +3,7 @@
 		<view class="address-box">
 			<view class="box-title">
 				<!-- 图片 -->
+				<image :src="isCheck ? '/static/yun/imgs/icon_yun_938.png' : '/static/yun/imgs/icon_yun_938_2.png'"/>
 				设为默认地址
 			</view>
 			<view class="box-content">
@@ -24,6 +25,8 @@
 </template>
 
 <script>
+import Require from '@/common/require.js';
+import API from '@/common/api.js';
 	export default {
 		components: {
 		},
@@ -34,7 +37,9 @@
 					name: '',
 					phone: '',
 					address: '',
-				}
+				},
+				isCheck: false,
+				addressList: [],
 			}
 		},
 		onShow() {
@@ -50,15 +55,12 @@
 				// TODO
 				this.userInfo = uni.getStorageSync('userInfo');
 			},
-			nameInput(e) {
-				this.addressInfo.name= e.detail.value;
-			},
-			phoneInput(e) {
-				this.addressInfo.phone = e.detail.value;
-			},
-			addressInput(e) {
-				this.addressInfo.address = e.detail.value;
-			},
+			getAddressLists() {
+				Require.get(API.user.addressList, null, ({statusCode, data}) => {
+					if(statusCode!=200) return;
+					this.addressList = data;
+				});
+			}
 		}
 	}
 </script>

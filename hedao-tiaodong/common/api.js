@@ -29,6 +29,8 @@ export default {
         creatorHome: '/user/creator-home/', //   {userId} 获取创作者主页综合信息
         idolconfig: '/user/idol-config/', // 根据创作者ID获取创作者配置
         focus: '/user/focus', // 关注创作者
+        addressList: '/user/user-address-list', // 获取用户地址集合
+        addressEdit: '/user/user-address', // 编辑用户地址
     },
     member: {
         memberList: '/member/member-list', // 会员列表

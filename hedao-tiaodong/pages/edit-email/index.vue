@@ -1,19 +1,10 @@
 <template>
 	<view class="content">
-		<div class="flex align-center register-box">姓名
-            <span class="register-box-txt">
-			    {{userInfo.nickName || '你的昵称'}} >
-            </span>
+		<div class="input-box">
+            <input class="uni-input" focus placeholder="你的收货邮箱" />
         </div>
-		<div class="flex align-center register-box">邮箱
-			<span class="register-box-txt">
-			    {{userInfo.userEmail ||'你的收货邮箱'}} >
-            </span>
-		</div>
-		<div class="flex align-center register-box">地址
-			<span class="register-box-txt">
-			    实物收货地址 >
-            </span>
+		<div class="flex theme-bg-color align-center justify-center button-box">
+			<div type="default" @click="submit">保存设置</div>
 		</div>
 	</view>
 </template>
