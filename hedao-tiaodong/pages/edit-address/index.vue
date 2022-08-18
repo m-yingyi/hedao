@@ -16,11 +16,13 @@
 					<input type="number" placeholder="你的联系方式" @input="phoneInput" />
 				</view>
 				<view class="content-item item-address">
-					<text>详细地址</text>
+					<text>地址</text>
 					<input type="text" placeholder="你的详细地址" @input="addressInput" />
 				</view>
 			</view>
 		</view>
+		<div class="address-gray-btn">添加新地址</div>
+		<div>保存设置</div>
 	</view>
 </template>
 
@@ -60,6 +62,9 @@ import API from '@/common/api.js';
 					if(statusCode!=200) return;
 					this.addressList = data;
 				});
+			},
+			addAddress() {
+
 			}
 		}
 	}

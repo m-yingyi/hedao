@@ -2,17 +2,23 @@
   background: #f0f0f0;
   min-height: 100vh;
   padding: 40upx;
+  font-size: 30upx;
 }
 .address-box {
   background: #fff;
+  padding: 20upx 40upx;
+  border-radius: 16upx;
 }
 
 .address-box .box-title {
-
+  display: inline-flex;
+  padding: 20upx 0;
 }
 
-.box-title img {
-
+.box-title image {
+  width: 36upx;
+  height: 36upx;
+  margin-right: 20upx;
 }
 
 .address-box .box-content {
@@ -20,7 +26,14 @@
 }
 
 .box-content .content-item{
+  display: flex;
+  align-items: center;
+  border-top: 1upx #f0f0f0 solid;
+  padding: 20upx 0;
+}
 
+.box-content .content-item text {
+  margin-right: 20upx;
 }
 
 .item-name {
@@ -33,4 +46,17 @@
 
 .item-address {
   
+}
+
+.address-gray-btn {
+  height: 88upx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #37a2f2;
+  font-size: 32upx;
+  border-radius: 10upx;
+  cursor: pointer;
+  margin-top: 36upx;
 }
