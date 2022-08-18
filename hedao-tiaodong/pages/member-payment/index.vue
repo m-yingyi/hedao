@@ -131,6 +131,7 @@ import API from '@/common/api.js';
 					Require.post(API.pay.payPrepaId, {
 						orderId, // 会员方案id
 						payAmount: this.planPrice,
+						dayNum: this.planTimes * 30,
 					}, ({statusCode, data}) => {
 						if(statusCode!=200) return;
 						tt.pay({
