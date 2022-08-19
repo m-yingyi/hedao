@@ -147,30 +147,35 @@ import API from '@/common/api.js';
 									// 支付成功处理逻辑，只有res.code=0时，才表示支付成功
 									// 但是最终状态要以商户后端结果为准
 								}
-								let title = '';
-								switch(res.code) {
-									case 0:
-										title = '支付成功';
-									case 1:
-										title = '支付超时';
-									case 2:
-										title = '支付失败';
-									case 3:
-										title = '支付关闭';
-									case 4:
-										title = '支付取消';
-								}
-								uni.showToast({
-									title,
-									icon: 'none',
-									duration: 2000
-								});
+								// let title = '';
+								// switch(res.code) {
+								// 	case 0:
+								// 		title = '支付成功～';
+								// 		break;
+								// 	case 1:
+								// 		title = '支付超时～';
+								// 		break;
+								// 	case 2:
+								// 		title = '支付失败～';
+								// 		break;
+								// 	case 3:
+								// 		title = '支付关闭～';
+								// 		break;
+								// 	case 4:
+								// 		title = '支付取消～';
+								// 		break;
+								// }
+								// uni.showToast({
+								// 	title,
+								// 	icon: 'none',
+								// 	duration: 2000
+								// });
 							},
 							fail(res) {
 								console.log('%c [ res ]-147', 'font-size:13px; background:pink; color:#bf2c9f;', res)
 								// 调起收银台失败处理逻辑
 								uni.showToast({
-									title: '支付失败',
+									title: '支付失败～',
 									duration: 2000
 								});
 							},
