@@ -147,7 +147,7 @@ import API from '@/common/api.js';
 									// 支付成功处理逻辑，只有res.code=0时，才表示支付成功
 									// 但是最终状态要以商户后端结果为准
 								}
-								const title = '';
+								let title = '';
 								switch(res.code) {
 									case 0:
 										title = '支付成功';
