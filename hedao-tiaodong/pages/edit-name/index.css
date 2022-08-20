@@ -5,11 +5,20 @@
     flex-flow: column;
 }
 .input-box {
+    padding: 36upx;
     flex: 1;
 }
 .uni-input {
     background: #fff;
+    padding: 30upx;
+    font-size: 28upx;
+    background: #fff;
+    border-radius: 16upx;
 }
 .button-box {
     background-color: #37a2f2;
+    height: 98upx;
+    text-align: center;
+    line-height: 98upx;
+    width: 100%;
 }

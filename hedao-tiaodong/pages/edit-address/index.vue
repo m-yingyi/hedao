@@ -22,7 +22,7 @@
 			</view>
 		</view>
 		<div class="address-gray-btn">添加新地址</div>
-		<div>保存设置</div>
+		<div class="footer-btn">保存设置</div>
 	</view>
 </template>
 
@@ -45,7 +45,8 @@ import API from '@/common/api.js';
 			}
 		},
 		onShow() {
-			this.getUserInfo()
+			this.getUserInfo();
+			this.getAddressLists();
 		},
 		methods: {
 			navigateTo() {
@@ -65,6 +66,14 @@ import API from '@/common/api.js';
 			},
 			addAddress() {
 
+			},
+			editAddress() {
+				Require.put(API.user.addressEdit, {
+
+				}, ({statusCode, data}) => {
+					if(statusCode!=200) return;
+					this.addressList = data;
+				})
 			}
 		}
 	}

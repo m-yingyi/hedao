@@ -2,7 +2,10 @@
   <view class="content">
 		<figure v-for="(item, index) in sourceData" v-key="item.id">
 			<UserItem :name="item.nickName" :img="item.headImg"/>
-			<div class="contentPreViews" v-if="item.imgList.length">
+      <template v-if="item.videoUrl" >
+        <video id="myVideo" :width="item.videoWidth" :height="item.videoHeight" :src="item.videoUrl" :poster="item.imgList[0].originalImg"></video>
+      </template>
+			<div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
 				<image @click="imgPreview(item.imgList, index)" mode="widthFix" class="cont-pre-img"
 					:src="item.imgList[0].originalImg"/>
 				<div class="previewsNum">1/{{item.imgList.length}}</div>
@@ -73,6 +76,9 @@ export default {
   onload() {
     this.handleImgLists();
   },
+  onReady: function (res) {
+		this.videoContext = uni.createVideoContext('myVideo')
+	},
   methods: {
     handleClick() {
       this.$emit('onClick')
@@ -88,13 +94,13 @@ export default {
     },
     handleHeart(isLike, id, createId) {
       // TODO: 请求接口 /api/collection/model
-      const useInfo = uni.getStorageSync('useInfo');
+      const userInfo = uni.getStorageSync('userInfo');
       const titles = ['取消点赞', '点赞成功'];
       Request.post(API.collection.collectionModel, {
         itemId: id,// 作品发布id
         itemType: 2, // 点赞
         businessType: 2, // 动态
-        producerUserId: useInfo.useId,// 用户ID
+        producerUserId: userInfo.userId,// 用户ID
         createId, // 非评论点赞需提供创作者ID
       }, (res) => {
         const isSuccess = res.statusCode == 200

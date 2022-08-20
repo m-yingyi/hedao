@@ -1,4 +1,5 @@
-const baseUrl = 'https://api.hedaoapp.com/api';
+const baseUrl = 'https://testapi.hedaoapp.com/api';
+// const baseUrl = 'https://api.hedaoapp.com/api';
 
 export default {
     BASEURI: baseUrl,
@@ -31,6 +32,7 @@ export default {
         focus: '/user/focus', // 关注创作者
         addressList: '/user/user-address-list', // 获取用户地址集合
         addressEdit: '/user/user-address', // 编辑用户地址
+        userInfo: '/user/user-info', // 编辑用户地址
     },
     member: {
         memberList: '/member/member-list', // 会员列表

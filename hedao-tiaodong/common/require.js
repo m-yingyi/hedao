@@ -47,6 +47,47 @@ const post = (url, data, callback) => {
 	})
 
 }
+const put = (url, data, callback) => {
+	let token = uni.getStorageSync('token') || '';
+	uni.request({
+		url: baseUrl + url,
+		data,
+		header: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			'Authorization': tokenHead + token,
+			// 'Content-Type': 'application/x-www-form-urlencoded', //自定义请求头信息
+		},
+		method: 'PUT',
+		success: (res) => {
+			console.log(res)
+			if (res.statusCode == 200) {
+				callback(res.data);
+			} else {
+				if (res.statusCode == 401) {
+					uni.showToast({
+						title: '请登录',
+						duration: 3000,
+						icon: 'none',
+						complete() {
+							uni.clearStorage();
+							uni.switchTab({
+								url: '../../pages/mine/index'
+							})
+						}
+					});
+					
+					return;
+				}
+			}
+
+		},
+		fail:(err)=>{
+			
+		}
+	})
+
+}
 
 const get = (url, data, callback) => {
 	uni.showLoading({
@@ -101,5 +142,6 @@ const get = (url, data, callback) => {
 export default {
 	get,
 	post,
+	put,
 }
 

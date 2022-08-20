@@ -60,3 +60,14 @@
   cursor: pointer;
   margin-top: 36upx;
 }
+
+.footer-btn {
+  position: fixed;
+  bottom: 0;
+  padding: 30upx 0;
+  background: #37a2f2;
+  color: #fff;
+  right: 0;
+  left: 0;
+  text-align: center;
+}
