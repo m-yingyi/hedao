@@ -3,15 +3,17 @@
   min-height: 100vh;
   padding: 40upx;
   font-size: 30upx;
+  padding-bottom: 200upx;
 }
 .address-box {
   background: #fff;
   padding: 20upx 40upx;
   border-radius: 16upx;
+  margin-bottom: 36upx;
 }
 
 .address-box .box-title {
-  display: inline-flex;
+  display: flex;
   padding: 20upx 0;
 }
 
@@ -19,6 +21,13 @@
   width: 36upx;
   height: 36upx;
   margin-right: 20upx;
+}
+
+.box-title .del-btn {
+  color: #cdcdcd;
+}
+.box-title .decs {
+  flex: 1;
 }
 
 .address-box .box-content {
@@ -58,7 +67,6 @@
   font-size: 32upx;
   border-radius: 10upx;
   cursor: pointer;
-  margin-top: 36upx;
 }
 
 .footer-btn {
@@ -70,4 +78,5 @@
   right: 0;
   left: 0;
   text-align: center;
+  z-index: 1000;
 }
