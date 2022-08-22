@@ -10,15 +10,15 @@
 			<view class="box-content">
 				<view class="content-item item-name">
 					<text>收货姓名</text>
-					<input type="text" placeholder="你的收货姓名" @input="(e) => {nameInput(e, index)}" />
+					<input type="text" placeholder="你的收货姓名" :value="item.linkName" @input="(e) => {nameInput(e, index)}" />
 				</view>
 				<view class="content-item item-phone">
 					<text>联系方式</text>
-					<input type="number" placeholder="你的联系方式" @input="(e) => {phoneInput(e, index)}" />
+					<input type="number" placeholder="你的联系方式" :value="item.linkPhone" @input="(e) => {phoneInput(e, index)}" />
 				</view>
 				<view class="content-item item-address">
 					<text>地址</text>
-					<input type="text" placeholder="你的详细地址" @input="(e) => {addressInput(e, index)}" />
+					<input type="text" placeholder="你的详细地址" :value="item.linkAddress" @input="(e) => {addressInput(e, index)}" />
 				</view>
 			</view>
 		</view>
@@ -45,13 +45,11 @@ import API from '@/common/api.js';
 				},
 				addAddressLists: [],
 				isCheck: false,
-				addressList: [],
 			}
 		},
 		onShow() {
 			this.getUserInfo();
 			this.getAddressLists();
-			this.add();
 		},
 		methods: {
 			navigateTo() {
@@ -60,19 +58,26 @@ import API from '@/common/api.js';
 				})
 			},
 			add() {
-				this.$set(this.addAddressLists, this.addAddressLists.length, {
+				// this.$set(this.addAddressLists, this.addAddressLists.length, {
+				// 	...this.addressCreateInfo,
+				// 	userId: this.userInfo.userId,
+				// });
+				const addInfo = {
 					...this.addressCreateInfo,
 					userId: this.userInfo.userId,
-				});
+				}
+				this.addAddressLists = [addInfo, ...this.addAddressLists];
 			},
 			getUserInfo() {
 				// TODO
 				this.userInfo = uni.getStorageSync('userInfo');
 			},
 			getAddressLists() {
+				this.addAddressLists.length = 0;
+				this.add();
 				Require.get(API.user.addressList, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
-					this.addressList = data;
+					this.addAddressLists = [...this.addAddressLists, ...data];
 				});
 			},
 			addAddress() {
@@ -80,8 +85,17 @@ import API from '@/common/api.js';
 				this.editAddress();
 			},
 			editAddress() {
-				Require.put(API.user.addressEdit, this.addAddressLists, ({statusCode, data}) => {
+				// 过滤都为空的数据
+				const addressList = this.addAddressLists.filter(v => v.linkName || v.linkAddress || v.linkPhone);
+				Require.put(API.user.addressEdit, addressList, ({statusCode, data}) => {
 					if(statusCode!=200) return;
+						uni.showToast({
+							title: '保存成功',
+							duration: 1500,
+						});
+					setTimeout(() => {
+						data && this.getAddressLists();
+					}, 1500);
 				})
 			},
 			delAddress(index) {
