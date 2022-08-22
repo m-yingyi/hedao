@@ -16,12 +16,12 @@
 					<!-- <image src="/static/yun/idolIcon/png_rz.png"/> -->
 				</div>
 				<div class="user-age-box">
-					<div class="user" style="margin-top: 0;">{{coreInfo.nickName}}</div>
+					<div class="user" style="margin-top: 0;">{{coreInfo.nickName || 'xxx'}}</div>
 					<div class="userFlag"><img src="/static/yun/idolIcon/png_rz.png"><span>{{coreInfo.recomIntor}}</span></div>
 					<div class="new-user">
 						<div class="user-age">
 							<img :src="`/static/yun/imgs/icon_age${coreInfo.gender}.png`"
-								style="width:16upx;height: 16upx;margin-right: 6upx">{{coreInfo.age}}岁
+								style="width:16upx;height: 16upx;margin-right: 6upx">{{coreInfo.age || 0}}岁
 						</div>
 						<a id="btn_wb">
 							<img src="/static/yun/imgs/png_weibo.png"
@@ -30,11 +30,11 @@
 					</div>
 				</div>
 				<div class="user-info">
-					<div class="us-txt" id="us-remark" style="color: #333333"><span>{{coreInfo.introduction}}</span><span></span></div>
+					<div class="us-txt" id="us-remark" style="color: #333333"><span>{{coreInfo.introduction || ''}}</span><span></span></div>
 				</div>
 			</figure>
 			<div class="member-link">
-				<div v-if="!coreInfo.isFocus" style="flex: 1;" class="FollowIdol" data-isfollow="0" data-href="/yun/openmember?wid=1" @click="this.focusHandle(coreInfo.createId)">
+				<div v-if="!coreInfo.isFocus" style="flex: 1;" class="FollowIdol" data-isfollow="0" data-href="/yun/openmember?wid=1" @click="focusHandle(coreInfo.creatorId)">
 					关注
 				</div>
 				<template v-else>
@@ -125,13 +125,13 @@
 					<div class="core-index-title">目标</div>
 					<div class="core-index-target" v-for="item in targetDatas">
 						<div class="core-index-txt-block">
-							<span><span class="txt-block-blue">8</span>/5人</span>
-							<div class="core-index-right-absolute txt-block-blue font-bold">已达成</div>
+							<span><span class="txt-block-blue">{{item.part}}</span>/{{item.complete}}{{item.amount?'元':'人'}}</span>
+							<div class="core-index-right-absolute txt-block-blue font-bold">{{item.completeTarget ? '已达成' : ''}}</div>
 						</div>
 						<div class="core-index-line10">
-							<div class="line10-blue" style="width: 100%;"></div>
+							<div class="line10-blue" :style="`width: ${tem.part/item.complete}%;`"></div>
 						</div>
-						<div class="core-index-txt-font24">{{item.introduct}}</div>
+						<div class="core-index-txt-font24">{{item.introduce}}</div>
 					</div>
 					<!-- <div class="core-index-target">
 						<div class="core-index-txt-block">
@@ -192,13 +192,13 @@
 		</view>
 		<view hover-stop-propagation class="cover-view" v-if="isOpenShare">
 			<div class="cover-view-content">
-				<scroll-view :class="isShareTiktok ? 'tiktok model-wrap' : 'show-share model-wrap'">
+				<scroll-view class="tiktok model-wrap">
 					<div class="model-title">
 						<span>分享至</span>
 						<img class="model-close-btn" src="/static/yun/imgs1/png_yun_602.png" @click="closeShare"/>
 					</div>
 					<div class="model-content">
-						<div class="content-item" @click="shareTiktok">
+						<div class="content-item">
 							<img class="model-douyin-btn" src="/static/yun/icons/icon_xcx_06.png"/>
 							<span>抖音粉丝</span>
 						</div>
@@ -211,10 +211,11 @@
 							<span>二维码</span>
 						</div>
 					</div>
-					<div class="share-tiktok" v-if="isShareTiktok">
+					<div class="share-tiktok">
 						<div class="share-way-one">
 							<p>【方法一】</p>
 							<p>1.截屏并保存你的主页二维码，抖音扫一扫二维码发布短视频即可</p>
+							<span><img class="way-one-img1" :src="coreInfo.qCodeUrl"/></span>
 						</div>
 						<div class="share-way-two">
 							<p>【方法二】</p>
@@ -279,7 +280,6 @@ import API from '@/common/api.js';
 				},
 				isNoMoreTrend: false, // 动态列表是否到底了
 				worksLists: [],
-				isShareTiktok: false,
 				isOpenShare: false,
 				targetDatas: [], // 目标
 				aboutTip: '', // 关于
@@ -367,7 +367,7 @@ import API from '@/common/api.js';
 				// 接口请求
 				Request.get(API.user.creatorHome + this.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
-					this.targetDatas = data.creatorTargetDatas;
+					this.targetHandle(data.creatorTargetDatas);
 					this.aboutTip = data.toppingAbout;
 					this.memberAllList = data.memberPlanDatas;
 					this.handleMemberLists()
@@ -380,6 +380,17 @@ import API from '@/common/api.js';
 					this.pageProps = this.$options.data().pageProps;
 					this.getTrendLists();
 					this.getCoreWorksLists();
+				})
+			},
+			// 处理目标数据
+			targetHandle(data) {
+				this.targetDatas = data.filter(v => v.isShow).map(v => {
+					return {
+						...v,
+						// 完成部分
+						part: v.amount || v.num,
+						complete: v.completeAmount || v.completeNum,
+					}
 				})
 			},
 			// 获取创作者配置
@@ -436,7 +447,6 @@ import API from '@/common/api.js';
 			 * 关注创作者
 			 */
 			focusHandle(createId) {
-                console.log("🚀 ~ file: index.vue ~ line 355 ~ focusHandle ~ createId", createId)
 				Request.post(API.user.focus, {createId}, ({data, statusCode, errors}) => {
 					if (statusCode == 200) {
 						uni.showToast({
@@ -459,12 +469,8 @@ import API from '@/common/api.js';
 			openShare() {
 				this.isOpenShare = true;
 			},
-			shareTiktok() {
-				this.isShareTiktok = true;
-			},
 			closeShare() {
 				this.isOpenShare = false;
-				this.isShareTiktok = false;
 			}
 		}
 	}
