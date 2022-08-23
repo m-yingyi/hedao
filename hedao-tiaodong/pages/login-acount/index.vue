@@ -2,7 +2,6 @@
 	<view class="content">
 		<div class="flex align-center register-box">账号<span class="register-box-txt">
 			 <input
-				type="number"
 				placeholder="输入账号"
 				@input="accountInput"
 				maxlength="11"
@@ -53,8 +52,6 @@ import API from '@/common/api.js';
 				let title = null;
 				if (!this.password || !this.account) {
 					title = '请输入信息';
-				} else if (this.account.length< 11) {
-					title = '手机号小于11位'
 				} else {
 					Require.post(API.auth.login, {
 						account: this.account,
