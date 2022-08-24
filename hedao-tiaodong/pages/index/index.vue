@@ -1,7 +1,7 @@
 <template>
 	<view :class="isLogin ? 'content': 'content-noLogin'">
 		<template v-if="isLogin">
-			<TrendItem :source-data="trendLists" @onRefash="() => {getTrendInfo(true)}"/>
+			<TrendItem :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}" @onscrollRefash="scrollPage"/>
 		</template>
 		<view class="noLogin" v-if="!isLogin">
 			<view>
@@ -33,7 +33,8 @@ import API from '@/common/api.js';
 				pageProps: {
 					pageIndex: 1,
 					pageSize: 6,
-				}
+				},
+				isBottom: false,
 			}
 		},
 		onShow() {
@@ -58,14 +59,18 @@ import API from '@/common/api.js';
 					...this.pageProps,
 				}
 				Request.get(API.works.trendsPage, params, ({data}) => {
-					if(data?.items) {
+					if(data?.items?.length) {
 						this.trendLists = [...this.trendLists, ...data.items];
+						this.isBottom = false
+					} else {
+						this.isBottom = true
 					}
 					console.log(this.trendLists)
 				})
 			},
 			// 下拉分页 TODO: 暂未实现
 			scrollPage() {
+				if (this.isBottom) return;
 				this.pageProps.pageIndex += 1;
 				this.getTrendInfo()
 			}
