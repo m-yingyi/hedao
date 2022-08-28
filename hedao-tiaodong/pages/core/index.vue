@@ -360,8 +360,8 @@ import API from '@/common/api.js';
 					return {
 						...v,
 						// 完成部分
-						part: v.amount || v.num,
-						complete: v.completeAmount || v.completeNum,
+						part: (v.amount/100) || v.num,
+						complete: (v.completeAmount/100) || v.completeNum,
 					}
 				})
 			},
