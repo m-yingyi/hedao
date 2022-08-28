@@ -153,18 +153,6 @@
 					<div class="core-index-title" style="padding-left: 36upx;">动态</div>
 					<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 				</div>
-				<div class="core-index-box" id="CoreGoods"
-					style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
-					<div class="core-index-title" style="padding-left: 36upx;">商店</div>
-					<GoodsLists :lists="worksLists" />
-					<div class="left-right-padding36">
-						<a class="core-index-gray-btn" id="coreMoreGoods" @click="goStoreTab()">查看全部</a>
-					</div>
-				</div>
-				<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;">
-					<div class="core-index-title" style="padding-left: 36upx;">动态</div>
-					<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
-				</div>
 			</div>
 			<div class="core-index-container bg-white" v-if="currentItem === 1">
 				<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
