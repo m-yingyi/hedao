@@ -1,23 +1,118 @@
-.content {
+page {
+	background-color: #f0f0f0;
 	width: 100%;
-	padding: 0 88upx;
+	padding: 36upx;
 	box-sizing: border-box;
-	font-size: 32upx;
 }
-.register-box {
-	width: 100%;
-	height: 108upx;
-	border-bottom: 1upx solid #f0f0f0;
-    display: inline-flex;
+.project-wrap {
+    background-color: white;
+	border-radius: 30upx;
 }
-.register-box-txt {
-	padding-left: 40upx;
+.addr-wrap {
+	border-top-left-radius: 30upx;
+	border-top-right-radius: 30upx;
+    height: 88upx;
+    display: flex;
+    align-items: center;
+    padding: 0 36upx;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: white;
+    position: relative;
+    font-size: 32upx;
+}
+.addr-wrap .iconred {
+    background: url(/static/yun/imgs1.4/icon_yun_999_2.png) no-repeat center;
+    background-size: 100% 100%;
+}
+.addr-wrap .icongray {
+    background: url(/static/yun/imgs1.4/icon_yun_999.png) no-repeat center;
+    background-size: 100% 100%;
+}
+
+.addr-wrap .iconbox {
+    display: block;
+    width: 36upx;
+    height: 36upx;
+    margin-right: 20upx;
+}
+.delete-item {
+    color: #999999;
+    width: 100upx;
+    height: 88upx;
+    line-height: 88upx;
+    cursor: pointer;
     text-align: right;
-    color: #c3c3c3;
     flex: 1;
 }
-.register-item {
-	height: 88upx;
-	width: 100%;
-	border-bottom: 1upx solid #f0f0f0;
+.inputBox {
+    justify-content: space-between;
+    height: 88upx;
+    align-items: center;
+}
+.inputBox {
+    width: 100%;
+    position: relative;
+    font-size: 32upx;
+    padding: 0 36upx;
+    box-sizing: border-box;
+    display: flex;
+    line-height: 32upx;
+    cursor: pointer;
+    background-color: white;
+}
+.wd-box {
+    border-bottom: 1upx solid #f0f0f0;
+}
+.inputBox .i-text {
+    width: calc(100% - 150upx);
+    border: none;
+    height: 62upx;
+    margin-top: 2upx;
+}
+.text-content {
+    width: calc(100% - 100upx);
+    height: 200upx;
+    font-size: 32upx;
+    color: #333;
+    border: none;
+}
+._addr_box {
+    width: 100%;
+    position: relative;
+    font-size: 32upx;
+    padding: 24upx 0 24upx 36upx;
+    box-sizing: border-box;
+    display: flex;
+    line-height: 32upx;
+    background-color: white;
+    margin-bottom: 88upx;
+    justify-content: space-between;
+	border-bottom-left-radius: 30upx;
+	border-bottom-right-radius: 30upx;
+}
+.add-addr {
+    height: 88upx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #37a2f2;
+    font-size: 28upx;
+    background-color: white;
+    margin-bottom: 188upx;
+	border-radius: 30upx;
+}
+.btnSave {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+	left: 0;
+    height: 98upx;
+    line-height: 98upx;
+    text-align: center;
+    color: white;
+    background-color: #37a2f2;
+    font-size: 32upx;
+    cursor: pointer;
+    border: none;
 }
