@@ -9,7 +9,8 @@
         <div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
           <image @click="imgPreview(item.imgList, index)" mode="widthFix" class="cont-pre-img"
             :src="item.imgList[0].originalImg"/>
-          <div class="previewsNum">1/{{item.imgList.length}}</div>
+          <div class="previewsNum" v-if="item.imgList.length <= 9">1/{{item.imgList.length}}</div>
+          <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>多图</div>
         </div>
         <div class="photoBox contentUserWrap justify-between">
           <div class="contentFootImg">
@@ -242,5 +243,10 @@ figure .photoBox {
 }
 .cont-pre-img {
     width: 100%;
+}
+.more-imgs-txt{
+  margin-right: 2upx;
+  width: 16upx;
+  height:20upx;
 }
 </style>
