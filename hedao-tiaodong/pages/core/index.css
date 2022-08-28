@@ -1,5 +1,11 @@
 .contain {
 	width: 100%;
+    position: relative;
+}
+.content-hide {
+    overflow: hidden;
+    height: 100vh;
+
 }
 figure {
     position: relative;
@@ -508,7 +514,7 @@ figure .user-info {
     width: 100vw;
     height: 100vh;
     background: rgba(0,0,0,.7);
-    position: relative;
+    position: absolute;
     top: 0;
     /* bottom: 0; */
     right: 0;

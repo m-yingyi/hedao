@@ -1,12 +1,12 @@
 <template>
 	<view class="content">
-		<div class="flex align-center register-box">账号<span class="register-box-txt">
+		<div class="flex align-center register-box">账号<div class="register-box-txt">
 			 <input
+			 	type="text"
 				placeholder="输入账号"
 				@input="accountInput"
-				maxlength="11"
 				/>
-		</span></div>
+		</div></div>
 		<div class="flex align-center register-item">
 			<input
 				type="number"
@@ -53,6 +53,9 @@ import API from '@/common/api.js';
 				if (!this.password || !this.account) {
 					title = '请输入信息';
 				} else {
+					uni.showLoading({
+						title: '加载中，请稍后',
+					});
 					Require.post(API.auth.login, {
 						account: this.account,
 						password: this.password,
@@ -78,6 +81,7 @@ import API from '@/common/api.js';
 							console.log('e',e)
 							// error
 						}
+						uni.hideLoading();
 					})
 				}
 				if (title) {
