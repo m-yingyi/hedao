@@ -1,6 +1,6 @@
 <template>
-	<view hover-stop-propagation>
-		<view hover-stop-propagation class="content" v-if="!isOpenShare">
+	<view hover-stop-propagation class="contain">
+		<view hover-stop-propagation :class="isOpenShare ? 'content-hide' : 'content'">
 			<div class="flex align-center justify-between share-wrap">
 				<div class="goBack-btn" @click="goIndex"><img src="/static/yun/imgs/icon_yun_20.png" /></div>
 				<div class="share-btn" @click="openShare"><img src="/static/yun/idolIcon/png_app_01.png" /></div>
@@ -17,24 +17,17 @@
 				</div>
 				<div class="user-age-box">
 					<div class="user" style="margin-top: 0;">{{coreInfo.nickName || 'xxx'}}</div>
-					<div class="userFlag"><img src="/static/yun/idolIcon/png_rz.png"><span>{{coreInfo.recomIntor}}</span></div>
+					<div class="userFlag" v-if="coreInfo.recomIntor"><img src="/static/yun/idolIcon/png_rz.png"><span>{{coreInfo.recomIntor}}</span></div>
 				</div>
 				<div class="user-info">
 					<div class="us-txt" id="us-remark" style="color: #333333"><span>{{coreInfo.introduction || ''}}</span><span></span></div>
 				</div>
 			</figure>
 			<div class="member-link">
-				<div v-if="!coreInfo.isFocus" style="flex: 1;" class="FollowIdol" data-isfollow="0" data-href="/yun/openmember?wid=1" @click="focusHandle(coreInfo.creatorId)">
-					关注
+				<div style="flex: 1;" class="FollowIdol" data-isfollow="0" data-href="/yun/openmember?wid=1" @click="focusHandle(coreInfo.creatorId)">
+					<span v-if="!coreInfo.isFocus">关注</span>
+					<span v-else>已关注</span>
 				</div>
-				<template v-else>
-					<div style="flex: 1;" class="FollowIdol" data-isfollow="0" data-href="/yun/openmember?wid=1">
-						会员
-					</div>
-					<div style="width: 78upx;margin-left: 20upx;" class="btn-pop-bottom">
-						<img src="/static/yun/imgs1.5/png_1.5_33.png" style="width: 16upx;height: 11upx;">
-					</div>
-				</template>
 			</div>
 			<div class="photoBox contentUserWrap"
 				style="border-top: 0;border-bottom: 1upx solid #f0f0f0;margin-top: 10upx;margin-bottom:0;">
@@ -104,7 +97,7 @@
 							</div>
 						</a>
 					</div>
-					<div v-if="memberHideNumber" class="core-index-gray-btn" id="AllMember" @click="this.showHideMemberLists">{{isHidemember ? `查看全部${memberHideNumber}个会员` :'隐藏'}}</div>
+					<div v-if="memberHideNumber" class="core-index-gray-btn" id="AllMember" @click="showHideMemberLists">{{isHidemember ? `查看全部${memberHideNumber}个会员` :'隐藏'}}</div>
 				</div>
 				<div class="core-index-box">
 					<div class="core-index-title">支持</div>
@@ -160,18 +153,6 @@
 					<div class="core-index-title" style="padding-left: 36upx;">动态</div>
 					<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 				</div>
-				<div class="core-index-box" id="CoreGoods"
-					style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
-					<div class="core-index-title" style="padding-left: 36upx;">商店</div>
-					<GoodsLists :lists="worksLists" />
-					<div class="left-right-padding36">
-						<a class="core-index-gray-btn" id="coreMoreGoods" @click="goStoreTab()">查看全部</a>
-					</div>
-				</div>
-				<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;">
-					<div class="core-index-title" style="padding-left: 36upx;">动态</div>
-					<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
-				</div>
 			</div>
 			<div class="core-index-container bg-white" v-if="currentItem === 1">
 				<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
@@ -182,13 +163,13 @@
 		</view>
 		<view hover-stop-propagation class="cover-view" v-if="isOpenShare">
 			<div class="cover-view-content">
-				<scroll-view class="tiktok model-wrap">
+				<scroll-view :class="isShareTiktok ? 'tiktok model-wrap' : 'show-share model-wrap'">
 					<div class="model-title">
 						<span>分享至</span>
 						<img class="model-close-btn" src="/static/yun/imgs1/png_yun_602.png" @click="closeShare"/>
 					</div>
 					<div class="model-content">
-						<div class="content-item">
+						<div class="content-item" @click="shareTiktok">
 							<img class="model-douyin-btn" src="/static/yun/icons/icon_xcx_06.png"/>
 							<span>抖音粉丝</span>
 						</div>
@@ -201,7 +182,7 @@
 							<span>二维码</span>
 						</div>
 					</div>
-					<div class="share-tiktok">
+					<div class="share-tiktok" v-if="isShareTiktok">
 						<div class="share-way-one">
 							<p>【方法一】</p>
 							<p>1.截屏并保存你的主页二维码，抖音扫一扫二维码发布短视频即可</p>
@@ -271,6 +252,7 @@ import API from '@/common/api.js';
 				isNoMoreTrend: false, // 动态列表是否到底了
 				worksLists: [],
 				isOpenShare: false,
+				isShareTiktok: false,
 				targetDatas: [], // 目标
 				aboutTip: '', // 关于
 			}
@@ -440,7 +422,7 @@ import API from '@/common/api.js';
 				Request.post(API.user.focus, {createId}, ({data, statusCode, errors}) => {
 					if (statusCode == 200) {
 						uni.showToast({
-							title: '关注成功',
+							title: data.state ? '取消关注' :'关注成功',
 							duration: 3000,
 						});
 						setTimeout(() => {
@@ -458,6 +440,9 @@ import API from '@/common/api.js';
 			/** 分享 */
 			openShare() {
 				this.isOpenShare = true;
+			},
+			shareTiktok() {
+				this.isShareTiktok = !this.isShareTiktok;
 			},
 			closeShare() {
 				this.isOpenShare = false;

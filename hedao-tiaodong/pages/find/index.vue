@@ -1,20 +1,23 @@
 <template>
 	<view class="content">
-		<image class="find-balance" src="/static/yun/images/icon_xcx_05.jpg" mode="widthFix" />
+		<div @click="goframerOriginator()">
+			<image class="find-balance" src="/static/yun/images/icon_xcx_05.jpg" mode="widthFix" />
+		</div>
 		<div class="find-tab">
 			<!-- <div class="find-tab-check">全部</div>
 			<div>推荐</div> -->
-			<div v-for="(item, index) in findType" v-key="item.id" :class="currentTab === index? 'find-tab-check':''" @click="this.findTypeClick(index, item)">
+			<div v-for="(item, index) in findType" v-key="item.id" :class="currentTab === index? 'find-tab-check':''" @click="findTypeClick(index, item)">
 				{{item.title}}
 			</div>
 		</div>
 		<div v-for="item in findList" v-key="item.id">
 			<div class="find-user">
-				<UserItem @click="this.navigateTo()" :name="item.nickName" fansCount="9460" :img="item.headImg" />
+				<UserItem @click="navigateTo()" :name="item.nickName" fansCount="9460" :img="item.headImg" />
+				<div class="fans-number">{{item.buyUserCount}}粉丝团</div>
 			</div>
 			<div class="list">
 				<ul>
-					<li  v-for="cItem in item.findBindList" v-key="cItem.id" @click="this.navigateTo(item.userId)"> 
+					<li  v-for="cItem in item.findBindList" v-key="cItem.id" @click="navigateTo(item.userId)"> 
 					<a class="temp-link"> 
 						<image mode="widthFix" 
 								:src="cItem.imgUrl"
@@ -52,17 +55,23 @@ import API from '@/common/api.js';
 					pageIndex: 1,
 					pageSize: 6,
 				},
+				advertisementList: []
 			}
 		},
 		onShow() {
 			console.log(uni.getStorageSync('token'))
 			this.getFindType();
+			this.getAdvertisementList();
 		},
 		methods: {
 			navigateTo(userId) {
-                console.log("🚀 ~ file: index.vue ~ line 63 ~ navigateTo ~ userId", userId)
 				uni.navigateTo({
 					url: `../../pages/core/index?userId=${userId}`
+				})
+			},
+			goframerOriginator() {
+				uni.navigateTo({
+					url: `../../pages/framer-originator/index?type=ad`,
 				})
 			},
 			getFindPage(findTypeId) {
@@ -98,6 +107,16 @@ import API from '@/common/api.js';
 			findTypeClick(index, item) {
 				this.currentTab= index
 				this.getFindPage(item.id);
+			},
+			// TODO: 未对接
+			getAdvertisementList() {
+				const params = {
+					AdType: 2, // 发现页顶部
+				}
+				Request.get(API.advertisement.advertisementList, params, ({data}) => {
+					this.advertisementList = data || []
+					console.log("🚀 ~ file: index.vue ~ line 61 ~ Request.get ~ data", data)
+				})
 			}
 		}
 	}
