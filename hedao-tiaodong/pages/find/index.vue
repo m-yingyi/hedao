@@ -55,11 +55,13 @@ import API from '@/common/api.js';
 					pageIndex: 1,
 					pageSize: 6,
 				},
+				advertisementList: []
 			}
 		},
 		onShow() {
 			console.log(uni.getStorageSync('token'))
 			this.getFindType();
+			this.getAdvertisementList();
 		},
 		methods: {
 			navigateTo(userId) {
@@ -69,7 +71,7 @@ import API from '@/common/api.js';
 			},
 			goframerOriginator() {
 				uni.navigateTo({
-					url: '../../pages/framer-originator/index',
+					url: `../../pages/framer-originator/index?type=ad`,
 				})
 			},
 			getFindPage(findTypeId) {
@@ -105,6 +107,16 @@ import API from '@/common/api.js';
 			findTypeClick(index, item) {
 				this.currentTab= index
 				this.getFindPage(item.id);
+			},
+			// TODO: 未对接
+			getAdvertisementList() {
+				const params = {
+					AdType: 2, // 发现页顶部
+				}
+				Request.get(API.advertisement.advertisementList, params, ({data}) => {
+					this.advertisementList = data || []
+					console.log("🚀 ~ file: index.vue ~ line 61 ~ Request.get ~ data", data)
+				})
 			}
 		}
 	}

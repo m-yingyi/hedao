@@ -4,7 +4,7 @@ const baseUrl = 'https://testapi.hedaoapp.com/api';
 export default {
     BASEURI: baseUrl,
 	advertisement: {
-
+        advertisementList: '/advertisement/advertisement-list',
     },
     auth: {
         register: '/auth/register',
