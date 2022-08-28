@@ -17,7 +17,7 @@
 				</div>
 				<div class="user-age-box">
 					<div class="user" style="margin-top: 0;">{{coreInfo.nickName || 'xxx'}}</div>
-					<div class="userFlag"><img src="/static/yun/idolIcon/png_rz.png"><span>{{coreInfo.recomIntor}}</span></div>
+					<div class="userFlag" v-if="coreInfo.recomIntor"><img src="/static/yun/idolIcon/png_rz.png"><span>{{coreInfo.recomIntor}}</span></div>
 				</div>
 				<div class="user-info">
 					<div class="us-txt" id="us-remark" style="color: #333333"><span>{{coreInfo.introduction || ''}}</span><span></span></div>
