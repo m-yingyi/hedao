@@ -18,16 +18,6 @@
 				<div class="user-age-box">
 					<div class="user" style="margin-top: 0;">{{coreInfo.nickName || 'xxx'}}</div>
 					<div class="userFlag"><img src="/static/yun/idolIcon/png_rz.png"><span>{{coreInfo.recomIntor}}</span></div>
-					<div class="new-user">
-						<div class="user-age">
-							<img :src="`/static/yun/imgs/icon_age${coreInfo.gender}.png`"
-								style="width:16upx;height: 16upx;margin-right: 6upx">{{coreInfo.age || 0}}岁
-						</div>
-						<a id="btn_wb">
-							<img src="/static/yun/imgs/png_weibo.png"
-								style="width:23upx;height: 18upx;margin-right: 6upx">微博
-						</a>
-					</div>
 				</div>
 				<div class="user-info">
 					<div class="us-txt" id="us-remark" style="color: #333333"><span>{{coreInfo.introduction || ''}}</span><span></span></div>
@@ -70,11 +60,11 @@
 				</div>
 			</div>
 			<div class="core-index-container" v-if="currentItem === 0">
-				<div class="core-index-box">
+				<div class="core-index-box" v-if="aboutTip">
 					<div class="core-index-title">关于</div>
 					<p id="core-index-desc"><pre>{{aboutTip}}</pre></p>
 				</div>
-				<div class="core-index-box" style="padding-bottom: 12upx;">
+				<div class="core-index-box" v-if="memberList.length" style="padding-bottom: 12upx;">
 					<div class="core-index-title">会员</div>
 	
 					<div class="member-card">
@@ -129,7 +119,7 @@
 							<div class="core-index-right-absolute txt-block-blue font-bold">{{item.completeTarget ? '已达成' : ''}}</div>
 						</div>
 						<div class="core-index-line10">
-							<div class="line10-blue" :style="`width: ${tem.part/item.complete}%;`"></div>
+							<div class="line10-blue" :style="'width:' + item.part/item.complete + '%'"></div>
 						</div>
 						<div class="core-index-txt-font24">{{item.introduce}}</div>
 					</div>
