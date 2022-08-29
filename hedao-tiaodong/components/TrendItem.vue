@@ -294,21 +294,21 @@ figure .photoBox {
 }
 
 .filter-lock {
-  width: 30upx;
-  height: 36upx;
+  width: 36upx;
+  height: 47upx;
 }
 
 .filter-txt {
-  margin: 36upx 0;
+  margin: 40upx 0;
 }
 
 .filter-btn {
-  width: 200upx;
-  height: 50upx;
+  width: 190upx;
+  height: 66upx;
   border: 1upx solid rgba(255, 255, 255, .2);
-  border-radius: 30upx;
+  border-radius: 36upx;
   text-align: center;
-  line-height: 50upx;
+  line-height: 66upx;
   cursor: pointer;
 }
 
