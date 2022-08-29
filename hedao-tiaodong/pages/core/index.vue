@@ -173,7 +173,7 @@
 							<img class="model-douyin-btn" src="/static/yun/icons/icon_xcx_06.png"/>
 							<span>抖音粉丝</span>
 						</div>
-						<div class="content-item">
+						<div class="content-item" @click="copy()">
 							<img class="model-link-btn" src="/static/yun/icons/icon_xcx_07.png"/>
 							<span>复制链接</span>
 						</div>
@@ -446,6 +446,14 @@ import API from '@/common/api.js';
 			},
 			closeShare() {
 				this.isOpenShare = false;
+			},
+			copy() {
+				uni.setClipboardData({
+					data: this.coreInfo.creatorCoreLink,
+					success: function () {
+						console.log('success');
+					}
+				});
 			}
 		}
 	}
