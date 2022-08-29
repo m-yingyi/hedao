@@ -1,30 +1,47 @@
 <template>
-	<view class="content">
-		<view class="address-box" v-for="(item, index) in addAddressLists" :key="index">
-			<view class="box-title">
-				<!-- 图片 -->
-				<image @click="clickDefault(index)" :src="item.isDefault ? '/static/yun/imgs/icon_yun_938.png' : '/static/yun/imgs/icon_yun_938_2.png'"/>
-				<span class="decs">设为默认地址</span>
-				<span v-if="index" @click="delAddress(index)" class="del-btn">删除</span>
-			</view>
-			<view class="box-content">
-				<view class="content-item item-name">
-					<text>收货姓名</text>
-					<input type="text" placeholder="你的收货姓名" :value="item.linkName" @input="(e) => {nameInput(e, index)}" />
-				</view>
-				<view class="content-item item-phone">
-					<text>联系方式</text>
-					<input type="number" placeholder="你的联系方式" :value="item.linkPhone" @input="(e) => {phoneInput(e, index)}" />
-				</view>
-				<view class="content-item item-address">
-					<text>地址</text>
-					<input type="text" placeholder="你的详细地址" :value="item.linkAddress" @input="(e) => {addressInput(e, index)}" />
-				</view>
-			</view>
-		</view>
-		<div class="address-gray-btn" @click="add">添加新地址</div>
-		<div class="footer-btn" @click="addAddress">保存设置</div>
-	</view>
+	  <div id="addr_add_wrap">
+    <div class="project-wrap" v-for="(item, index) in addAddressLists" :key="index">
+      <div class="addr-wrap" id="spec_div_1">
+        <span :class="item.check?'iconbox iconred' : 'iconbox icongray'" id="spec_state_1"></span
+        ><span>设为默认地址</span>
+        <div class="delete-item" @click="delAddress(index)" v-if="addrList.length > 1">删除</div>
+      </div>
+      <div class="inputBox wd-box">
+        <span>收货姓名</span
+        ><input
+          class="i-text"
+          id="spec_name_1"
+          type="text"
+          placeholder="你的收货姓名"
+          maxlength="45"
+					:value="item.linkName"
+					@input="(e) => {nameInput(e, index)}"
+        />
+      </div>
+      <div class="inputBox wd-box">
+        <span>联系方式</span
+        ><input
+          class="i-text"
+          id="spec_phone_1"
+          type="text"
+          placeholder="你的联系电话"
+          maxlength="45"
+					:value="item.linkPhone" @input="(e) => {phoneInput(e, index)}"
+        />
+      </div>
+      <div class="_addr_box">
+        <span>地址</span
+        ><textarea
+          class="text-content"
+          id="spec_address_1"
+          placeholder="你的收货地址"
+		 			:value="item.linkAddress" @input="(e) => {addressInput(e, index)}"
+        ></textarea>
+      </div>
+    </div>
+	<div class="add-addr" @click="add">添加新地址</div>
+	<div class="btnSave" @click="addAddress">保存资料</div>
+  </div>
 </template>
 
 <script>
