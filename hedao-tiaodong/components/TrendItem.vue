@@ -3,15 +3,26 @@
     <scroll-view :style="{height: '100vh'}" :scroll-y="true" @scrolltolower="scrollRefash">
       <figure v-for="(item, index) in sourceData" v-key="item.id">
         <UserItem :name="item.nickName" :img="item.headImg"/>
-        <template v-if="item.videoUrl" >
-          <video id="myVideo" :width="item.videoWidth" :height="item.videoHeight" :src="item.videoUrl" :poster="item.imgList[0].originalImg"></video>
-        </template>
-        <div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
-          <image @click="imgPreview(item.imgList, index)" mode="widthFix" class="cont-pre-img"
-            :src="item.imgList[0].originalImg"/>
-          <div class="previewsNum" v-if="item.imgList.length <= 9">1/{{item.imgList.length}}</div>
-          <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>多图</div>
+         <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
+        <div v-if="item.isLock" class="mask">
+          <image class="mask-img" :src="item.maskImg" />
+          <div class="mask-content">
+            <img class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
+            <p class="filter-txt">会员可解锁 1元/月</p>
+            <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">开通</div>
+          </div>
         </div>
+        <template v-if="!item.isLock">
+          <template v-if="item.videoUrl" >
+            <video id="myVideo" :width="item.videoWidth" :height="item.videoHeight" :src="item.videoUrl" :poster="item.imgList[0].originalImg"></video>
+          </template>
+          <div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
+            <image @click="imgPreview(item.imgList, index)" mode="widthFix" class="cont-pre-img"
+              :src="item.imgList[0].originalImg"/>
+            <div class="previewsNum" v-if="item.imgList.length <= 9">1/{{item.imgList.length}}</div>
+            <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>多图</div>
+          </div>
+        </template>
         <div class="photoBox contentUserWrap justify-between">
           <div class="contentFootImg">
             <img
@@ -249,4 +260,56 @@ figure .photoBox {
   width: 16upx;
   height:20upx;
 }
+
+.mask {
+  /* top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; */
+  color: rgba(255, 255, 255, .7);
+  font-size: 28upx;
+  z-index: 3;
+   width: calc(100% + 54upx);
+  margin-left: -36upx;
+}
+
+
+
+.mask-img {
+  position: relative;
+  width: 100%;
+}
+
+.mask-content {
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ position: relative;
+  position: absolute;
+   top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.filter-lock {
+  width: 30upx;
+  height: 36upx;
+}
+
+.filter-txt {
+  margin: 36upx 0;
+}
+
+.filter-btn {
+  width: 200upx;
+  height: 50upx;
+  border: 1upx solid rgba(255, 255, 255, .2);
+  border-radius: 30upx;
+  text-align: center;
+  line-height: 50upx;
+  cursor: pointer;
+}
+
 </style>
