@@ -6,9 +6,9 @@
          <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
         <div v-if="item.isLock" class="mask">
           <image class="mask-img" :src="item.maskImg" />
-          <div class="mask-content">
+          <div class="mask-content" @click="goPlan(item.levelId)">
             <img class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
-            <p class="filter-txt">会员可解锁 1元/月</p>
+            <p class="filter-txt">{{item.levelTitle}}</p>
             <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">开通</div>
           </div>
         </div>
@@ -143,6 +143,11 @@ export default {
     },
     scrollRefash() {
       this.$emit('onscrollRefash')
+    },
+    goPlan(id) {
+      uni.navigateTo({
+					url: `../../pages/member-payment/index?id=${id}`
+				})
     }
   },
 };
