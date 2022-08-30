@@ -2,9 +2,9 @@
 	  <div id="addr_add_wrap">
     <div class="project-wrap" v-for="(item, index) in addAddressLists" :key="index">
       <div class="addr-wrap" id="spec_div_1">
-        <span :class="item.check?'iconbox iconred' : 'iconbox icongray'" id="spec_state_1"></span
-        ><span>设为默认地址</span>
-        <div class="delete-item" @click="delAddress(index)" v-if="addrList.length > 1">删除</div>
+		<span @click="clickDefault(index)" :class="item.isDefault?'iconbox iconred' : 'iconbox icongray'" id="spec_state_1"></span
+		><span>设为默认地址</span>
+        <div class="delete-item" @click="delAddress(index)" v-if="addAddressLists.length > 1">删除</div>
       </div>
       <div class="inputBox wd-box">
         <span>收货姓名</span
@@ -119,6 +119,7 @@ import API from '@/common/api.js';
 				this.addAddressLists.splice(index, 1);
 			},
 			clickDefault(index) {
+                console.log("🚀 ~ file: index.vue ~ line 124 ~ clickDefault ~ index", index)
 				this.addAddressLists.map((item) => item.isDefault = 0);
 				this.addAddressLists[index].isDefault = 1
 			},
