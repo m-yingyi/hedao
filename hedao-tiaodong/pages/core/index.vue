@@ -258,7 +258,9 @@ import API from '@/common/api.js';
 			}
 		},
 		onLoad(option) {
-            console.log("🚀 ~ file: index.vue ~ line 269 ~ onLoad ~ option", option)
+			if(option.tabNum) {
+				this.changeTab(+option.tabNum)
+			}
 			if(option.userId) {
 				this.userId = option.userId;
 			} else {

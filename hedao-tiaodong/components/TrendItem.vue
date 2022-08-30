@@ -38,7 +38,9 @@
             <div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
           </div>
         </div>
-        <div class="addItem">{{item.publishContent}}</div>
+        <div class="addItem">{{item.nickName + item.publishContent}}
+          <span class="works-name" v-if="item.publishType == 5" @click="goCore(item.userId, 2)">{{item.worksName}}</span>
+        </div>
         <div v-if="isNeedCore" class="supportNum" @click="goCore(item.userId)">前往主页</div>
       </figure>
     </scroll-view>
@@ -134,9 +136,9 @@ export default {
       this.imgLists = trend.imgLists.map(item => item.thumbnail);
       console.log(this.imgLists)
     },
-    goCore(userId) {
+    goCore(userId, tabNum) {
       uni.navigateTo({
-					url: `../../pages/core/index?userId=${userId}`
+					url: `../../pages/core/index?userId=${userId}&tabNum=${tabNum}`
 				})
     },
     scrollRefash() {
@@ -311,5 +313,7 @@ figure .photoBox {
   line-height: 66upx;
   cursor: pointer;
 }
-
+.works-name {
+  color: #37a2f2;
+}
 </style>
