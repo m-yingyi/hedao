@@ -95,6 +95,18 @@
 			"style": {
 				"navigationBarTitleText": "开通会员"
 			}
+		},
+		{
+			"path": "pages/code-show/index",
+			"style": {
+				"navigationBarTitleText": "主页二维码"
+			}
+		},
+		{
+			"path": "pages/trend/index",
+			"style": {
+				"navigationBarTitleText": "动态"
+			}
 		}
 	],
 	"globalStyle": {
