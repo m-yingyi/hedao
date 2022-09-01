@@ -178,7 +178,7 @@
 								<img class="model-link-btn" src="/static/yun/icons/icon_xcx_07.png"/>
 								<span>复制链接</span>
 							</div>
-							<div class="content-item">
+							<div class="content-item" @click="goCode">
 								<img class="model-code-btn" src="/static/yun/icons/icon_xcx_08.png"/>
 								<span>二维码</span>
 							</div>
@@ -422,6 +422,11 @@ import API from '@/common/api.js';
 			goIndex() {
 				uni.switchTab({
 					url: `../../pages/index/index`
+				})
+			},
+			goCode() {
+				uni.navigateTo({
+					url: `../../pages/code-show/index?id=${this.userId}`
 				})
 			},
 			/**
