@@ -2,7 +2,9 @@
   <view class="content">
     <scroll-view :style="{height: '100vh'}" :scroll-y="true" @scrolltolower="scrollRefash">
       <figure v-for="(item, index) in sourceData" v-key="item.id">
-        <UserItem :name="item.nickName" :img="item.headImg"/>
+        <div @click="goCore(item.userId)">
+          <UserItem :name="item.nickName" :img="item.headImg"/>
+        </div>
          <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
         <div v-if="item.isLock" class="mask">
           <image class="mask-img" :src="item.maskImg" />
@@ -44,7 +46,7 @@
           {{item.worksName}}
           </span>
         </div>
-        <div v-if="isNeedCore" class="supportNum" @click="goCore(item.userId)">前往主页</div>
+        <!-- <div v-if="isNeedCore" class="supportNum" @click="goCore(item.userId)">前往主页</div> -->
       </figure>
     </scroll-view>
 		<div v-if="isBottom" class="no-data">没有更多了</div>

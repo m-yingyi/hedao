@@ -42,7 +42,7 @@
 						<span>{{coreInfo.fans}}人加入粉丝团</span>
 					</div>
 					<a class="contentShareWrap" href="/yun/fansTeam?wid=1" style="color: #999">
-						<span style="margin-left: 26upx;">查看排名</span>
+						<span style="margin-left: 26upx;" @click="showRank">查看排名</span>
 						<img src="/static/yun/imgs1.5/png_1.5_34.png">
 					</a>
 				</div>
@@ -480,6 +480,13 @@ import API from '@/common/api.js';
 					return
 				}
 				this.isIdolIdVisit = bool;
+			},
+			showRank() {
+				uni.showToast({
+					title: '粉丝团成员暂不展示',
+					icon: 'none',
+					duration: 3000,
+				})
 			}
 		}
 	}
