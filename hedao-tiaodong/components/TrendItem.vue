@@ -19,10 +19,10 @@
             <video id="myVideo" :width="item.videoWidth" :height="item.videoHeight" :src="item.videoUrl" :poster="item.imgList[0].originalImg"></video>
           </template>
           <div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
-            <image @click="imgPreview(item.imgList, index)" mode="widthFix" class="cont-pre-img"
+            <image @click="imgPreview(item.imgList, index, item.id)" mode="widthFix" class="cont-pre-img"
               :src="item.imgList[0].originalImg"/>
             <div class="previewsNum" v-if="item.imgList.length <= 9">1/{{item.imgList.length}}</div>
-            <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>多图</div>
+            <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>{{item.imgList[0].isLong ? '长图' : '多图' }}</div>
           </div>
         </template>
         <div class="photoBox contentUserWrap justify-between">
@@ -105,13 +105,19 @@ export default {
       this.$emit('onClick')
     },
     // 图片预览
-    imgPreview(data, idx) {
-      const list = data.map(item => item.originalImg)
-      uni.previewImage({
-        current: list[idx],
-        urls: list,
-        indicator: "number",
-      });
+    imgPreview(data, idx, id) {
+      if (data.length > 9 || data[0].isLong) {
+        return uni.navigateTo({
+					url: `../../pages/long-img/index?id=${id}`
+				})
+      } else {
+        const list = data.map(item => item.originalImg)
+        uni.previewImage({
+          current: list[idx],
+          urls: list,
+          indicator: "number",
+        });
+      }     
     },
     handleHeart(isLike, id, createId) {
       // TODO: 请求接口 /api/collection/model
@@ -137,7 +143,6 @@ export default {
       // this.heartIcon = 3
     },
     handleImgLists() {
-      console.group('111')
       this.imgLists = trend.imgLists.map(item => item.thumbnail);
       console.log(this.imgLists)
     },
@@ -150,6 +155,11 @@ export default {
       this.$emit('onscrollRefash')
     },
     goPlan(id) {
+      uni.navigateTo({
+					url: `../../pages/member-payment/index?id=${id}`
+				})
+    },
+    goLongImg(id) {
       uni.navigateTo({
 					url: `../../pages/member-payment/index?id=${id}`
 				})
