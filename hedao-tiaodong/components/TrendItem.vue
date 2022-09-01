@@ -39,7 +39,10 @@
           </div>
         </div>
         <div class="addItem">{{item.nickName + item.publishContent}}
-          <span class="works-name" v-if="item.publishType == 5" @click="goCore(item.userId, 2)">{{item.worksName}}</span>
+          <span class="works-name" v-if="item.publishType == 5" @click="goCore(item.userId, 2)">
+          <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
+          {{item.worksName}}
+          </span>
         </div>
         <div v-if="isNeedCore" class="supportNum" @click="goCore(item.userId)">前往主页</div>
       </figure>
@@ -319,6 +322,11 @@ figure .photoBox {
   cursor: pointer;
 }
 .works-name {
-  color: #37a2f2;
+  color: #296ead;
+}
+.works-name img {
+  width: 28upx;
+  height: 28upx;
+  margin: 0 11upx;
 }
 </style>

@@ -3,19 +3,18 @@
     <div class="mask-content flex-column">
       <div class="content-header flex-column">
         <div class="user-bg flex-column">
-          <img class="user-img" src="/static/yun/imgs1.5/icon_xiezhen_17.png" />
+          <img class="user-img" :src="coreInfo.headImg || `'/static/yun/imgs1.5/icon_xiezhen_17.png'`" />
         </div>
-        <p>你正在访问xx的主页</p>
-        <p class="tip">正确输入xx的创作者ID后可访问</p>
+        <p>你正在访问{{coreInfo.nickName || 'xxx'}}的主页</p>
+        <p class="tip">正确输入{{coreInfo.nickName || 'xxx'}}的创作者ID后可访问</p>
       </div>
       <div class="content-handle">
         <input
           class="mask-input"
-          type="number"
           placeholder="输入创作者ID"
           @input="idInput"
         />
-        <div class="btn">
+        <div class="btn" @click="handleConfirm()">
           确认
         </div>
       </div>
@@ -40,7 +39,7 @@
     methods: {
       handleConfirm() {
         console.log(this.coreInfo)
-        this.$emit('onConfirm', this.inputId === this.coreInfo.showId);
+        this.$emit('onConfirm', this.inputId == this.coreInfo.showId);
       },
       idInput(e) {
         this.inputId = e.detail.value;
@@ -63,7 +62,7 @@
 }
 
 .mask-content {
-  width: 352upx;
+  /* width: 352upx; */
   font-size: 32upx;
   color: #fefefe;
 }
@@ -89,6 +88,7 @@
   height: 80upx;
   border-radius: 8upx;
   background: #fff;
+  color: #333;
   margin-bottom: 36upx;
 }
 

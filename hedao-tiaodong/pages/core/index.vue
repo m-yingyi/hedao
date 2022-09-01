@@ -1,7 +1,6 @@
 <template>
 	<view hover-stop-propagation class="contain">
-		<CoreMask />
-		<template v-if="isOpenShare">
+		<template v-if="!isIdolIdVisit">
 			<view hover-stop-propagation :class="isOpenShare ? 'content-hide' : 'content'">
 				<div class="flex align-center justify-between share-wrap">
 					<div class="goBack-btn" @click="goIndex"><img src="/static/yun/imgs/icon_yun_20.png" /></div>
@@ -206,6 +205,7 @@
 				</div>
 			</view>
 		</template>
+		<CoreMask :coreInfo="coreInfo" @onConfirm="handleConfirmCreateId()" v-else />
 	</view>
 </template>
 
@@ -245,7 +245,7 @@ import API from '@/common/api.js';
 				memberHideList: [], //隐藏
 				memberHideNumber: 0,
 				isHidemember: true,
-				coreInfo: [], // 用户主页信息
+				coreInfo: {}, // 用户主页信息
 				trendInfo: TrendMock.data.items, // 动态页信息
 				trendLists: [],
 				creatorId: null, // 创造者ID
@@ -260,11 +260,12 @@ import API from '@/common/api.js';
 				isShareTiktok: false,
 				targetDatas: [], // 目标
 				aboutTip: '', // 关于
+				isIdolIdVisit: false, //是否偶像ID访问
 			}
 		},
 		onLoad(option) {
 			if(option.tabNum) {
-				this.changeTab(+option.tabNum)
+				this.changeTab(+option.tabNum || 0)
 			}
 			if(option.userId) {
 				this.userId = option.userId;
@@ -376,6 +377,7 @@ import API from '@/common/api.js';
 			getIdolConfig() {
 				Request.get(API.user.idolconfig + this.creatorId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
+					this.isIdolIdVisit = data.isIdolIdVisit;
 				})
 			},
 			// 获取会员列表
@@ -461,6 +463,18 @@ import API from '@/common/api.js';
 						console.log('success');
 					}
 				});
+			},
+			handleConfirmCreateId(bool) {
+                console.log("🚀 ~ file: index.vue ~ line 468 ~ handleConfirmCreateId ~ bool", bool)
+				if(!bool) {
+					uni.showToast({
+						title: 'id错误，请重新输入',
+						icon: 'none',
+						duration: 3000,
+					})
+					return
+				}
+				this.isIdolIdVisit = bool;
 			}
 		}
 	}
