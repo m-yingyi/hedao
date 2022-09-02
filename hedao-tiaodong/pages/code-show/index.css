@@ -9,8 +9,42 @@
   width: 100vw;
   height: 100vh;
   background: #f0f0f0;
+  font-size: 28upx;
+  color: #333;
+  padding-top: 35upx;
+}
+
+.user-name {
+  font-size: 38upx;
 }
 
 .code-content {
   background: #fff;
+  margin: 35upx;
+  box-sizing: border-box;
+  border-radius: 16upx;
+  padding-top: 73upx;
+  padding-bottom: 110upx;
+}
+
+.user-code {
+  width: 330upx;
+  height: 330upx;
+  margin: 36upx 0;
+}
+
+.user-code img {
+  width: 100%;
+  height: 100%;
+}
+
+.user-img {
+  width: 190upx;
+  height: 190upx;
+  margin-bottom: 34upx;
+}
+
+.color-grad {
+  color: #999;
+  margin-top: 20upx;
 }

@@ -3,14 +3,14 @@
     <div class="code-content flex-column">
       <img class="user-img" :src="coreInfo.headImg || `'/static/yun/imgs1.5/icon_xiezhen_17.png'`"/>
       <p class="user-name">{{coreInfo.nickName || 'xxx'}}</p>
-      <p class="user-id">
+      <p class="user-id color-grad">
         创作者ID {{coreInfo.showId || 'xxx'}}
       </p>
       <div class="user-code">
         <img :src="coreInfo.qCodeUrl" />
       </div>
       <p>扫一扫二维码关注创作者</p>
-      <p>抖音扫此码可发布短视频</p>
+      <p class="color-grad">抖音扫此码可发布短视频</p>
     </div>
   </div>
 </template>
