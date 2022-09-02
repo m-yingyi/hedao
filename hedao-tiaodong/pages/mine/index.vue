@@ -8,7 +8,7 @@
 			</div>
 			<template v-if="isLogin">
 				<div class="msgAuth">
-					<a href="/yun/modifySettings?wid=1" class="user-name">{{userInfo.userName}}</a>
+					<a href="/yun/modifySettings?wid=1" class="user-name">{{userInfo.nickName || userInfo.userName}}</a>
 					<a href="/yun/modifySettings?wid=1" class="auth-msg" @click="navigateTo('../../pages/edit-informa/index')">编辑资料</a>
 				</div>
 				<div class="setAuth" @click="navigateTo('../../pages/system-setting/index')">

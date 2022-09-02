@@ -2,17 +2,20 @@
 	<view class="content">
 		<div class="flex align-center register-box" @click="goName">姓名
             <span class="register-box-txt">
-			    {{userInfo.nickName || '你的昵称'}} >
+			    {{userInfo.nickName || '你的昵称'}}
+				<img src="/static/yun/imgs1.5/png_1.5_34.png"/>
             </span>
         </div>
 		<div class="flex align-center register-box" @click="goEmail">邮箱
 			<span class="register-box-txt">
-			    {{userInfo.userEmail ||'你的收货邮箱'}} >
+			    {{userInfo.userEmail ||'你的收货邮箱'}} 
+				<img src="/static/yun/imgs1.5/png_1.5_34.png"/>
             </span>
 		</div>
 		<div class="flex align-center register-box" @click="goAddress">地址
 			<span class="register-box-txt">
-			    实物收货地址 >
+			    实物收货地址
+				<img src="/static/yun/imgs1.5/png_1.5_34.png"/>
             </span>
 		</div>
 	</view>

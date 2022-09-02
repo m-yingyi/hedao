@@ -13,7 +13,9 @@
 		<div v-for="item in findList" v-key="item.id">
 			<div class="find-user">
 				<UserItem @click="navigateTo()" :name="item.nickName" fansCount="9460" :img="item.headImg" />
-				<div class="fans-number">{{item.buyUserCount}}粉丝团</div>
+				<div class="fans-number">{{item.buyUserCount}}粉丝团
+					<span class="index" @click="navigateTo(item.userId)">主页</span>
+				</div>
 			</div>
 			<div class="list">
 				<ul>

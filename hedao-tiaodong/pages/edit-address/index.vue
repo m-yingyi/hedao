@@ -13,6 +13,7 @@
           id="spec_name_1"
           type="text"
           placeholder="你的收货姓名"
+		  placeholder-style="color: #ccc"
           maxlength="45"
 					:value="item.linkName"
 					@input="(e) => {nameInput(e, index)}"
@@ -25,6 +26,7 @@
           id="spec_phone_1"
           type="text"
           placeholder="你的联系电话"
+		  placeholder-style="color: #ccc"
           maxlength="45"
 					:value="item.linkPhone" @input="(e) => {phoneInput(e, index)}"
         />
@@ -34,6 +36,7 @@
         ><textarea
           class="text-content"
           id="spec_address_1"
+		  placeholder-style="color: #ccc"
           placeholder="你的收货地址"
 		 			:value="item.linkAddress" @input="(e) => {addressInput(e, index)}"
         ></textarea>

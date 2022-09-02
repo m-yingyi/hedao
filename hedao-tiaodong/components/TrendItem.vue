@@ -2,8 +2,9 @@
   <view class="content">
     <scroll-view :style="{height: '100vh'}" :scroll-y="true" @scrolltolower="scrollRefash">
       <figure v-for="(item, index) in sourceData" v-key="item.id">
-        <div @click="goCore(item.userId)">
+        <div class="user-name" @click="goCore(item.userId)">
           <UserItem :name="item.nickName" :img="item.headImg"/>
+          <img class="go-core" src="/static/yun/imgs1.6/icon_xcx_16.png" />
         </div>
          <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
         <div v-if="item.isLock" class="mask">
@@ -340,5 +341,15 @@ figure .photoBox {
   width: 28upx;
   height: 28upx;
   margin: 0 11upx;
+}
+.user-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.go-core {
+  width: 38upx;
+  height: 8upx;
 }
 </style>

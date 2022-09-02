@@ -4,7 +4,7 @@
 			<div v-for="(item, index) in headTab" @click="handleCheck(index)" :class="item.check ? 'theme-bg-color head-tab-item' : 'head-tab-item'">{{item.title}}</div>
 		</div>
 		<image v-if="item.imgList.length" v-for="item in headTab[currentIndex].imgList" class="tab-img" mode="widthFix" :src="item"/>
-		<FixedFoot :text="text"/>
+		<!-- <FixedFoot :text="text"/> -->
 	</view>
 </template>
 

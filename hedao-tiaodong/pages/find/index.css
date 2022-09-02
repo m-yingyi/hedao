@@ -100,4 +100,22 @@
 .fans-number {
     color: #999999;
     font-size: 26upx;
+    display: inline-flex;
+    align-items: center;
+}
+
+.index {
+    color: #37a2f2;
+    font-size: 28upx;
+    display: inline-flex;
+    align-items: center;
+}
+
+.index::before {
+    content: "";
+    width: 6upx;
+    height: 6upx;
+    border-radius: 50%;
+    background: #999999;
+    margin: 0 16upx;
 }

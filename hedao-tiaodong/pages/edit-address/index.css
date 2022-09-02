@@ -89,7 +89,7 @@ page {
 }
 .project-wrap {
     background-color: white;
-	border-radius: 30upx;
+	border-radius: 16upx;
 }
 .addr-wrap {
 	border-top-left-radius: 30upx;
@@ -169,7 +169,7 @@ page {
     display: flex;
     line-height: 32upx;
     background-color: white;
-    margin-bottom: 88upx;
+    margin-bottom: 36upx;
     justify-content: space-between;
 	border-bottom-left-radius: 30upx;
 	border-bottom-right-radius: 30upx;
@@ -180,7 +180,7 @@ page {
     align-items: center;
     justify-content: center;
     color: #37a2f2;
-    font-size: 28upx;
+    font-size: 32upx;
     background-color: white;
     margin-bottom: 188upx;
 	border-radius: 30upx;

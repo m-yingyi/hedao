@@ -13,9 +13,9 @@
 								:src="coreInfo.headImg">
 						</div>
 					</div>
-					<div class="flex align-center justify-between top-icon-btn"><image src="/static/yun/idolIcon/icon_age.png"/>
-						<!-- <image src="/static/yun/idolIcon/png_rz.png"/> -->
-					</div>
+					<!-- <div class="flex align-center justify-between top-icon-btn"><image src="/static/yun/idolIcon/icon_age.png"/>
+						<image src="/static/yun/idolIcon/png_rz.png"/>
+					</div> -->
 					<div class="user-age-box">
 						<div class="user" style="margin-top: 0;">{{coreInfo.nickName || 'xxx'}}</div>
 						<div class="userFlag" v-if="coreInfo.recomIntor"><img src="/static/yun/idolIcon/png_rz.png"><span>{{coreInfo.recomIntor}}</span></div>
@@ -58,7 +58,7 @@
 						<div class="core-index-title">关于</div>
 						<p id="core-index-desc"><pre>{{aboutTip}}</pre></p>
 					</div>
-					<div class="core-index-box" v-if="memberList.length" style="padding-bottom: 12upx;">
+					<div class="core-index-box" v-if="memberList.length" style="padding-bottom: 72upx;">
 						<div class="core-index-title">会员</div>
 		
 						<div class="member-card">
@@ -100,11 +100,11 @@
 						</div>
 						<div v-if="memberHideNumber" class="core-index-gray-btn" id="AllMember" @click="showHideMemberLists">{{isHidemember ? `查看全部${memberHideNumber}个会员` :'隐藏'}}</div>
 					</div>
-					<div class="core-index-box">
+					<!-- <div class="core-index-box">
 						<div class="core-index-title">支持</div>
 						<p>自选金额支持</p>
 						<a class="core-index-blue-btn" href="/yun/openmember?wid=1">支持</a>
-					</div>
+					</div> -->
 					<div class="core-index-box">
 						<div class="core-index-title">目标</div>
 						<div class="core-index-target" v-for="item in targetDatas">
@@ -167,7 +167,7 @@
 					<scroll-view :class="isShareTiktok ? 'tiktok model-wrap' : 'show-share model-wrap'">
 						<div class="model-title">
 							<span>分享至</span>
-							<img class="model-close-btn" src="/static/yun/imgs1/png_yun_602.png" @click="closeShare"/>
+							<img class="model-close-btn" src="/static/yun/imgs1.6/icon_xcx_18.png" @click="closeShare"/>
 						</div>
 						<div class="model-content">
 							<div class="content-item" @click="shareTiktok">

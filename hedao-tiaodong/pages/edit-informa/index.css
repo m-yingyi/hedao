@@ -21,3 +21,9 @@
 	width: 100%;
 	border-bottom: 1upx solid #f0f0f0;
 }
+
+.register-box-txt img {
+	width: 11upx;
+	height: 20upx;
+	margin-left: 16upx;
+}
