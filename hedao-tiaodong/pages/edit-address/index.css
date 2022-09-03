@@ -154,7 +154,7 @@ page {
     margin-top: 2upx;
 }
 .text-content {
-    width: calc(100% - 100upx);
+    width: calc(100% - 150upx);
     height: 200upx;
     font-size: 32upx;
     color: #333;
@@ -183,7 +183,7 @@ page {
     font-size: 32upx;
     background-color: white;
     margin-bottom: 188upx;
-	border-radius: 30upx;
+	border-radius: 16upx;
 }
 .btnSave {
     width: 100%;

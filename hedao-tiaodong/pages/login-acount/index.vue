@@ -1,12 +1,15 @@
 <template>
 	<view class="content">
-		<div class="flex align-center register-box">账号<div class="register-box-txt">
-			 <input
+		<div class="flex align-center register-box">
+			<input
 			 	type="text"
 				placeholder="输入账号"
 				@input="accountInput"
 				/>
-		</div></div>
+		</div>
+		<!-- <div class="flex align-center register-box">账号<div class="register-box-txt">
+			 
+		</div></div> -->
 		<div class="flex align-center register-item">
 			<input
 				type="number"

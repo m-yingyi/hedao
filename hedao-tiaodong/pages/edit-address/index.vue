@@ -114,7 +114,10 @@ import API from '@/common/api.js';
 							duration: 1500,
 						});
 					setTimeout(() => {
-						data && this.getAddressLists();
+						// data && this.getAddressLists();
+						uni.navigateBack({
+							delta: 1
+						});
 					}, 1500);
 				})
 			},

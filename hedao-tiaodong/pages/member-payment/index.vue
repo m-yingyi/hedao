@@ -8,7 +8,7 @@
 			</div>
             <p style="font-size: 30upx;padding: 18upx 0 32upx 0;">{{planInfo.introduction}}</p>
             <!-- <img style="max-width: 550upx;max-height: 550upx;margin-bottom: 20upx;border-radius: 3px;" src="http://i.hedaoapp.com/image/jpg/2022/6/14/232027416716a841c0445e938eb75d153ad4d7.jpg"> -->
-            <img style="max-width: 550upx;max-height: 550upx;margin-bottom: 20upx;border-radius: 3px;" :src="planInfo.imgUrl">
+            <img style="width: 100%;margin-bottom: 20upx;border-radius: 3px;" :src="planInfo.imgUrl">
         </div>
 		<div class="member-card" style="padding: 36upx;border-top: 1px solid #f0f0f0;">
             <div style="padding: 0 0 36upx 0;color:black;font-weight: bold;font-size: 32upx;line-height: 32upx;">获得会员卡和特权</div>

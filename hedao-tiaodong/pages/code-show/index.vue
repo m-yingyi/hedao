@@ -9,7 +9,7 @@
       <div class="user-code">
         <img :src="coreInfo.qCodeUrl" />
       </div>
-      <p>扫一扫二维码关注创作者</p>
+      <p class="font-weight">扫一扫二维码关注创作者</p>
       <p class="color-grad">抖音扫此码可发布短视频</p>
     </div>
   </div>

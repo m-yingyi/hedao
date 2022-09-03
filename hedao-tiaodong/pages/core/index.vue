@@ -42,7 +42,7 @@
 						<span>{{coreInfo.fans}}人加入粉丝团</span>
 					</div>
 					<a class="contentShareWrap" href="/yun/fansTeam?wid=1" style="color: #999">
-						<span style="margin-left: 26upx;" @click="showRank">查看排名</span>
+						<span style="margin-left: 26upx;" @click="showRank">查看成员</span>
 						<img src="/static/yun/imgs1.5/png_1.5_34.png">
 					</a>
 				</div>
@@ -98,14 +98,14 @@
 								</div>
 							</a>
 						</div>
-						<div v-if="memberHideNumber" class="core-index-gray-btn" id="AllMember" @click="showHideMemberLists">{{isHidemember ? `查看全部${memberHideNumber}个会员` :'隐藏'}}</div>
+						<div v-if="memberHideNumber" class="core-index-gray-btn" id="AllMember" @click="showHideMemberLists">{{isHidemember ? `查看全部${memberHideNumber}个会员` :'收起'}}</div>
 					</div>
 					<!-- <div class="core-index-box">
 						<div class="core-index-title">支持</div>
 						<p>自选金额支持</p>
 						<a class="core-index-blue-btn" href="/yun/openmember?wid=1">支持</a>
 					</div> -->
-					<div class="core-index-box">
+					<div class="core-index-box" v-if="targetDatas.length">
 						<div class="core-index-title">目标</div>
 						<div class="core-index-target" v-for="item in targetDatas">
 							<div class="core-index-txt-block">
@@ -142,7 +142,7 @@
 							<div class="core-index-txt-font24">达成2000元，，每月加更一个动态</div>
 						</div> -->
 					</div>
-					<div class="core-index-box" id="CoreGoods"
+					<div class="core-index-box" id="CoreGoods" v-if="worksLists.length"
 						style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
 						<div class="core-index-title" style="padding-left: 36upx;">商店</div>
 						<GoodsLists :lists="worksLists" />
@@ -150,7 +150,7 @@
 							<a class="core-index-gray-btn" id="coreMoreGoods" @click="goStoreTab()">查看全部</a>
 						</div>
 					</div>
-					<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;">
+					<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;" v-if="trendLists.length">
 						<div class="core-index-title" style="padding-left: 36upx;">动态</div>
 						<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 					</div>
@@ -167,7 +167,9 @@
 					<scroll-view :class="isShareTiktok ? 'tiktok model-wrap' : 'show-share model-wrap'">
 						<div class="model-title">
 							<span>分享至</span>
-							<img class="model-close-btn" src="/static/yun/imgs1.6/icon_xcx_18.png" @click="closeShare"/>
+							<div @click="closeShare">
+								<img class="model-close-btn" src="/static/yun/imgs1.6/icon_xcx_18.png"/>
+							</div>
 						</div>
 						<div class="model-content">
 							<div class="content-item" @click="shareTiktok">
@@ -464,7 +466,12 @@ import API from '@/common/api.js';
 			copy() {
 				uni.setClipboardData({
 					data: this.coreInfo.creatorCoreLink,
+					showToast: false,
 					success: function () {
+						uni.showToast({
+							title: '已复制主页链接',
+							duration: 3000,
+						})
 						console.log('success');
 					}
 				});
