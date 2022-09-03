@@ -1,8 +1,10 @@
 <template>
 	<view :class="isLogin ? 'content': 'content-noLogin'">
-		<template v-if="isLogin">
-			<TrendItem :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}" @onscrollRefash="scrollPage"/>
-		</template>
+		<view v-if="isLogin">
+			<scroll-view class="cover-view-scroll" :scroll-y="true" @scrolltolower="scrollPage">
+				<TrendItem :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}"/>
+			</scroll-view>
+		</view>
 		<view class="noLogin" v-if="!isLogin">
 			<view>
 				未关注创作者<text @click="this.goFind()">去发现</text>
@@ -41,9 +43,9 @@ import API from '@/common/api.js';
 			this.getTrendInfo();
 			this.isLogin = uni.getStorageSync('token');
 		},
-		onPullDownRefresh() {
-			this.scrollPage()
-		},
+		// onPullDownRefresh() {
+		// 	this.scrollPage()
+		// },
 		methods: {
 			// 跳转发现页
 			goFind() {
@@ -70,6 +72,7 @@ import API from '@/common/api.js';
 			},
 			// 下拉分页 TODO: 暂未实现
 			scrollPage() {
+				console.log('111')
 				if (this.isBottom) return;
 				this.pageProps.pageIndex += 1;
 				this.getTrendInfo()

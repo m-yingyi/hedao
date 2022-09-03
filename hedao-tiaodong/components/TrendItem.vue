@@ -1,55 +1,55 @@
 <template>
   <view class="content">
-    <scroll-view :style="{height: '100vh'}" :scroll-y="true" @scrolltolower="scrollRefash">
-      <figure v-for="(item, index) in sourceData" v-key="item.id">
-        <div class="user-name" @click="goCore(item.userId)">
-          <UserItem :name="item.nickName" :img="item.headImg"/>
-          <img class="go-core" src="/static/yun/imgs1.6/icon_xcx_16.png" />
+    <!-- <scroll-view :style="{height: '100vh'}" :scroll-y="true" @scrolltolower="scrollRefash">
+    </scroll-view> -->
+    <figure v-for="(item, index) in sourceData" v-key="item.id">
+      <div class="user-name" @click="goCore(item.userId)">
+        <UserItem :name="item.nickName" :img="item.headImg"/>
+        <img class="go-core" src="/static/yun/imgs1.6/icon_xcx_16.png" />
+      </div>
+       <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
+      <div v-if="item.isLock" class="mask">
+        <image mode="aspectFill" class="mask-img" :src="item.maskImg" />
+        <div class="mask-content" @click="goPlan(item.levelId)">
+          <image class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
+          <p class="filter-txt">{{item.levelTitle}}</p>
+          <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">开通</div>
         </div>
-         <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
-        <div v-if="item.isLock" class="mask">
-          <image class="mask-img" :src="item.maskImg" />
-          <div class="mask-content" @click="goPlan(item.levelId)">
-            <img class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
-            <p class="filter-txt">{{item.levelTitle}}</p>
-            <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">开通</div>
-          </div>
-        </div>
-        <template v-if="!item.isLock">
-          <template v-if="item.videoUrl" >
-            <video id="myVideo" :width="item.videoWidth" :height="item.videoHeight" :src="item.videoUrl" :poster="item.imgList[0].originalImg"></video>
-          </template>
-          <div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
-            <image @click="imgPreview(item.imgList, index, item.id)" mode="widthFix" class="cont-pre-img"
-              :src="item.imgList[0].originalImg"/>
-            <div class="previewsNum" v-if="item.imgList.length <= 9">1/{{item.imgList.length}}</div>
-            <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>{{item.imgList[0].isLong ? '长图' : '多图' }}</div>
-          </div>
+      </div>
+      <template v-if="!item.isLock">
+        <template v-if="item.videoUrl" >
+          <video id="myVideo" :width="item.videoWidth" :height="item.videoHeight" :src="item.videoUrl" :poster="item.imgList[0].originalImg"></video>
         </template>
-        <div class="photoBox contentUserWrap justify-between">
-          <div class="contentFootImg">
-            <img
-              src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
-            <img src="/static/yun/imgs1.5/icon_xiezhen_17.png">
-            <img
-              src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300">
-            <span>近期{{item.likeNum}}人加入</span>
-          </div>
-          <div class="contentShareWrap">
-            <img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${item.isLike? '3' : '2'}.png`" @click="handleHeart(item.isLike, item.id, item.createId)">
-            <span v-if="item.isLike" class="btn-like">{{item.likeNum}}</span>
-            <div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
-          </div>
+        <div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
+          <image @click="imgPreview(item.imgList, index, item.id)" mode="widthFix" class="cont-pre-img"
+            :src="item.imgList[0].originalImg"/>
+          <div class="previewsNum" v-if="item.imgList.length <= 9">1/{{item.imgList.length}}</div>
+          <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>{{item.imgList[0].isLong ? '长图' : '多图' }}</div>
         </div>
-        <div class="addItem">{{item.nickName + item.publishContent}}
-          <span class="works-name" v-if="item.publishType == 5" @click="goCore(item.userId, 2)">
-          <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
-          {{item.worksName}}
-          </span>
+      </template>
+      <div class="photoBox contentUserWrap justify-between">
+        <div class="contentFootImg">
+          <img
+            src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
+          <img src="/static/yun/imgs1.5/icon_xiezhen_17.png">
+          <img
+            src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300">
+          <span>近期{{item.likeNum}}人加入</span>
         </div>
-        <!-- <div v-if="isNeedCore" class="supportNum" @click="goCore(item.userId)">前往主页</div> -->
-      </figure>
-    </scroll-view>
+        <div class="contentShareWrap">
+          <img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${item.isLike? '3' : '2'}.png`" @click="handleHeart(item.isLike, item.id, item.createId)">
+          <span class="btn-like">{{item.likeNum}}</span>
+          <div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
+        </div>
+      </div>
+      <div class="addItem">{{item.nickName + item.publishContent}}
+        <span class="works-name" v-if="item.publishType == 5" @click="goCore(item.userId, 2)">
+        <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
+        {{item.worksName}}
+        </span>
+      </div>
+      <!-- <div v-if="isNeedCore" class="supportNum" @click="goCore(item.userId)">前往主页</div> -->
+    </figure>
 		<div v-if="isBottom" class="no-data">没有更多了</div>
 	</view>
 </template>
@@ -122,6 +122,13 @@ export default {
     },
     handleHeart(isLike, id, createId) {
       // TODO: 请求接口 /api/collection/model
+      if(isLike) {
+        uni.showToast({
+          title: '你已经点过赞了',
+          icon: 'none'
+        })
+        return;
+      }
       const userInfo = uni.getStorageSync('userInfo');
       const titles = ['取消点赞', '点赞成功'];
       Request.post(API.collection.collectionModel, {
@@ -289,6 +296,7 @@ figure .photoBox {
   right: 0;
   bottom: 0;
   left: 0; */
+  position: relative;
   color: rgba(255, 255, 255, .7);
   font-size: 28upx;
   z-index: 3;

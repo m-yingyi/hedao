@@ -130,3 +130,7 @@ figure .photoBox {
     color: #296ead;
     margin-left: 10upx;
 }
+
+.cover-view-scroll {
+    height: 100vh;
+}

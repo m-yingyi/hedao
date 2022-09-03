@@ -3,9 +3,10 @@
         <ul id="CoreGoodsContent">
             <template v-for="(item, index) in lists">
                 <li v-if="index%2" v-key="item.id"> 
-                    <a style="" href="/yun/photolist?pid=3101" data-isopen="1"> <img
+                    <a style="" href="/yun/photolist?pid=3101" data-isopen="1"> <image
+                        mode="widthFix"
                             :src="item.thumbnail"
-                            alt="作品封面"> </a>
+                            alt="作品封面" /> </a>
                     <div>
                         <div class="l-txt" style="height: 120upx; width: 100%">
                             <div class="line-two-title">{{item.title}}</div>
@@ -23,9 +24,10 @@
                         <!-- <div
                             style="background: url(item.thumbnail) center no-repeat;display:block;width:100%;height:100%;background-size: cover;">
                         </div> -->
-                    <img
+                    <image
+                            mode="widthFix"
                             :src="item.thumbnail"
-                            alt="作品封面"> 
+                            alt="作品封面" /> 
                     </a>
                     <div>
                         <div class="l-txt" style="height: 120upx; width: 100%">
@@ -86,8 +88,8 @@ export default {
     height: auto;
     overflow: hidden;
 }
-.list ul li>a>img {
-    width: 100%;
+.list ul li>a>image {
+    width: 360upx;
     vertical-align: top;
 }
 .list ul li >div {

@@ -91,6 +91,7 @@ figure .user-info {
     padding: 26upx 0;
     text-align: center;
 }
+
 .user-info>div {
     word-break: break-word;
     font-size: 28upx;
@@ -546,10 +547,14 @@ figure .user-info {
      bottom: 0;
 }
 
+.cover-view-scroll {
+    height: 100vh;
+}
+
 .cover-view-content {
     position: relative;
     width: 100vw;
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .model-title {
@@ -646,3 +651,4 @@ figure .user-info {
 .share-way-two {
     margin-top: 80upx;
 }
+
