@@ -652,3 +652,14 @@ figure .user-info {
     margin-top: 80upx;
 }
 
+#us-introduction {
+}
+
+#us-remark {
+    color: #999999;
+}
+
+.us-remark-hide {
+    height: 45upx;
+    overflow: hidden;
+}

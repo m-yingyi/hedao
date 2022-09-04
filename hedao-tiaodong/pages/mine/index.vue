@@ -39,7 +39,7 @@ import BaseSpace from '@/components/BaseSpace.vue';
 		data() {
 			return {
 				isLogin: false,
-				isHide: false, // 我的：隐藏
+				isHide:  true, // 我的：隐藏
 				userInfo: {},
 			}
 		},

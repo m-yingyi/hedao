@@ -9,7 +9,7 @@
       </div>
        <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
       <div v-if="item.isLock" class="mask">
-        <image mode="aspectFill" class="mask-img" :src="item.maskImg" />
+        <image mode="top" class="mask-img" :src="item.maskImg" />
         <div class="mask-content" @click="goPlan(item.levelId)">
           <image class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
           <p class="filter-txt">{{item.levelTitle}}</p>
@@ -27,7 +27,7 @@
           <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>{{item.imgList[0].isLong ? '长图' : '多图' }}</div>
         </div>
       </template>
-      <div class="photoBox contentUserWrap justify-between">
+      <div v-if="item.publishType != 5" class="photoBox contentUserWrap justify-between">
         <div class="contentFootImg">
           <img
             src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
@@ -359,5 +359,9 @@ figure .photoBox {
 .go-core {
   width: 38upx;
   height: 8upx;
+}
+
+#myVideo {
+  width: 100%;
 }
 </style>

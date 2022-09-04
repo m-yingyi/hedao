@@ -22,7 +22,12 @@
 							<div class="userFlag" v-if="coreInfo.recomIntor"><img src="/static/yun/idolIcon/png_rz.png"><span>{{coreInfo.recomIntor}}</span></div>
 						</div>
 						<div class="user-info">
-							<div class="us-txt" id="us-remark" style="color: #333333"><span>{{coreInfo.introduction || ''}}</span><span></span></div>
+							<div class="us-txt" style="color: #333333">
+								<div id="us-remark" :class="isIntroductionHide?'us-remark-hide':''">
+									<p id="us-introduction" ref="introduction">{{coreInfo.introduction || ''}}</p>
+								</div>
+								<span @click="introductionShow" v-if="isIntroductionHide">...<span style="color: #fff">两</span><span style="color: #999;font-weight: 600;">展开</span></span>
+							</div>
 						</div>
 					</figure>
 					<div class="member-link">
@@ -265,6 +270,7 @@ import API from '@/common/api.js';
 				targetDatas: [], // 目标
 				aboutTip: '', // 关于
 				isIdolIdVisit: false, //是否偶像ID访问
+				isIntroductionHide: false,
 			}
 		},
 		onLoad(option) {
@@ -279,6 +285,16 @@ import API from '@/common/api.js';
 			}
 			this.getCreateInfo();
 			// this.getMemberLists();
+		},
+		mounted() {
+			// setTimeout(() =>{
+			// 	const query = uni.createSelectorQuery().in(this);
+			// 		query.select('#us-remask').boundingClientRect(data => {
+			// 		console.log("得到布局位置信息" + JSON.stringify(data));
+			// 		console.log("节点离页面顶部的距离为" + data.height);
+			// 		}).exec();
+			// }, 3000)
+			
 		},
 		methods: {
 			navigateTo(url) {
@@ -349,6 +365,7 @@ import API from '@/common/api.js';
 					})
 					return;
 				}
+				
 				// 接口请求
 				Request.get(API.user.creatorHome + this.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
@@ -365,6 +382,16 @@ import API from '@/common/api.js';
 					this.pageProps = this.$options.data().pageProps;
 					this.getTrendLists();
 					this.getCoreWorksLists();
+					this.getIntroductionHeight();
+				})
+			},
+			getIntroductionHeight() {
+				setTimeout(()=> {
+					const query = uni.createSelectorQuery().in(this);
+					query.select('#us-introduction').boundingClientRect(data => {
+					console.log("节点高度" + data.height);
+					this.isIntroductionHide = data.height > 22;
+					}).exec();
 				})
 			},
 			// 处理目标数据
@@ -506,6 +533,9 @@ import API from '@/common/api.js';
 				} else {
 					this.getTrendLists();
 				}
+			},
+			introductionShow () {
+				this.isIntroductionHide = false;
 			}
 		}
 	}

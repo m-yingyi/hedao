@@ -3,10 +3,16 @@
         <ul id="CoreGoodsContent">
             <template v-for="(item, index) in lists">
                 <li v-if="index%2" v-key="item.id"> 
-                    <a style="" href="/yun/photolist?pid=3101" data-isopen="1"> <image
+                    <a v-if="item.isLock" style="" href="/yun/photolist?pid=3101" data-isopen="1"> <image
                         mode="widthFix"
                             :src="item.thumbnail"
                             alt="作品封面" /> </a>
+                        <a v-else>
+                            <image
+                            mode="widthFix"
+                                :src="item.imgVague"
+                                alt="作品封面" />
+                        </a>
                     <div>
                         <div class="l-txt" style="height: 120upx; width: 100%">
                             <div class="line-two-title">{{item.title}}</div>
@@ -20,7 +26,8 @@
         </ul>
         <ul id="CoreGoodsContent2">
             <template v-for="(item, index) in lists">
-                <li v-if="!(index%2)" v-key="item.id"> <a style="height: 360upx;" href="/goods/goodsDetails?pid=2882">
+                <li v-if="!(index%2)" v-key="item.id"> 
+                    <a style="height: 360upx;" v-if="!item.isLock" href="/goods/goodsDetails?pid=2882">
                         <!-- <div
                             style="background: url(item.thumbnail) center no-repeat;display:block;width:100%;height:100%;background-size: cover;">
                         </div> -->
@@ -29,6 +36,12 @@
                             :src="item.thumbnail"
                             alt="作品封面" /> 
                     </a>
+                    <a v-else>
+                            <image
+                            mode="widthFix"
+                                :src="item.imgVague"
+                                alt="作品封面" />
+                        </a>
                     <div>
                         <div class="l-txt" style="height: 120upx; width: 100%">
                             <div class="line-two-title">{{item.title}}</div>
