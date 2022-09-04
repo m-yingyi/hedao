@@ -16,8 +16,13 @@
                     <div>
                         <div class="l-txt" style="height: 120upx; width: 100%">
                             <div class="line-two-title">{{item.title}}</div>
-                            <div class="orange-txt"><span style="font-size: 24upx">
-                            ￥</span>{{item.photoPrice}}<span class="grag-txt-sale">{{item.introduction}}</span></div>
+                            <div class="orange-txt">
+                                <template v-if="item.photoPrice">
+                                    <span style="font-size: 24upx">
+                                        ￥</span>{{(item.photoPrice/100)}}
+                                </template>
+                            
+                            <span class="grag-txt-sale">{{item.introduction}}</span></div>
                         </div>
                     </div>
                 </li>
@@ -45,8 +50,10 @@
                     <div>
                         <div class="l-txt" style="height: 120upx; width: 100%">
                             <div class="line-two-title">{{item.title}}</div>
-                            <div class="orange-txt"><span style="font-size: 24upx">
-                            ￥</span>{{item.photoPrice}}<span class="grag-txt-sale">{{item.introduction}}</span></div>
+                            <div class="orange-txt"><template v-if="item.photoPrice">
+                                    <span style="font-size: 24upx">
+                                ￥</span>{{(item.photoPrice/100)}}
+                                </template><span class="grag-txt-sale">{{item.introduction}}</span></div>
                         </div>
                     </div>
                 </li>

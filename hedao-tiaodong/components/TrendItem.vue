@@ -43,9 +43,10 @@
         </div>
       </div>
       <div class="addItem">{{item.nickName + item.publishContent}}
-        <span class="works-name" v-if="item.publishType == 5" @click="goCore(item.userId, 2)">
-        <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
-        {{item.worksName}}
+        <!-- 发布类型 0-随拍/1-画集/2-音频/3-盲盒/4-扭蛋/5-商品 -->
+        <span class="works-name" v-if="[2,3,4,5].includes(item.publishType)" @click="goCore(item.userId, 2)">
+          <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
+          {{item.worksName}}
         </span>
       </div>
       <!-- <div v-if="isNeedCore" class="supportNum" @click="goCore(item.userId)">前往主页</div> -->

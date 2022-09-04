@@ -663,3 +663,16 @@ figure .user-info {
     height: 45upx;
     overflow: hidden;
 }
+
+.close-core {
+    font-size: 28upx;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+}
+
+.close-core view {
+    text-align: center;
+    color: #999999;
+}
