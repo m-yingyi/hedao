@@ -27,7 +27,7 @@
 									<div id="us-remark" :class="isIntroductionHide?'us-remark-hide':''">
 										<p id="us-introduction" ref="introduction">{{coreInfo.introduction || ''}}</p>
 									</div>
-									<span @click="introductionShow" v-if="isIntroductionHide">...<span style="color: #fff">两</span><span style="color: #999;font-weight: 600;">展开</span></span>
+									<span @click="introductionShow" v-if="isIntroductionHide">...<span style="color: #fff">两</span><span style="color: #ccc;">展开</span></span>
 								</div>
 							</div>
 						</figure>
