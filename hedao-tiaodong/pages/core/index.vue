@@ -1,6 +1,6 @@
 <template>
-	<view hover-stop-propagation :class="coreInfo.creatorState? 'contain':'close-core'">
-		<template v-if="coreInfo.creatorState">
+	<view hover-stop-propagation :class="coreInfo.creatorState != -2? 'contain':'close-core'">
+		<template v-if="coreInfo.creatorState != -2">
 			<template v-if="!isIdolIdVisit">
 				<scroll-view scroll-y="true" class="cover-view-scroll" @scrolltolower="scrollBottom">
 					<view hover-stop-propagation :class="isOpenShare ? 'content-hide' : 'content'">
@@ -40,12 +40,17 @@
 						<div class="photoBox contentUserWrap"
 							style="border-top: 0;border-bottom: 1upx solid #f0f0f0;margin-top: 10upx;margin-bottom:0;">
 							<div class="leftImg">
-								<img
-									src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300">
-								<img
-									src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
-								<img
-									src="http://i.hedaoapp.com/image/jpg/2022/3/24/1805235360aa12a52849fe9d72bde4bd0d8108.jpg?x-oss-process=image/resize,l_300">
+								<template v-if="coreInfo.fansHeadImgs && coreInfo.fansHeadImgs.length">
+									<img v-for="imgItem in coreInfo.fansHeadImgs" :src="imgItem"/>
+								</template>
+								<template v-else>
+									<img
+										src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300">
+									<img
+										src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
+									<img
+										src="http://i.hedaoapp.com/image/jpg/2022/3/24/1805235360aa12a52849fe9d72bde4bd0d8108.jpg?x-oss-process=image/resize,l_300">
+								</template>
 								<span>{{coreInfo.fans}}人加入粉丝团</span>
 							</div>
 							<a class="contentShareWrap" href="/yun/fansTeam?wid=1" style="color: #999">
@@ -94,11 +99,17 @@
 										{{item.tilte}}
 									</h3>
 									<div>
-										<span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span
+										<div class="flex-center">
+											<span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span
 											style="font-size: 56upx;padding-right:28upx;">{{item.price/100}}</span>元/月<span
 											style="font-size: 24upx; color: #999999;padding-left: 20upx;display:none;">3次购买</span>
+										</div>
+											<span v-if="item.buys" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{item.buys || 0}}次购买</span>
 									</div>
-									<p style="font-size: 30upx;padding-top: 18upx;">{{item.introduction}}</p>
+									<p style="font-size: 30upx;padding-top: 18upx;">
+										<rich-text style="word-break: break-all;" :nodes="`<pre>${replaceBr(item.introduction)}</pre>`"></rich-text>
+										<!-- {{item.introduction}} -->
+										</p>
 									<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}`)">
 										<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
 											开通
@@ -382,8 +393,6 @@ import API from '@/common/api.js';
 				Request.get(API.user.creatorInfo + this.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
 					this.coreInfo = data;
-					// TODO:暂时写死
-					this.coreInfo.creatorState = true;
 					this.creatorId = data.creatorId;
 					this.getIdolConfig();
 					this.pageProps = this.$options.data().pageProps;
@@ -544,6 +553,9 @@ import API from '@/common/api.js';
 			},
 			introductionShow () {
 				this.isIntroductionHide = false;
+			},
+			replaceBr(str) {
+				return str.replace(/<\/br>/g, '<br>')
 			}
 		}
 	}

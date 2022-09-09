@@ -554,7 +554,7 @@ figure .user-info {
 .cover-view-content {
     position: relative;
     width: 100vw;
-    /* height: 100vh; */
+    height: 100vh;
 }
 
 .model-title {
@@ -675,4 +675,9 @@ figure .user-info {
 .close-core view {
     text-align: center;
     color: #999999;
+}
+
+.flex-center {
+    display: inline-flex;
+    align-items: baseline;
 }

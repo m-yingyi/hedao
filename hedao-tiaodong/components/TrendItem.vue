@@ -29,20 +29,24 @@
       </template>
       <div v-if="item.publishType != 5" class="photoBox contentUserWrap justify-between">
         <div class="contentFootImg">
-          <img
+          <template v-if="item.pushHeadImgs && item.pushHeadImgs.length">
+              <img v-for="imgItem in item.pushHeadImgs" :src="imgItem"/>
+            </template>
+          <!-- <img
             src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
           <img src="/static/yun/imgs1.5/icon_xiezhen_17.png">
           <img
-            src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300">
+            src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300"> -->
           <span>近期{{item.likeNum}}人加入</span>
         </div>
         <div class="contentShareWrap">
           <img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${item.isLike? '3' : '2'}.png`" @click="handleHeart(item.isLike, item.id, item.createId)">
-          <span class="btn-like">{{item.likeNum}}</span>
+          <span class="btn-like">{{item.likeNum || '点赞'}}</span>
           <div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
         </div>
       </div>
-      <div class="addItem">{{item.nickName + item.publishContent}}
+      <div class="addItem">{{item.nickName}}
+        <span v-html="item.publishContent"></span>
         <!-- 发布类型 0-随拍/1-画集/2-音频/3-盲盒/4-扭蛋/5-商品 -->
         <span class="works-name" v-if="[2,3,4,5].includes(item.publishType)" @click="goCore(item.userId, 2)">
           <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
@@ -146,7 +150,7 @@ export default {
         })
         setTimeout(() => {
           isSuccess && this.$emit('onRefash')
-        }, 1500)
+        }, 0)
       })
       // this.heartCount = 1
       // this.heartIcon = 3
