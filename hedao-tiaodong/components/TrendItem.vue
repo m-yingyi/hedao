@@ -27,7 +27,7 @@
           <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>{{item.imgList[0].isLong ? '长图' : '多图' }}</div>
         </div>
       </template>
-      <div v-if="item.publishType != 5" class="photoBox contentUserWrap justify-between">
+      <div v-if="[0,1].includes(item.publishType)" class="photoBox contentUserWrap justify-between">
         <div class="contentFootImg">
           <template v-if="item.pushHeadImgs && item.pushHeadImgs.length">
               <img v-for="imgItem in item.pushHeadImgs" :src="imgItem"/>
@@ -313,7 +313,7 @@ figure .photoBox {
 
 .mask-img {
   position: relative;
-  width: 100%;
+  width: 101%;
 }
 
 .mask-content {
@@ -367,6 +367,7 @@ figure .photoBox {
 }
 
 #myVideo {
-  width: 100%;
+  width: 106%;
+  margin-left: -20upx;
 }
 </style>

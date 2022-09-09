@@ -34,7 +34,7 @@ import API from '@/common/api.js';
 				trendLists: [],
 				pageProps: {
 					pageIndex: 1,
-					pageSize: 6,
+					pageSize: 20,
 				},
 				isBottom: false,
 			}
