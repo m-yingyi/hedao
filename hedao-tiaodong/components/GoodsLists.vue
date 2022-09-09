@@ -18,7 +18,7 @@
                             <div class="line-two-title">{{item.title}}</div>
                             <div class="orange-txt">
                                 <template v-if="item.photoPrice">
-                                    <span style="font-size: 24upx">
+                                    <span style="font-size: 24upx;">
                                         ￥</span>{{(item.photoPrice/100)}}
                                 </template>
                             
@@ -51,7 +51,7 @@
                         <div class="l-txt" style="height: 120upx; width: 100%">
                             <div class="line-two-title">{{item.title}}</div>
                             <div class="orange-txt"><template v-if="item.photoPrice">
-                                    <span style="font-size: 24upx">
+                                    <span style="font-size: 24upx;">
                                 ￥</span>{{(item.photoPrice/100)}}
                                 </template><span class="grag-txt-sale">{{item.introduction}}</span></div>
                         </div>
@@ -150,6 +150,7 @@ export default {
 .orange-txt {
     color: #f56735;
     font-size: 36upx;
+    font-weight: 600;
 }
 .line-two-title {
     color: #333;
