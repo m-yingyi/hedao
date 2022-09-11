@@ -3,14 +3,21 @@
         <ul id="CoreGoodsContent">
             <template v-for="(item, index) in lists">
                 <li v-if="index%2" v-key="item.id"> 
-                    <a v-if="item.isLock" style="" href="/yun/photolist?pid=3101" data-isopen="1"> <image
+                    <a v-if="item.isLock" style="" href="/yun/photolist?pid=3101" data-isopen="1" class="mask"> <image
                         mode="widthFix"
-                            :src="item.thumbnail"
-                            alt="作品封面" /> </a>
+                            :src="item.imgVague"
+                            class="mask-img"
+                            alt="作品封面" /> 
+                            <div class="mask-content" >
+                                <image class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
+                                <p class="filter-txt">粉丝团可预览</p>
+                                <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">查看</div>
+                            </div>
+                        </a>
                         <a v-else>
                             <image
                             mode="widthFix"
-                                :src="item.imgVague"
+                                :src="item.thumbnail"
                                 alt="作品封面" />
                         </a>
                     <div>
@@ -32,19 +39,21 @@
         <ul id="CoreGoodsContent2">
             <template v-for="(item, index) in lists">
                 <li v-if="!(index%2)" v-key="item.id"> 
-                    <a style="height: 360upx;" v-if="!item.isLock" href="/goods/goodsDetails?pid=2882">
-                        <!-- <div
-                            style="background: url(item.thumbnail) center no-repeat;display:block;width:100%;height:100%;background-size: cover;">
-                        </div> -->
-                    <image
-                            mode="widthFix"
-                            :src="item.thumbnail"
+                    <a v-if="item.isLock" style="" href="/yun/photolist?pid=3101" data-isopen="1" class="mask"> <image
+                        mode="widthFix"
+                            :src="item.imgVague"
+                            class="mask-img"
                             alt="作品封面" /> 
-                    </a>
+                            <div class="mask-content" >
+                                <image class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
+                                <p class="filter-txt">粉丝团可预览</p>
+                                <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">查看</div>
+                            </div>
+                        </a>
                     <a v-else>
                             <image
                             mode="widthFix"
-                                :src="item.imgVague"
+                                :src="item.thumbnail"
                                 alt="作品封面" />
                         </a>
                     <div>
@@ -168,5 +177,57 @@ export default {
     font-size: 24upx;
     color: #999;
     margin-left: 23upx;
+}
+
+
+.mask {
+  /* top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; */
+  position: relative;
+  color: rgba(255, 255, 255, .7);
+  font-size: 28upx;
+  z-index: 3;
+   /* width: 100%; */
+}
+
+
+
+.mask-img {
+  position: relative;
+  width: 100%;
+  /* margin-left: 36upx; */
+}
+
+.mask-content {
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+  position: absolute;
+   top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.filter-lock {
+  width: 36upx;
+  height: 47upx;
+}
+
+.filter-txt {
+  margin: 36upx 0;
+}
+
+.filter-btn {
+  width: 190upx;
+  height: 66upx;
+  border: 1upx solid rgba(255, 255, 255, .2);
+  border-radius: 36upx;
+  text-align: center;
+  line-height: 66upx;
+  cursor: pointer;
 }
 </style>
