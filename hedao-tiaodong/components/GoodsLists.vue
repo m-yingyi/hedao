@@ -11,7 +11,7 @@
                             <div class="mask-content" >
                                 <image class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
                                 <p class="filter-txt">粉丝团可预览</p>
-                                <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">查看</div>
+                                <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054" @click="check">查看</div>
                             </div>
                         </a>
                         <a v-else>
@@ -47,7 +47,7 @@
                             <div class="mask-content" >
                                 <image class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
                                 <p class="filter-txt">粉丝团可预览</p>
-                                <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">查看</div>
+                                <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054" @click="check">查看</div>
                             </div>
                         </a>
                     <a v-else>
@@ -83,6 +83,12 @@ export default {
     // handleClick() {
     //   this.$emit('onClick')
     // },
+    check() {
+        uni.showToast({
+            title: '该商品需要在APP内查看',
+            icon: 'none'
+        })
+    }
   },
 };
 </script>

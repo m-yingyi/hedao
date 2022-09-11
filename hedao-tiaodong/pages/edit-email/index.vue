@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<div class="input-box">
-            <input class="uni-input" focus placeholder="你的收货邮箱" @input="userEmailInput" />
+            <input class="uni-input" :value="userInfo.userEmail" focus placeholder="你的收货邮箱" @input="userEmailInput" />
         </div>
 		<div class="flex theme-bg-color align-center justify-center button-box">
 			<div type="default" @click="submit">保存设置</div>

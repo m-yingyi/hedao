@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<div class="input-box">
-            <input class="uni-input" focus placeholder="你的名称" @input="nameInput"/>
+            <input class="uni-input" :value="userInfo.nickName" focus placeholder="你的名称" @input="nameInput"/>
         </div>
 		<div @click="submit" class="flex theme-bg-color align-center justify-center button-box">
 			<div >保存设置</div>
