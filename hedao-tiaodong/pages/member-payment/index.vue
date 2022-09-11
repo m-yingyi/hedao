@@ -78,18 +78,32 @@ import API from '@/common/api.js';
 				planPriceOriginal: 0, // 以分为单位
 				planTimes: 1,
 				orderDatas: {}, // 订单数据
+				userId: null,
+				creatorHome: {},
 			}
 		},
 		onLoad(option) {
 			this.planId = option.id;
+			this.userId = option.userId;
 			if(this.planId) {
 				this.getMemberPlan()
+			}
+			if(this.userId) {
+				this.getcreatorHome();
 			}
 		},
 		methods: {
 			navigateTo() {
 				uni.navigateTo({
 					url: '../../pages/question/index'
+				})
+			},
+			getcreatorHome() {
+				// 接口请求
+				Request.get(API.user.creatorHome + this.userId, null, ({statusCode, data}) => {
+					if(statusCode!=200) return;
+					this.creatorHome = data;
+					console.log("🚀 ~ file: index.vue ~ line 103 ~ Request.get ~ this.creatorHome", this.creatorHome)
 				})
 			},
 			handleCheckTime(index) {

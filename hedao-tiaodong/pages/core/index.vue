@@ -60,7 +60,7 @@
 						</div>
 						<div class="menu" style="padding-top: 20upx;">
 							<div @click="changeTab(index)" v-for="(item, index) in tabList">
-								<div class="menu-li blackTxt">
+								<div class="menu-li blackTxt" v-if="!index || (worksLists.length && index == 2) || (trendLists.length && index == 1)">
 									{{item.label}}<p :class="item.check ? 'redLine':''"></p>
 								</div>
 							</div>
@@ -70,9 +70,8 @@
 								<div class="core-index-title">关于</div>
 								<p id="core-index-desc"><pre>{{aboutTip}}</pre></p>
 							</div>
-							<div class="core-index-box" v-if="memberList.length" style="padding-bottom: 72upx;">
+							<div class="core-index-box" style="padding-bottom: 72upx;">
 								<div class="core-index-title">会员</div>
-				
 								<div class="member-card">
 									<div class="member-card-new"
 										style="background: url(http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg) no-repeat center;background-size: 100% 100%;">
@@ -94,29 +93,31 @@
 										<div class="btn-white">蓝钻会员</div>
 									</div>
 								</div>
-								<div class="support-wrap" v-for="item in memberList" v-key="item.id">
-									<h3>
-										{{item.tilte}}
-									</h3>
-									<div>
-										<div class="flex-center">
-											<span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span
-											style="font-size: 56upx;padding-right:28upx;">{{item.price/100}}</span>元/月<span
-											style="font-size: 24upx; color: #999999;padding-left: 20upx;display:none;">3次购买</span>
+								<template  v-if="memberList.length">
+									<div class="support-wrap" v-for="item in memberList" v-key="item.id">
+										<h3>
+											{{item.tilte}}
+										</h3>
+										<div>
+											<div class="flex-center">
+												<span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span
+												style="font-size: 56upx;padding-right:28upx;">{{item.price/100}}</span>元/月<span
+												style="font-size: 24upx; color: #999999;padding-left: 20upx;display:none;">3次购买</span>
+											</div>
+												<span v-if="item.buys && coreInfo.isShowSalesVolume" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{item.buys || 0}}次购买</span>
 										</div>
-											<span v-if="item.buys" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{item.buys || 0}}次购买</span>
+										<p style="font-size: 30upx;padding-top: 18upx;">
+											<rich-text style="word-break: break-all;" :nodes="`<pre>${replaceBr(item.introduction)}</pre>`"></rich-text>
+											<!-- {{item.introduction}} -->
+											</p>
+										<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}&userId=${userId}`)">
+											<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
+												开通
+											</div>
+										</a>
 									</div>
-									<p style="font-size: 30upx;padding-top: 18upx;">
-										<rich-text style="word-break: break-all;" :nodes="`<pre>${replaceBr(item.introduction)}</pre>`"></rich-text>
-										<!-- {{item.introduction}} -->
-										</p>
-									<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}`)">
-										<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
-											开通
-										</div>
-									</a>
-								</div>
-								<div v-if="memberHideNumber" class="core-index-gray-btn" id="AllMember" @click="showHideMemberLists">{{isHidemember ? `查看全部${memberHideNumber}个会员` :'收起'}}</div>
+									<div v-if="memberHideNumber" class="core-index-gray-btn" id="AllMember" @click="showHideMemberLists">{{isHidemember ? `查看全部${memberHideNumber}个会员` :'收起'}}</div>
+								</template>
 							</div>
 							<!-- <div class="core-index-box">
 								<div class="core-index-title">支持</div>
