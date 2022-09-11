@@ -209,3 +209,26 @@
     text-align: center;
     cursor: pointer;
 }
+
+.spend-content {
+    position: relative;
+    padding: 36upx;
+    box-sizing: border-box;
+    background-color: white;
+    margin-bottom: 88upx;
+}
+
+.spend-items {
+    font-size: 32upx;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.spend-items span {
+    background: #f0f0f0;
+    padding: 20upx 28upx;
+    border-radius: 45upx;
+    white-space: nowrap;
+    margin-top: 36upx;
+    margin-right: 36upx;
+}

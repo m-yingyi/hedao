@@ -30,9 +30,19 @@
                     <span>会员可解锁</span>
                     <div class="white-num">动态<span>{{planInfo.trends}}</span>作品<span>{{planInfo.works}}</span></div>
                 </div>
-                <div class="btn-white">蓝钻会员</div>
+                <div class="btn-white">{{planInfo.tilte}}</div>
             </div>
         </div>
+		<div class="spend-content" style="margin-top: 20upx;">
+			<h2 style="font-size: 32upx; line-height: 32upx;font-weight:bold;padding-bottom: 20upx;">此会员包含付费内容</h2>
+			<div class="spend-items">
+				<span v-if="creatorHome.trends">动态 {{creatorHome.trends}}</span>
+				<span v-if="creatorHome.works">写真 {{creatorHome.works}}</span>
+				<span v-if="creatorHome.goodsCount">商品 {{creatorHome.goodsCount}}</span>
+				<span v-if="creatorHome.audioCount">音频 {{creatorHome.audioCount}}</span>
+				<span v-if="creatorHome.collectionCount">画集 {{creatorHome.collectionCount}}</span>
+			</div>
+		</div>
 		<div class="support-way" style="margin-top: 20upx;">
 			<h2 style="font-size: 32upx; line-height: 32upx;font-weight:bold;padding-bottom: 20upx;">选择会员期限</h2>
 			<ul class="way-box longTime">
@@ -100,7 +110,7 @@ import API from '@/common/api.js';
 			},
 			getcreatorHome() {
 				// 接口请求
-				Request.get(API.user.creatorHome + this.userId, null, ({statusCode, data}) => {
+				Require.get(API.user.creatorHome + this.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
 					this.creatorHome = data;
 					console.log("🚀 ~ file: index.vue ~ line 103 ~ Request.get ~ this.creatorHome", this.creatorHome)
@@ -221,6 +231,7 @@ import API from '@/common/api.js';
 				});
 			},
 			replaceBr(str) {
+				if(!str) return '';
 				return str.replace(/<\/br>/g, '<br>')
 			}
 			
