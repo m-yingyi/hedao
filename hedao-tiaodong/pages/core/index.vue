@@ -403,7 +403,7 @@ import API from '@/common/api.js';
 				})
 			},
 			getIntroductionHeight() {
-				if(!this.coreInfo.creatorState) return;
+				if(this.coreInfo.creatorState == -2) return;
 				setTimeout(()=> {
 					const query = uni.createSelectorQuery().in(this);
 					query.select('#us-introduction').boundingClientRect(data => {

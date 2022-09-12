@@ -4,8 +4,8 @@
     </scroll-view> -->
     <figure v-for="(item, index) in sourceData" v-key="item.id">
       <div class="user-name" @click="goCore(item.userId)">
-        <UserItem :name="item.nickName" :img="item.headImg"/>
-        <img class="go-core" src="/static/yun/imgs1.6/icon_xcx_16.png" />
+        <UserItem :isBold="isBold" :name="item.nickName" :img="item.headImg"/>
+        <img v-if="isNeedCore" class="go-core" src="/static/yun/imgs1.6/icon_xcx_16.png" />
       </div>
        <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
       <div v-if="item.isLock" class="mask">
@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="addItem">{{item.nickName}}
-        <span v-html="item.publishContent"></span>
+        <span>{{item.publishContent}}</span>
         <!-- 发布类型 0-随拍/1-画集/2-音频/3-盲盒/4-扭蛋/5-商品 -->
         <span class="works-name" v-if="[2,3,4,5].includes(item.publishType)" @click="goCore(item.userId, 2)">
           <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
@@ -94,6 +94,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    isBold: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -102,6 +106,7 @@ export default {
   },
   onload() {
     this.handleImgLists();
+    console.log(this.isBold)
   },
   onReady: function (res) {
 		this.videoContext = uni.createVideoContext('myVideo')

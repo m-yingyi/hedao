@@ -2,7 +2,7 @@
 	<view :class="isLogin ? 'content': 'content-noLogin'">
 		<view v-if="isLogin">
 			<scroll-view class="cover-view-scroll" :scroll-y="true" @scrolltolower="scrollPage">
-				<TrendItem :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}"/>
+				<TrendItem :isNeedCore="false" :isBold="true" :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}"/>
 			</scroll-view>
 		</view>
 		<view class="noLogin" v-if="!isLogin">

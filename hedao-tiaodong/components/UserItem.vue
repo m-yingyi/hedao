@@ -2,7 +2,7 @@
   <div class="user-item">
     <div class="flex align-center">
       <img class="user-item-img" :src="img">
-      <span class="user-item-name">{{name}}</span>
+      <span :class="isBold ? 'bold-name user-item-name' : 'user-item-name'">{{name}}</span>
     </div>
     <!-- <div class="user-item-right">{{fansCount}}粉丝团<span class="user-item-dot">·</span><span class="theme-color user-item-right-txt">主页</span></div> -->
   </div>
@@ -22,7 +22,11 @@ export default {
     img: {
       type: String,
       default: 'http://i.hedaoapp.com/image/jpg/2021/9/13/021757f47c8b7ae7d842d2ab802b70d50a1e54.jpg',
-    }
+    },
+    isBold: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleClick() {
@@ -63,5 +67,9 @@ export default {
 }
 .user-item-dot {
   margin: 0 16upx;
+}
+
+.bold-name {
+  font-weight: bold;
 }
 </style>
