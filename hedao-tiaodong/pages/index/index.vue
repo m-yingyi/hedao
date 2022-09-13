@@ -40,7 +40,7 @@ import API from '@/common/api.js';
 			}
 		},
 		onShow() {
-			this.getTrendInfo();
+			this.getTrendInfo(true);
 			this.isLogin = uni.getStorageSync('token');
 		},
 		// onPullDownRefresh() {
@@ -55,7 +55,10 @@ import API from '@/common/api.js';
 			},
 			// 获取首页关注
 			getTrendInfo(isRefash) {
-				isRefash && (this.trendLists.length = 0);
+				if (isRefash) {
+					this.trendLists.length = 0;
+					this.pageProps.pageIndex = 1;
+				}
 				let params = {
 					type: 2, //首页关注
 					...this.pageProps,

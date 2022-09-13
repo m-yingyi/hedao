@@ -129,7 +129,9 @@
 								<div class="core-index-target" v-for="item in targetDatas">
 									<div class="core-index-txt-block">
 										<span><span class="txt-block-blue">{{item.part}}</span>/{{item.complete}}{{item.amount?'元':'人'}}</span>
-										<div class="core-index-right-absolute txt-block-blue font-bold">{{item.completeTarget ? '已达成' : ''}}</div>
+										<div class="core-index-right-absolute txt-block-blue font-bold">
+											<span>{{ item.isExpire ? '已过期' : '' }}</span>
+											{{ item.completeTarget ? '已达成' : ''}}</div>
 									</div>
 									<div class="core-index-line10">
 										<div class="line10-blue" :style="'width:' + item.part/item.complete + '%'"></div>

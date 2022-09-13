@@ -3,7 +3,9 @@
 		<div class="head-tab">
 			<div v-for="(item, index) in headTab" @click="handleCheck(index)" :class="item.check ? 'theme-bg-color head-tab-item' : 'head-tab-item'">{{item.title}}</div>
 		</div>
-		<image v-if="item.imgList.length" v-for="item in headTab[currentIndex].imgList" class="tab-img" mode="widthFix" :src="item"/>
+		<template v-if="imgList.length">
+			<image v-for="item in imgList" class="tab-img" mode="widthFix" :src="item"/>
+		</template>
 		<!-- <FixedFoot :text="text"/> -->
 	</view>
 </template>
@@ -20,7 +22,8 @@ import API from '@/common/api.js';
 			return {
 				text: '前往盒岛官网认证',
 				headTab: [],
-				currentIndex: 0
+				currentIndex: 0,
+				imgList: [],
 			}
 		},
 		onLoad() {
@@ -31,6 +34,7 @@ import API from '@/common/api.js';
 				this.headTab.map((item) => item.check = false)
 				this.headTab[index].check = true
 				this.currentIndex = index
+				this.imgList = this.headTab[index].imgList || [];
 			},
 
 			getInformationList() {
@@ -40,6 +44,7 @@ import API from '@/common/api.js';
 				Request.get(API.information.list, params, ({data}) => {
 					data.forEach((item) => item.check = false)
 					data[0].check = true
+					this.imgList = data[0].imgList || [];
 					this.headTab = data
 					console.log(data)
 				})
