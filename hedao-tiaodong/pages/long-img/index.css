@@ -1,3 +1,7 @@
 .contain {
+	padding: 20upx;
+}
+
+.contain image {
 	width: 100%;
 }

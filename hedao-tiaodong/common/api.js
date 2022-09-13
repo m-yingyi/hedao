@@ -18,6 +18,7 @@ export default {
         trendsPage: '/works/trends-page',
         coreWorksPage: '/works/core-works-page',
         coreTrends: '/works/core-trends',
+        trendsEdit: '/works/trends-edit/', // 根据动态id获取编辑页详情
     },
     find: {
         findPage: '/find/find-page-by-type',

@@ -29,15 +29,15 @@
       </template>
       <div v-if="[0,1].includes(item.publishType)" class="photoBox contentUserWrap justify-between">
         <div class="contentFootImg">
-          <template v-if="item.pushHeadImgs && item.pushHeadImgs.length">
-              <img v-for="imgItem in item.pushHeadImgs" :src="imgItem"/>
+          <template v-if="item.fansTeamHeadImgs && item.fansTeamHeadImgs.length">
+              <img v-for="imgItem in item.fansTeamHeadImgs" :src="imgItem"/>
             </template>
           <!-- <img
             src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
           <img src="/static/yun/imgs1.5/icon_xiezhen_17.png">
           <img
             src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300"> -->
-          <span>近期{{item.likeNum}}人加入</span>
+          <span>近期{{item.fansTeamCount}}人加入</span>
         </div>
         <div class="contentShareWrap">
           <img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${item.isLike? '3' : '2'}.png`" @click="handleHeart(item.isLike, item.id, item.createId)">
@@ -278,7 +278,7 @@ figure .photoBox {
     top: 36upx;
     border-radius: 30upx;
     background: rgba(0,0,0,0.5);
-    width: 70upx;
+    width: 100upx;
     height: 50upx;
     display: flex;
     align-items: center;

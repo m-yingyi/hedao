@@ -1,6 +1,6 @@
 <template>
-	<view class="content">
-		<image v-for="(item, index) in imgsList" v-key="index" :src="item.originalImg"/>
+	<view class="contain">
+		<image v-for="(item, index) in imgsList" mode="widthFix" v-key="index" :src="item.url"/>
 	</view>
 </template>
 
@@ -20,18 +20,19 @@ import API from '@/common/api.js';
 		},
 		data() {
 			return {
-				imgsList: []
+				detail: {},
+				imgsList: [],
 			}
 		},
-		onLoad() {
-			this.getCoreTrendsList()
+		onLoad(option) {
+			this.getCoreTrendsList(option.id)
 		},
 		methods: {
-			getCoreTrendsList() {
-				Request.get(API.works.coreTrends, {
-					createId: this.id,// 作品发布id
-				}, (res) => {
-					this.imgsList = res.data.items
+			getCoreTrendsList(id) {
+				Request.get(API.works.trendsEdit+id, null, ({data, statusCode}) => {
+					if(statusCode != 200) return;
+					this.detail = data;
+					this.imgsList = data.imgList || [];
 				})
 			}
 		}
