@@ -4,26 +4,27 @@
             <h3 style="font-size: 26upx;color: #999999;padding: 28upx 0 20upx 0;">{{planInfo.tilte}}</h3>
             
             <div style="font-size: 26upx;"><span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span style="font-size: 60upx;padding-right:22upx;">{{(planInfo.price/100).toFixed(2)}}</span>元/月
-				<span v-if="planInfo.buys" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{planInfo.buys || 0}}次购买</span>
+				<span v-if="planInfo.buys && idolconfig.isShowAssistanceNum" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{planInfo.buys || 0}}次购买</span>
 			</div>
             <p style="font-size: 30upx;padding: 18upx 0 32upx 0;">
 				<!-- {{planInfo.introduction}} -->
 				<rich-text :nodes="`<div>${replaceBr(planInfo.introduction)}</div>`"></rich-text>
 			</p>
             <!-- <img style="max-width: 550upx;max-height: 550upx;margin-bottom: 20upx;border-radius: 3px;" src="http://i.hedaoapp.com/image/jpg/2022/6/14/232027416716a841c0445e938eb75d153ad4d7.jpg"> -->
-            <image v-if="planInfo.imgUrl" mode="widthFix" style="width: 100%;margin-bottom: 20upx;border-radius: 3px;" :src="planInfo.imgUrl"/>
+            <image v-if="planInfo.imgUrl && !planInfo.isBasics" mode="widthFix" style="width: 100%;margin-bottom: 20upx;border-radius: 3px;" :src="planInfo.imgUrl"/>
         </div>
 		<div class="member-card" style="padding: 36upx;border-top: 1px solid #f0f0f0;">
             <div style="padding: 0 0 36upx 0;color:black;font-weight: bold;font-size: 32upx;line-height: 32upx;">获得会员卡和特权</div>
-            <div class="member-card-new" style="background: url(http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg) no-repeat center;background-size: 100% 100%;">
+            <div class="member-card-new" :style="{'background': `url(${planInfo.isBasics ? planInfo.imgUrl : 'http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg'}) no-repeat center`, 'background-size': '100% 100%',}">
                 <div class="opacity"></div>
                 <div class="box">
-                    <img class="member-user-img" src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
+					<img class="member-user-img" :src="coreInfo.headImg||'http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300'">
                     <div class="size-wrap">
-                        <span class="size-title">{{planInfo.userName}}的会员</span>
+						<span class="size-title">{{planInfo.userName}}的会员</span>
                         <span class="size-txt">创作者ID：1001O</span>
                     </div>
                     <img class="member-vip-img" src="/Content/yun/idolMember/png_app1.4_02.png">
+					<!-- <image class="member-vip-img" v-if="planInfo.imgUrl" mode="widthFix" :src="planInfo.imgUrl"/> -->
                 </div>
                 <div class="flex-betweem">
                     <div class="member-line"></div>
@@ -33,7 +34,8 @@
                 <div class="btn-white">{{planInfo.tilte}}</div>
             </div>
         </div>
-		<div class="spend-content" style="margin-top: 20upx;">
+		<div class="spend-content" style="margin-top: 20upx;"
+		 v-if="creatorHome.trends || creatorHome.works || creatorHome.goodsCount || creatorHome.audioCount || creatorHome.collectionCount">
 			<h2 style="font-size: 32upx; line-height: 32upx;font-weight:bold;padding-bottom: 20upx;">此会员包含付费内容</h2>
 			<div class="spend-items">
 				<span v-if="creatorHome.trends">动态 {{creatorHome.trends}}</span>
@@ -90,6 +92,8 @@ import API from '@/common/api.js';
 				orderDatas: {}, // 订单数据
 				userId: null,
 				creatorHome: {},
+				coreInfo: {},
+				idolconfig: {},
 			}
 		},
 		onLoad(option) {
@@ -100,6 +104,7 @@ import API from '@/common/api.js';
 			}
 			if(this.userId) {
 				this.getcreatorHome();
+				this.getcreatorInfo();
 			}
 		},
 		methods: {
@@ -114,6 +119,21 @@ import API from '@/common/api.js';
 					if(statusCode!=200) return;
 					this.creatorHome = data;
 					console.log("🚀 ~ file: index.vue ~ line 103 ~ Request.get ~ this.creatorHome", this.creatorHome)
+				})
+			},
+			getcreatorInfo() {
+				Require.get(API.user.creatorInfo + this.userId, null, ({statusCode, data}) => {
+					if(statusCode!=200) return;
+					this.coreInfo = data;
+					this.creatorId = data.creatorId;
+					this.getIdolConfig();
+				})
+			},
+			// 获取创作者配置
+			getIdolConfig() {
+				Require.get(API.user.idolconfig + this.creatorId, null, ({statusCode, data}) => {
+					if(statusCode!=200) return;
+					this.idolconfig = data;
 				})
 			},
 			handleCheckTime(index) {

@@ -50,6 +50,9 @@ const post = (url, data, callback) => {
 }
 const put = (url, data, callback) => {
 	let token = uni.getStorageSync('token') || '';
+	uni.showLoading({
+		title: '加载中'
+	});
 	uni.request({
 		url: baseUrl + url,
 		data,
@@ -85,6 +88,11 @@ const put = (url, data, callback) => {
 		},
 		fail:(err)=>{
 			
+		},
+		complete: () => {
+			setTimeout(function() {
+				uni.hideLoading();
+			}, 250);
 		}
 	})
 

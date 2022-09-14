@@ -58,9 +58,9 @@
 								<img src="/static/yun/imgs1.5/png_1.5_34.png">
 							</a>
 						</div>
-						<div class="menu" style="padding-top: 20upx;">
-							<div @click="changeTab(index)" v-for="(item, index) in tabList">
-								<div class="menu-li blackTxt" v-if="!index || (worksLists.length && index == 2) || (trendLists.length && index == 1)">
+						<div class="menu" style="padding-top: 20upx;" v-if="tabLists.length > 1">
+							<div @click="changeTab(index)" v-for="(item, index) in tabLists">
+								<div class="menu-li blackTxt">
 									{{item.label}}<p :class="item.check ? 'redLine':''"></p>
 								</div>
 							</div>
@@ -70,30 +70,30 @@
 								<div class="core-index-title">关于</div>
 								<p id="core-index-desc"><pre>{{aboutTip}}</pre></p>
 							</div>
-							<div class="core-index-box" style="padding-bottom: 72upx;">
+							<div class="core-index-box" v-if="memberList.length" style="padding-bottom: 72upx;">
 								<div class="core-index-title">会员</div>
-								<div class="member-card">
-									<div class="member-card-new"
-										style="background: url(http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg) no-repeat center;background-size: 100% 100%;">
-										<div class="opacity"></div>
-										<div class="box">
-											<img class="member-user-img"
-												src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
-											<div class="size-wrap">
-												<span class="size-title">{{coreInfo.nickName}}的会员</span>
-												<span class="size-txt">创作者ID：{{coreInfo.showId}}</span>
+								<template>
+									<div class="member-card">
+										<div class="member-card-new"
+										:style="{'background': `url(${item.imgUrl || 'http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg'}) no-repeat center`, 'background-size': '100% 100%',}">
+											<div class="opacity"></div>
+											<div class="box">
+												<img class="member-user-img"
+												:src="coreInfo.headImg||'http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300'">
+												<div class="size-wrap">
+													<span class="size-title">{{coreInfo.nickName}}的会员</span>
+													<span class="size-txt">创作者ID：{{coreInfo.showId}}</span>
+												</div>
+												<img class="member-vip-img" src="/Content/yun/idolMember/png_app1.4_02.png">
 											</div>
-											<img class="member-vip-img" src="/Content/yun/idolMember/png_app1.4_02.png">
+											<div class="flex-betweem">
+												<div class="member-line"></div>
+												<span>会员可解锁</span>
+												<div class="white-num">动态<span>{{coreInfo.trends}}</span>作品<span>{{coreInfo.myBought}}</span></div>
+											</div>
+											<div class="btn-white">{{item.tilte}}</div>
 										</div>
-										<div class="flex-betweem">
-											<div class="member-line"></div>
-											<span>会员可解锁</span>
-											<div class="white-num">动态<span>{{coreInfo.trends}}</span>作品<span>{{coreInfo.myBought}}</span></div>
-										</div>
-										<div class="btn-white">蓝钻会员</div>
 									</div>
-								</div>
-								<template  v-if="memberList.length">
 									<div class="support-wrap" v-for="item in memberList" v-key="item.id">
 										<h3>
 											{{item.tilte}}
@@ -101,20 +101,22 @@
 										<div>
 											<div class="flex-center">
 												<span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span
-												style="font-size: 56upx;padding-right:28upx;">{{item.price/100}}</span>元/月<span
-												style="font-size: 24upx; color: #999999;padding-left: 20upx;display:none;">3次购买</span>
+												style="font-size: 56upx;padding-right:28upx;">{{item.price/100}}</span>元/月
+												<!-- <span
+												style="font-size: 24upx; color: #999999;padding-left: 20upx;display:none;">3次购买</span> -->
 											</div>
-												<span v-if="item.buys && coreInfo.isShowSalesVolume" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{item.buys || 0}}次购买</span>
+												<span v-if="item.buys && idolconfig.isShowAssistanceNum" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{item.buys || 0}}次购买</span>
 										</div>
 										<p style="font-size: 30upx;padding-top: 18upx;">
 											<rich-text style="word-break: break-all;" :nodes="`<pre>${replaceBr(item.introduction)}</pre>`"></rich-text>
 											<!-- {{item.introduction}} -->
 											</p>
-										<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}&userId=${userId}`)">
-											<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
-												开通
-											</div>
-										</a>
+											<image v-if="item.imgUrl && !item.isBasics" mode="widthFix" style="width: 100%;margin-bottom: 20upx;border-radius: 3px;" :src="item.imgUrl"/>
+											<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}&userId=${userId}`)">
+												<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
+													开通
+												</div>
+											</a>
 									</div>
 									<div v-if="memberHideNumber" class="core-index-gray-btn" id="AllMember" @click="showHideMemberLists">{{isHidemember ? `查看全部${memberHideNumber}个会员` :'收起'}}</div>
 								</template>
@@ -259,7 +261,8 @@ import API from '@/common/api.js';
 		},
 		data() {
 			return {
-				tabList: [{label: '主页', check: true},{label: '动态', check: false },{label: '商店', check: false }],
+				// tabList: [{label: '主页', check: true},{label: '动态', check: false },{label: '商店', check: false }],
+				tabLists: [],
 				list: [
 					'http://i.hedaoapp.com/Trends/2022/6/16/221430e6b528d508ed41859ba34ed066b8a16b.jpg',
 					'http://i.hedaoapp.com/image/jpg/2021/9/13/021757f47c8b7ae7d842d2ab802b70d50a1e54.jpg',
@@ -289,6 +292,7 @@ import API from '@/common/api.js';
 				targetDatas: [], // 目标
 				aboutTip: '', // 关于
 				isIdolIdVisit: false, //是否偶像ID访问
+				idolconfig: {}, // 创作者配置
 				isIntroductionHide: false,
 			}
 		},
@@ -322,9 +326,10 @@ import API from '@/common/api.js';
 				})
 			},
 			changeTab(index) {
-				this.tabList.map((item) => item.check = false);
-				this.tabList[index].check = true;
-				this.currentItem = index;
+				if (!this.tabLists.length) return;
+				this.tabLists.map((item) => item.check = false);
+				this.tabLists[index].check = true;
+				this.currentItem = this.tabLists[index].index;
 				this.pageProps.pageIndex = 1;
 			},
 			handleMemberLists () {
@@ -371,6 +376,7 @@ import API from '@/common/api.js';
 							return;
 						}
 						this.worksLists = [...this.worksLists, ...data.items];
+						this.getTabList({label: '商店', check: false, index: 2 });
 					}
 					console.log('worksLists',this.worksLists)
 				})
@@ -392,6 +398,9 @@ import API from '@/common/api.js';
 					this.aboutTip = data.toppingAbout;
 					this.memberAllList = data.memberPlanDatas;
 					this.handleMemberLists()
+					if (this.aboutTip || this.memberList.length || this.targetDatas.length){
+						this.getTabList({label: '主页', check: true, index: 0})
+					}
 				})
 				Request.get(API.user.creatorInfo + this.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
@@ -399,8 +408,11 @@ import API from '@/common/api.js';
 					this.creatorId = data.creatorId;
 					this.getIdolConfig();
 					this.pageProps = this.$options.data().pageProps;
-					this.getTrendLists();
-					this.getCoreWorksLists();
+					new Promise((resolve, reject) => {
+						this.getTrendLists(false, resolve);
+					}).then(() => {
+						this.getCoreWorksLists();
+					})
 					this.getIntroductionHeight();
 				})
 			},
@@ -429,6 +441,7 @@ import API from '@/common/api.js';
 			getIdolConfig() {
 				Request.get(API.user.idolconfig + this.creatorId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
+					this.idolconfig = data;
 					this.isIdolIdVisit = data.isIdolIdVisit;
 				})
 			},
@@ -440,7 +453,7 @@ import API from '@/common/api.js';
 			// 	})
 			// },
 			// 获取动态信息
-			getTrendLists(isRefash) {
+			getTrendLists(isRefash, fn) {
 				isRefash && (this.trendLists.length = 0);
 				let params = {
 					type: 0, // 动态页
@@ -448,6 +461,9 @@ import API from '@/common/api.js';
 					...this.pageProps,
 				}
 				Request.get(API.works.trendsPage, params, ({statusCode, errors, data}) => {
+					if(fn) {
+						fn();
+					}
 					if(statusCode != 200) {
 						uni.showToast({
 							title: errors,
@@ -462,6 +478,7 @@ import API from '@/common/api.js';
 							return;
 						}
 						this.trendLists = [...this.trendLists, ...data.items];
+						this.getTabList({label: '动态', check: false, index: 1 });
 					}
 					console.log(this.trendLists)
 				})
@@ -559,6 +576,11 @@ import API from '@/common/api.js';
 			},
 			replaceBr(str) {
 				return str.replace(/<\/br>/g, '<br>')
+			},
+			getTabList(data) {
+				if(this.tabLists.find(v => data.label === v.label)) return;
+				this.tabLists.push(data);
+				this.changeTab(0);
 			}
 		}
 	}

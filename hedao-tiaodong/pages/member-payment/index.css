@@ -216,10 +216,11 @@
     box-sizing: border-box;
     background-color: white;
     margin-bottom: 88upx;
+    border: 1upx solid #f0f0f0;
 }
 
 .spend-items {
-    font-size: 32upx;
+    font-size: 28upx;
     display: flex;
     flex-wrap: wrap;
 }

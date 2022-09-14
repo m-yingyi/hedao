@@ -27,7 +27,7 @@
           <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>{{item.imgList[0].isLong ? '长图' : '多图' }}</div>
         </div>
       </template>
-      <div v-if="[0,1].includes(item.publishType)" class="photoBox contentUserWrap justify-between">
+      <div v-if="[0].includes(item.publishType)" class="photoBox contentUserWrap justify-between">
         <div class="contentFootImg">
           <template v-if="item.fansTeamHeadImgs && item.fansTeamHeadImgs.length">
               <img v-for="imgItem in item.fansTeamHeadImgs" :src="imgItem"/>
@@ -39,16 +39,20 @@
             src="http://i.hedaoapp.com/image/jpg/2022/4/3/224525b5921b8371564b409814e046c0b6822a.jpg?x-oss-process=image/resize,l_300"> -->
           <span>近期{{item.fansTeamCount}}人加入</span>
         </div>
-        <div class="contentShareWrap">
-          <img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${item.isLike? '3' : '2'}.png`" @click="handleHeart(item.isLike, item.id, item.createId)">
+        <div class="contentShareWrap" @click="handleHeart(item.isLike, item.id, item.createId)">
+          <img class="btnHeart" :src="`/static/yun/idolIcon/png_app_0${item.isLike? '3' : '2'}.png`">
           <span class="btn-like">{{item.likeNum || '点赞'}}</span>
           <div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
         </div>
       </div>
-      <div class="addItem">{{item.nickName}}
-        <span>{{item.publishContent}}</span>
+      <div class="addItem">
+        <!-- {{item.nickName}} -->
+        <!-- <span>{{item.publishContent}}</span> -->
+        <span>
+          <rich-text style="word-break: break-all;" :nodes="`${item.nickName}${replaceBr(item.publishContent)}`"></rich-text>
+        </span>
         <!-- 发布类型 0-随拍/1-画集/2-音频/3-盲盒/4-扭蛋/5-商品 -->
-        <span class="works-name" v-if="[2,3,4,5].includes(item.publishType)" @click="goCore(item.userId, 2)">
+        <span class="works-name" v-if="[1,2,3,4,5].includes(item.publishType)" @click="goCore(item.userId, 2)">
           <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
           {{item.worksName}}
         </span>
@@ -92,11 +96,11 @@ export default {
     /** 是否为需要跳转主页 */
     isNeedCore: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     isBold: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   data() {
@@ -181,7 +185,11 @@ export default {
       uni.navigateTo({
 					url: `../../pages/member-payment/index?id=${id}`
 				})
-    }
+    },
+    replaceBr(str) {
+      if(!str) return '';
+				return str.replace(/<\/br>/g, '<br>')
+			}
   },
 };
 </script>
@@ -374,5 +382,6 @@ figure .photoBox {
 #myVideo {
   width: 106%;
   margin-left: -20upx;
+  height: 900upx;
 }
 </style>

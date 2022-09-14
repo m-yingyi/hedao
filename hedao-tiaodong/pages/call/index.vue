@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<BaseSpace left-txt="常见QQ" right-txt="827491999"/>
+		<BaseSpace left-txt="QQ客服" right-txt="827491999"/>
 		<BaseSpace right-arrow left-txt="常见问题" @onClick="navigateTo"/>
 	</view>
 </template>
