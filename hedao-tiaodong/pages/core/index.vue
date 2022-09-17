@@ -73,28 +73,28 @@
 							<div class="core-index-box" v-if="memberList.length" style="padding-bottom: 72upx;">
 								<div class="core-index-title">会员</div>
 								<template>
-									<div class="member-card">
-										<div class="member-card-new"
-										:style="{'background': `url(${item.imgUrl || 'http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg'}) no-repeat center`, 'background-size': '100% 100%',}">
-											<div class="opacity"></div>
-											<div class="box">
-												<img class="member-user-img"
-												:src="coreInfo.headImg||'http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300'">
-												<div class="size-wrap">
-													<span class="size-title">{{coreInfo.nickName}}的会员</span>
-													<span class="size-txt">创作者ID：{{coreInfo.showId}}</span>
-												</div>
-												<img class="member-vip-img" src="/Content/yun/idolMember/png_app1.4_02.png">
-											</div>
-											<div class="flex-betweem">
-												<div class="member-line"></div>
-												<span>会员可解锁</span>
-												<div class="white-num">动态<span>{{coreInfo.trends}}</span>作品<span>{{coreInfo.myBought}}</span></div>
-											</div>
-											<div class="btn-white">{{item.tilte}}</div>
-										</div>
-									</div>
 									<div class="support-wrap" v-for="item in memberList" v-key="item.id">
+										<div class="member-card" v-if="item.isBasics">
+											<div class="member-card-new"
+											:style="{'background': `url(${item.imgUrl || 'http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg'}) no-repeat center`, 'background-size': '100% 100%',}">
+												<div class="opacity"></div>
+												<div class="box">
+													<img class="member-user-img"
+													:src="coreInfo.headImg||'http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300'">
+													<div class="size-wrap">
+														<span class="size-title">{{coreInfo.nickName}}的会员</span>
+														<span class="size-txt">创作者ID：{{coreInfo.showId}}</span>
+													</div>
+													<img class="member-vip-img" src="/static/yun/imgs1.6/icon_xcx_21.png">
+												</div>
+												<div class="flex-betweem">
+													<div class="member-line"></div>
+													<span>会员可解锁</span>
+													<div class="white-num">动态<span>{{coreInfo.trends}}</span>作品<span>{{coreInfo.myBought}}</span></div>
+												</div>
+												<div class="btn-white">{{item.tilte}}</div>
+											</div>
+										</div>
 										<h3>
 											{{item.tilte}}
 										</h3>
