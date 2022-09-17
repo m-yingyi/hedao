@@ -45,14 +45,14 @@
           <div class="copyAddr">http://www.hedaoapp.com/yun/core?wid=1</div>
         </div>
       </div>
-      <div class="addItem">
+      <div :class="item.publishType ? 'addItem ellipsis-2' : 'addItem'">
         <!-- {{item.nickName}} -->
-        <!-- <span>{{item.publishContent}}</span> -->
-        <span>
+        <span v-if="item.publishType > 0">{{item.publishContent}}</span>
+        <span v-if="item.publishType == 0">
           <rich-text style="word-break: break-all;" :nodes="`${item.nickName}${replaceBr(item.publishContent)}`"></rich-text>
         </span>
         <!-- 发布类型 0-随拍/1-画集/2-音频/3-盲盒/4-扭蛋/5-商品 -->
-        <span class="works-name" v-if="[1,2,3,4,5].includes(item.publishType)" @click="goCore(item.userId, 2)">
+        <span class="works-name" v-if="item.publishType > 0" @click="goCore(item.userId, 2)">
           <img src="/static/yun/imgs1.6/icon_xcx_17.png"/>
           {{item.worksName}}
         </span>
@@ -279,6 +279,14 @@ figure .photoBox {
     padding-top: 4upx;
     font-weight: bold;
     word-break: break-all;
+}
+.ellipsis-2 {
+  width: 95%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 .contentPreViews .previewsNum {
     position: absolute;

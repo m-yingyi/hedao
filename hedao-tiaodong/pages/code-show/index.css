@@ -42,6 +42,7 @@
   width: 190upx;
   height: 190upx;
   margin-bottom: 34upx;
+  border-radius: 50%;
 }
 
 .color-grad {

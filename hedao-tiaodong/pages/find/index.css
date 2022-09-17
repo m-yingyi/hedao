@@ -112,6 +112,14 @@
     font-weight: 600;
 }
 
+.index-no {
+    color: #37a2f2;
+    font-size: 28upx;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+}
+
 .index::before {
     content: "";
     width: 6upx;

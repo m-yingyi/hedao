@@ -28,13 +28,13 @@
                 </div>
                 <div class="flex-betweem">
                     <div class="member-line"></div>
-                    <span>会员可解锁</span>
-                    <div class="white-num">动态<span>{{planInfo.trends}}</span>作品<span>{{planInfo.works}}</span></div>
+                    <span>订阅后可获得会员卡</span>
+                    <!-- <div class="white-num">动态<span>{{planInfo.trends}}</span>作品<span>{{planInfo.works}}</span></div> -->
                 </div>
                 <div class="btn-white">{{planInfo.tilte}}</div>
             </div>
         </div>
-		<div class="spend-content" style="margin-top: 20upx;"
+		<div class="spend-content" style="margin-top: 10upx;"
 		 v-if="creatorHome.trends || creatorHome.works || creatorHome.goodsCount || creatorHome.audioCount || creatorHome.collectionCount">
 			<h2 style="font-size: 32upx; line-height: 32upx;font-weight:bold;padding-bottom: 20upx;">此会员包含付费内容</h2>
 			<div class="spend-items">
@@ -62,7 +62,7 @@
 				<span id="PricePay" style="font-size: 48upx;font-weight: bold;">{{planPrice / 100}}</span>
 				<span v-if="planPriceOriginal !== planPrice" id="PriceOriginal" style="color: #cccccc; padding-left: 40upx;line-height: 106upx; text-decoration: line-through;">¥{{(planPriceOriginal / 100).toFixed(2)}}</span>
 			</div>
-			<div class="support-btn" @click="createOrder">开通</div>
+			<div class="support-btn" @click="createOrder">订阅</div>
 		</div>
 	</view>
 </template>

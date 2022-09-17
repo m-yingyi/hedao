@@ -93,7 +93,7 @@
 		{
 			"path": "pages/member-payment/index",
 			"style": {
-				"navigationBarTitleText": "开通会员"
+				"navigationBarTitleText": "订阅会员"
 			}
 		},
 		{

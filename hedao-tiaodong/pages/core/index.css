@@ -653,6 +653,7 @@ figure .user-info {
 }
 
 #us-introduction {
+    white-space: pre-line;
 }
 
 #us-remark {

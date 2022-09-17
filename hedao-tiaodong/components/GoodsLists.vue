@@ -17,7 +17,7 @@
                         <a v-else>
                             <image
                             mode="widthFix"
-                                :src="item.thumbnail"
+                                :src="item.imgUrl"
                                 alt="作品封面" />
                         </a>
                     <div>
@@ -53,7 +53,7 @@
                     <a v-else>
                             <image
                             mode="widthFix"
-                                :src="item.thumbnail"
+                                :src="item.imgUrl"
                                 alt="作品封面" />
                         </a>
                     <div>

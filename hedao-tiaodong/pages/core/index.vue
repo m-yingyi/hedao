@@ -40,8 +40,8 @@
 						<div class="photoBox contentUserWrap"
 							style="border-top: 0;border-bottom: 1upx solid #f0f0f0;margin-top: 10upx;margin-bottom:0;">
 							<div class="leftImg">
-								<template v-if="coreInfo.fansHeadImgs && coreInfo.fansHeadImgs.length">
-									<img v-for="imgItem in coreInfo.fansHeadImgs" :src="imgItem"/>
+								<template v-if="coreInfo.fansTeamHeadImgs && coreInfo.fansTeamHeadImgs.length">
+									<img v-for="imgItem in coreInfo.fansTeamHeadImgs" :src="imgItem"/>
 								</template>
 								<template v-else>
 									<img
@@ -51,7 +51,7 @@
 									<img
 										src="http://i.hedaoapp.com/image/jpg/2022/3/24/1805235360aa12a52849fe9d72bde4bd0d8108.jpg?x-oss-process=image/resize,l_300">
 								</template>
-								<span>{{coreInfo.fans}}人加入粉丝团</span>
+								<span>{{coreInfo.fansTeamCount}}人加入粉丝团</span>
 							</div>
 							<a class="contentShareWrap" href="/yun/fansTeam?wid=1" style="color: #999">
 								<span style="margin-left: 26upx;" @click="showRank">查看成员</span>
@@ -89,8 +89,8 @@
 												</div>
 												<div class="flex-betweem">
 													<div class="member-line"></div>
-													<span>会员可解锁</span>
-													<div class="white-num">动态<span>{{coreInfo.trends}}</span>作品<span>{{coreInfo.myBought}}</span></div>
+													<span>订阅后可获得会员卡</span>
+													<!-- <div class="white-num">动态<span>{{coreInfo.trends}}</span>作品<span>{{coreInfo.myBought}}</span></div> -->
 												</div>
 												<div class="btn-white">{{item.tilte}}</div>
 											</div>
@@ -108,13 +108,13 @@
 												<span v-if="item.buys && idolconfig.isShowAssistanceNum" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{item.buys || 0}}次购买</span>
 										</div>
 										<p style="font-size: 30upx;padding-top: 18upx;">
-											<rich-text style="word-break: break-all;" :nodes="`<pre>${replaceBr(item.introduction)}</pre>`"></rich-text>
+											<rich-text style="word-break: break-all;" :nodes="`${replaceBr(item.introduction)}`"></rich-text>
 											<!-- {{item.introduction}} -->
 											</p>
 											<image v-if="item.imgUrl && !item.isBasics" mode="widthFix" style="width: 100%;margin-bottom: 20upx;border-radius: 3px;" :src="item.imgUrl"/>
 											<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}&userId=${userId}`)">
 												<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
-													开通
+													订阅
 												</div>
 											</a>
 									</div>
@@ -175,11 +175,11 @@
 							</div>
 							<div class="core-index-box" id="CoreTrends" style="padding: 48upx 0; margin-bottom: 0;" v-if="trendLists.length">
 								<div class="core-index-title" style="padding-left: 36upx;">动态</div>
-								<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
+								<TrendItem :source-data="trendLists" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 							</div>
 						</div>
 						<div class="core-index-container bg-white" v-if="currentItem === 1">
-							<TrendItem :source-data="trendLists" :isNeedCore="true" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
+							<TrendItem :source-data="trendLists" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 						</div>
 						<div class="core-index-container bg-white" v-if="currentItem === 2">
 							<GoodsLists :lists="worksLists" />
@@ -286,6 +286,7 @@ import API from '@/common/api.js';
 					pageSize: 6,
 				},
 				isNoMoreTrend: false, // 动态列表是否到底了
+				isNoMoreGoods: false, // 商品列表是否到底了
 				worksLists: [],
 				isOpenShare: false,
 				isShareTiktok: false,
@@ -372,7 +373,7 @@ import API from '@/common/api.js';
 					}
 					if(data?.items) {
 						if(data.items.length === 0) {
-							// this.isNoMoreTrend = true;
+							this.isNoMoreGoods = true;
 							return;
 						}
 						this.worksLists = [...this.worksLists, ...data.items];
@@ -398,7 +399,7 @@ import API from '@/common/api.js';
 					this.aboutTip = data.toppingAbout;
 					this.memberAllList = data.memberPlanDatas;
 					this.handleMemberLists()
-					if (this.aboutTip || this.memberList.length || this.targetDatas.length){
+					if (this.aboutTip || this.memberAllList.length || this.targetDatas.length){
 						this.getTabList({label: '主页', check: true, index: 0})
 					}
 				})
@@ -566,6 +567,7 @@ import API from '@/common/api.js';
 				this.pageProps.pageIndex += 1
 				console.log(this.currentItem);
 				if (this.currentItem == 2) {
+					if(this.isNoMoreGoods) return;
 					this.getCoreWorksLists();
 				} else {
 					this.getTrendLists();

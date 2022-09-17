@@ -12,12 +12,12 @@
 		</div>
 		<div v-for="item in findList" v-key="item.id">
 			<div class="find-user">
-				<UserItem @click="navigateTo()" :name="item.nickName" fansCount="9460" :img="item.headImg" />
+				<UserItem :isBold="true" @click="navigateTo()" :name="item.nickName" fansCount="9460" :img="item.headImg" />
 				<div class="fans-number">
 					<template v-if="item.buyUserCount">
 						{{item.buyUserCount}}粉丝团
 					</template>
-					<span class="index" @click="navigateTo(item.userId)">主页</span>
+					<span :class="item.buyUserCount?'index' : 'index-no'" @click="navigateTo(item.userId)">主页</span>
 				</div>
 			</div>
 			<div class="list">
