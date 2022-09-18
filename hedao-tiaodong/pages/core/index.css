@@ -345,7 +345,7 @@ figure .user-info {
 }
 .support-wrap {
     border-bottom: none;
-    border-top: 1px solid #f0f0f0;
+    /* border-top: 1px solid #f0f0f0; */
     padding: 0;
     width: 100%;
     box-sizing: border-box;

@@ -15,7 +15,7 @@
         </div>
 		<div class="member-card" style="padding: 36upx;border-top: 1px solid #f0f0f0;">
             <div style="padding: 0 0 36upx 0;color:black;font-weight: bold;font-size: 32upx;line-height: 32upx;">获得会员卡和特权</div>
-            <div class="member-card-new" :style="{'background': `url(${planInfo.isBasics ? planInfo.imgUrl : 'http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg'}) no-repeat center`, 'background-size': '100% 100%',}">
+            <div class="member-card-new" :style="{'background': `url(${memberImg ? memberImg : 'http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg'}) no-repeat center`, 'background-size': '100% 100%',}">
                 <div class="opacity"></div>
                 <div class="box">
 					<img class="member-user-img" :src="coreInfo.headImg||'http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300'">
@@ -35,14 +35,14 @@
             </div>
         </div>
 		<div class="spend-content" style="margin-top: 10upx;"
-		 v-if="creatorHome.trends || creatorHome.works || creatorHome.goodsCount || creatorHome.audioCount || creatorHome.collectionCount">
+		 v-if="creatorHome.trendsCount || creatorHome.photoCount || creatorHome.audioCount || creatorHome.drawCount">
 			<h2 style="font-size: 32upx; line-height: 32upx;font-weight:bold;padding-bottom: 20upx;">此会员包含付费内容</h2>
 			<div class="spend-items">
-				<span v-if="creatorHome.trends">动态 {{creatorHome.trends}}</span>
-				<span v-if="creatorHome.works">写真 {{creatorHome.works}}</span>
-				<span v-if="creatorHome.goodsCount">商品 {{creatorHome.goodsCount}}</span>
+				<span v-if="creatorHome.trendsCount">动态 {{creatorHome.trendsCount}}</span>
+				<span v-if="creatorHome.photoCount">写真 {{creatorHome.photoCount}}</span>
+				<!-- <span v-if="creatorHome.goodsCount">商品 {{creatorHome.goodsCount}}</span> -->
 				<span v-if="creatorHome.audioCount">音频 {{creatorHome.audioCount}}</span>
-				<span v-if="creatorHome.collectionCount">画集 {{creatorHome.collectionCount}}</span>
+				<span v-if="creatorHome.drawCount">画集 {{creatorHome.drawCount}}</span>
 			</div>
 		</div>
 		<div class="support-way" style="margin-top: 20upx;">
@@ -94,11 +94,13 @@ import API from '@/common/api.js';
 				creatorHome: {},
 				coreInfo: {},
 				idolconfig: {},
+				memberImg: '',
 			}
 		},
 		onLoad(option) {
 			this.planId = option.id;
 			this.userId = option.userId;
+			this.memberImg = option.img;
 			if(this.planId) {
 				this.getMemberPlan()
 			}

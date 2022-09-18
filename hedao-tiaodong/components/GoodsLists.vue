@@ -236,4 +236,8 @@ export default {
   line-height: 66upx;
   cursor: pointer;
 }
+
+#CoreGoodsContent2{
+    padding-left: 0;
+}
 </style>

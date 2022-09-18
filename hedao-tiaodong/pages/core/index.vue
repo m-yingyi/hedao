@@ -112,7 +112,7 @@
 											<!-- {{item.introduction}} -->
 											</p>
 											<image v-if="item.imgUrl && !item.isBasics" mode="widthFix" style="width: 100%;margin-top: 36upx;margin-bottom: 20upx;border-radius: 3px;" :src="item.imgUrl"/>
-											<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}&userId=${userId}`)">
+											<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}&userId=${userId}&img=${memberBasics}`)">
 												<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
 													订阅
 												</div>
@@ -295,6 +295,7 @@ import API from '@/common/api.js';
 				isIdolIdVisit: false, //是否偶像ID访问
 				idolconfig: {}, // 创作者配置
 				isIntroductionHide: false,
+				memberBasics: '', // 会员封面
 			}
 		},
 		onLoad(option) {
@@ -339,7 +340,11 @@ import API from '@/common/api.js';
 					this.memberList = this.memberAllList.slice(0,3);
 					this.memberHideList = this.memberAllList.slice(3);
 					this.memberHideNumber = this.memberHideList.length;
+				} else {
+					this.memberList = [...this.memberAllList];
 				}
+				this.memberBasics = (this.memberAllList.find(v => v.isBasics) || {}).imgUrl;
+				
 			},
 			showHideMemberLists () {
 				this.isHidemember =!this.isHidemember;
