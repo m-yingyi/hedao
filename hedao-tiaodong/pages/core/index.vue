@@ -92,7 +92,7 @@
 													<span>订阅后可获得会员卡</span>
 													<!-- <div class="white-num">动态<span>{{coreInfo.trends}}</span>作品<span>{{coreInfo.myBought}}</span></div> -->
 												</div>
-												<div class="btn-white">{{item.tilte}}</div>
+												<div class="btn-white">会员卡</div>
 											</div>
 										</div>
 										<h3>
@@ -111,7 +111,7 @@
 											<rich-text style="word-break: break-all;" :nodes="`${replaceBr(item.introduction)}`"></rich-text>
 											<!-- {{item.introduction}} -->
 											</p>
-											<image v-if="item.imgUrl && !item.isBasics" mode="widthFix" style="width: 100%;margin-bottom: 20upx;border-radius: 3px;" :src="item.imgUrl"/>
+											<image v-if="item.imgUrl && !item.isBasics" mode="widthFix" style="width: 100%;margin-top: 36upx;margin-bottom: 20upx;border-radius: 3px;" :src="item.imgUrl"/>
 											<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}&userId=${userId}`)">
 												<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
 													订阅
@@ -181,7 +181,7 @@
 						<div class="core-index-container bg-white" v-if="currentItem === 1">
 							<TrendItem :source-data="trendLists" :isBottom="isNoMoreTrend" @onRefash="getTrendLists(true)"/>
 						</div>
-						<div class="core-index-container bg-white" v-if="currentItem === 2">
+						<div class="core-index-container" v-if="currentItem === 2">
 							<GoodsLists :lists="worksLists" />
 						</div>
 					</view>

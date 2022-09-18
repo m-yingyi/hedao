@@ -23,7 +23,7 @@
 						<span class="size-title">{{planInfo.userName}}的会员</span>
                         <span class="size-txt">创作者ID：1001O</span>
                     </div>
-                    <img class="member-vip-img" src="/Content/yun/idolMember/png_app1.4_02.png">
+                    <img class="member-vip-img" src="/static/yun/imgs1.6/icon_xcx_21.png">
 					<!-- <image class="member-vip-img" v-if="planInfo.imgUrl" mode="widthFix" :src="planInfo.imgUrl"/> -->
                 </div>
                 <div class="flex-betweem">
@@ -31,7 +31,7 @@
                     <span>订阅后可获得会员卡</span>
                     <!-- <div class="white-num">动态<span>{{planInfo.trends}}</span>作品<span>{{planInfo.works}}</span></div> -->
                 </div>
-                <div class="btn-white">{{planInfo.tilte}}</div>
+                <div class="btn-white">会员卡</div>
             </div>
         </div>
 		<div class="spend-content" style="margin-top: 10upx;"

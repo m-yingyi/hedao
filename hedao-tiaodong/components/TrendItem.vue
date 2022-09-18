@@ -47,9 +47,9 @@
       </div>
       <div :class="item.publishType ? 'addItem ellipsis-2' : 'addItem'">
         <!-- {{item.nickName}} -->
-        <span v-if="item.publishType > 0">{{item.publishContent}}</span>
+        <span v-if="item.publishType > 0">{{item.nickName + item.publishContent}}</span>
         <span v-if="item.publishType == 0">
-          <rich-text style="word-break: break-all;" :nodes="`${item.nickName}${replaceBr(item.publishContent)}`"></rich-text>
+          <rich-text style="word-break: break-all;" :nodes="`${replaceBr(item.publishContent)}`"></rich-text>
         </span>
         <!-- 发布类型 0-随拍/1-画集/2-音频/3-盲盒/4-扭蛋/5-商品 -->
         <span class="works-name" v-if="item.publishType > 0" @click="goCore(item.userId, 2)">
