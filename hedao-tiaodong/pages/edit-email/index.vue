@@ -39,6 +39,12 @@ import API from '@/common/api.js';
 			},
             // 保存
             submit() {
+				if(!this.userEmail) {
+					uni.navigateBack({
+						delta: 1
+					});
+					return;
+				}
 				Request.put(API.user.userInfo, {
 					...this.userInfo,
 					userEmail: this.userEmail,

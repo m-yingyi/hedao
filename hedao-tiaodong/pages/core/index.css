@@ -177,6 +177,7 @@ figure .user-info {
     font-size: 32upx;
     display: flex;
     justify-content: center;
+    border-bottom: 1upx solid #f0f0f0;
 }
 .menu>div {
     width: 22%;
@@ -566,6 +567,7 @@ figure .user-info {
     font-size: 32upx;
     box-sizing: border-box;
     align-items: center;
+    position: relative;
 }
 
 .model-title span {
@@ -578,6 +580,8 @@ figure .user-info {
     width: 96upx;
     text-align: center;
     margin-right: -36upx;
+    position: absolute;
+    right: 28upx;
 }
 
 .model-title img {

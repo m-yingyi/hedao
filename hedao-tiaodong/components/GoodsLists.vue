@@ -14,7 +14,7 @@
                                 <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054" @click="check">查看</div>
                             </div>
                         </a>
-                        <a v-else>
+                        <a v-else @click="clickGoods">
                             <image
                             mode="widthFix"
                                 :src="item.imgUrl"
@@ -24,9 +24,9 @@
                         <div class="l-txt" style="height: 120upx; width: 100%">
                             <div class="line-two-title">{{item.title}}</div>
                             <div class="orange-txt">
-                                <template v-if="item.photoPrice">
+                                <template v-if="item.photoPrice || item.downloadPrice">
                                     <span style="font-size: 24upx;">
-                                        ￥</span>{{(item.photoPrice/100)}}
+                                        ￥</span>{{((item.photoPrice || item.downloadPrice)/100)}}
                                 </template>
                             
                             <span class="grag-txt-sale">{{item.introduction}}</span></div>
@@ -50,7 +50,7 @@
                                 <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054" @click="check">查看</div>
                             </div>
                         </a>
-                    <a v-else>
+                    <a v-else @click="clickGoods">
                             <image
                             mode="widthFix"
                                 :src="item.imgUrl"
@@ -59,9 +59,9 @@
                     <div>
                         <div class="l-txt" style="height: 120upx; width: 100%">
                             <div class="line-two-title">{{item.title}}</div>
-                            <div class="orange-txt"><template v-if="item.photoPrice">
+                            <div class="orange-txt"><template v-if="item.photoPrice || item.downloadPrice">
                                     <span style="font-size: 24upx;">
-                                ￥</span>{{(item.photoPrice/100)}}
+                                ￥</span>{{((item.photoPrice || item.downloadPrice)/100)}}
                                 </template><span class="grag-txt-sale">{{item.introduction}}</span></div>
                         </div>
                     </div>
@@ -88,6 +88,12 @@ export default {
             title: '该商品需要在APP内查看',
             icon: 'none'
         })
+    },
+    clickGoods() {
+        uni.showToast({
+            title: '作品详情请在APP内查看',
+            icon: 'none'
+        }) 
     }
   },
 };
@@ -106,6 +112,7 @@ export default {
     flex-wrap: wrap;
     padding: 10upx;
     padding-bottom: 0;
+    padding-top: 0;
     box-sizing: border-box;
 }
 .list ul li:nth-child(odd) {

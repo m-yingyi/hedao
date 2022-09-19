@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<div @click="goframerOriginator()">
-			<image class="find-balance" src="/static/yun/images/icon_xcx_05.jpg" mode="widthFix" />
+			<image class="find-balance" :src="advertisementList.length && advertisementList[0].imgUrl ? advertisementList[0].imgUrl :'/static/yun/images/icon_xcx_05.jpg'" mode="widthFix" />
 		</div>
 		<div class="find-tab">
 			<!-- <div class="find-tab-check">全部</div>
@@ -120,7 +120,6 @@ import API from '@/common/api.js';
 				}
 				Request.get(API.advertisement.advertisementList, params, ({data}) => {
 					this.advertisementList = data || []
-					console.log("🚀 ~ file: index.vue ~ line 61 ~ Request.get ~ data", data)
 				})
 			}
 		}

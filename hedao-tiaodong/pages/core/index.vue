@@ -6,7 +6,7 @@
 					<view hover-stop-propagation :class="isOpenShare ? 'content-hide' : 'content'">
 						<div class="flex align-center justify-between share-wrap">
 							<div class="goBack-btn" @click="goIndex"><img src="/static/yun/imgs/icon_yun_20.png" /></div>
-							<div class="share-btn" @click="openShare"><img src="/static/yun/idolIcon/png_app_01.png" /></div>
+							<div class="share-btn" @click="openShare"><img src="/static/yun/idolIcon/png_app_011.png" /></div>
 						</div>
 						<figure style="margin-top: auto;padding: 0 88upx;margin-bottom: 0;">
 							<div class="photoBox" style="flex-direction: column;justify-content: center;margin-right: auto;">
@@ -38,6 +38,7 @@
 							</div>
 						</div>
 						<div class="photoBox contentUserWrap"
+							v-if="coreInfo.fansTeamCount"
 							style="border-top: 0;border-bottom: 1upx solid #f0f0f0;margin-top: 10upx;margin-bottom:0;">
 							<div class="leftImg">
 								<template v-if="coreInfo.fansTeamHeadImgs && coreInfo.fansTeamHeadImgs.length">
@@ -167,7 +168,7 @@
 							</div>
 							<div class="core-index-box" id="CoreGoods" v-if="worksLists.length"
 								style="padding: 48upx 0px; background-color: rgb(240, 240, 240);">
-								<div class="core-index-title" style="padding-left: 36upx;">商店</div>
+								<div class="core-index-title" style="padding-left: 36upx;">作品</div>
 								<GoodsLists :lists="worksLists" />
 								<div class="left-right-padding36">
 									<a class="core-index-gray-btn" id="coreMoreGoods" @click="goStoreTab()">查看全部</a>
@@ -382,7 +383,7 @@ import API from '@/common/api.js';
 							return;
 						}
 						this.worksLists = [...this.worksLists, ...data.items];
-						this.getTabList({label: '商店', check: false, index: 2 });
+						this.getTabList({label: '作品', check: false, index: 2 });
 					}
 					console.log('worksLists',this.worksLists)
 				})
