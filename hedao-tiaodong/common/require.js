@@ -7,7 +7,7 @@ const baseUrl = 'https://api.hedaoapp.com/api';
 // const baseUrl = 'https://testapi.hedaoapp.com/api';
 const tokenHead = 'Bearer ';
 
-const post = (url, data, callback) => {
+const post = (url, data, callback, config ={}) => {
 	let token = uni.getStorageSync('token') || '';
 	uni.request({
 		url: baseUrl + url,
@@ -24,6 +24,7 @@ const post = (url, data, callback) => {
 			if (res.statusCode == 200) {
 				callback(res.data);
 			} else {
+				if (config.noLogin) return;
 				if (res.statusCode == 401) {
 					uni.showToast({
 						title: '请登录',
@@ -48,7 +49,7 @@ const post = (url, data, callback) => {
 	})
 
 }
-const put = (url, data, callback) => {
+const put = (url, data, callback, config={}) => {
 	let token = uni.getStorageSync('token') || '';
 	uni.showLoading({
 		title: '加载中'
@@ -68,6 +69,7 @@ const put = (url, data, callback) => {
 			if (res.statusCode == 200) {
 				callback(res.data);
 			} else {
+				if (config.noLogin) return;
 				if (res.statusCode == 401) {
 					uni.showToast({
 						title: '请登录',
@@ -98,7 +100,7 @@ const put = (url, data, callback) => {
 
 }
 
-const get = (url, data, callback) => {
+const get = (url, data, callback, config={}) => {
 	uni.showLoading({
 		title: '加载中'
 	});
@@ -113,6 +115,7 @@ const get = (url, data, callback) => {
 		method: 'GET',
 		data,
 		success: (response) => {
+			if (config.noLogin) return;
 			if (response.statusCode == 401) {
 				uni.showToast({
 					title: '请登录',

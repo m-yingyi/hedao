@@ -5,9 +5,17 @@
 				type="number"
 				placeholder="输入账号"
 				@input="accountInput"
-				maxlength="11"
+				@blur="checkName"
 				/>
 		</span></div>
+		<div class="flex align-center register-box">
+			<input
+				type="number"
+				placeholder="输入验证码"
+				@input="codeInput"
+				maxlength="11"
+				/>
+			<span @click="sendCode()">获取验证码</span></div>
 		<div class="flex align-center register-item">
 			<input
 				type="number"
@@ -24,7 +32,7 @@
 				password
 				/>
 		</div>
-		<BaseButton text="登录" @onClick="accountLogin()"/>
+		<BaseButton text="注册" @onClick="goRegister()"/>
 	</view>
 </template>
 
@@ -41,6 +49,9 @@ import API from '@/common/api.js';
 				account: '',
 				password: '',
 				confirmPassword: '',
+				vCode: '',
+				isPassName: true,
+				isEmail: false,
 			}
 		},
 		onLoad() {
@@ -53,42 +64,49 @@ import API from '@/common/api.js';
 				})
 			},
 			accountInput(e) {
+				var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 				this.account = e.detail.value;
+				this.isEmail = reg.test(this.account)
 			},
 			passWordInput(e) {
 				this.password = e.detail.value;
 			},
+			codeInput(e) {
+				this.vCode = e.detail.value;
+			},
 			comfirmPassWordInput(e) {
 				this.confirmPassword = e.detail.value;
 			},
-			accountLogin() {
+			goRegister() {
 				let title = null;
-				if (!this.confirmPassword || !this.password || !this.account) {
+				if (!this.confirmPassword || !this.password || !this.account || !this.vCode) {
 					title = '请输入信息';
-				} else if (this.account.length< 11) {
-					title = '手机号小于11位'
+				} else if (!this.isPassName) {
+					title = '账号不正确或已存在'
 				} else if ( this.confirmPassword !== this.password ) {
 					title = '密码不一致';
 				} else {
-					Require.post(API.auth.login, {
+					Require.post(API.auth.register, {
 						account: this.account,
 						password: this.password,
+						vCode: this.vCode
 					}, (res) => {
-						try {
-							console.log('res',res)
-							const data = res.data;
-							uni.setStorageSync('token', data.token);
-							uni.setStorageSync('refreshToken', data.refreshToken);
-							uni.setStorageSync('userInfo', data.userInfo);
-							title = '登录成功';
-							uni.switchTab({
-								url: '../../pages/find/index'
-							})
-						} catch (e) {
-							console.log('e',e)
-							// error
-						}
+						if(res.statusCode == 200) {
+							uni.showToast({
+									title: '注册成功',
+									icon: 'none'
+								})
+								uni.switchTab({
+									url: '../../pages/find/index'
+								})
+							} else {
+								uni.showToast({
+									title: res.errors,
+									icon: 'none'
+								})
+							}
 					})
+					return;
 				}
 				if (title) {
 					uni.showToast({
@@ -97,6 +115,37 @@ import API from '@/common/api.js';
 					})
 					return
 				}
+			},
+			sendCode() {
+				if (!this.account) {
+					uni.showToast({
+						title: '请输入账号',
+						icon: 'none'
+					})
+					return
+				}
+
+				Require.post(API.auth.sendCode, {
+						account: this.account,
+						type: this.isEmail ? 1: 0,
+						businessType: 0,
+					}, (res) => {
+						if(res.statusCode == 200) {
+							uni.showToast({
+								title: '已发送',
+							})
+						 }
+					})
+
+			},
+			checkName() {
+				if(!this.account) return;
+				Require.get(API.auth.checkName + this.account, null, (res) => {
+						console.log('res',res)
+						 if(res.statusCode == 200) {
+							this.isPassName = res.data;
+						 }
+					})
 			}
 		}
 	}

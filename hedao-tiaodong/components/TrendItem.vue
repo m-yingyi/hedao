@@ -30,7 +30,7 @@
       <div v-if="[0].includes(item.publishType)" class="photoBox contentUserWrap justify-between">
         <div class="contentFootImg">
           <template v-if="item.fansTeamHeadImgs && item.fansTeamHeadImgs.length">
-              <img v-for="imgItem in item.fansTeamHeadImgs.reverse()" :src="imgItem"/>
+              <img v-for="imgItem in reverseImgs(item.fansTeamHeadImgs)" :src="imgItem"/>
             </template>
           <!-- <img
             src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
@@ -189,7 +189,10 @@ export default {
     replaceBr(str) {
       if(!str) return '';
 				return str.replace(/<\/br>/g, '<br>')
-			}
+			},
+      reverseImgs(data) {
+        return data.reverse();
+      }
   },
 };
 </script>

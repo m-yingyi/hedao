@@ -35,14 +35,14 @@
             </div>
         </div>
 		<div class="spend-content" style="margin-top: 10upx;"
-		 v-if="creatorHome.trendsCount || creatorHome.photoCount || creatorHome.audioCount || creatorHome.drawCount">
+		 v-if="planInfo.trendsCount || planInfo.photoCount || planInfo.audioCount || planInfo.drawCount">
 			<h2 style="font-size: 32upx; line-height: 32upx;font-weight:bold;padding-bottom: 20upx;">此会员包含付费内容</h2>
 			<div class="spend-items">
-				<span v-if="creatorHome.trendsCount">动态 {{creatorHome.trendsCount}}</span>
-				<span v-if="creatorHome.photoCount">写真 {{creatorHome.photoCount}}</span>
+				<span v-if="planInfo.trendsCount">动态 {{planInfo.trendsCount}}</span>
+				<span v-if="planInfo.photoCount">写真 {{planInfo.photoCount}}</span>
 				<!-- <span v-if="creatorHome.goodsCount">商品 {{creatorHome.goodsCount}}</span> -->
-				<span v-if="creatorHome.audioCount">音频 {{creatorHome.audioCount}}</span>
-				<span v-if="creatorHome.drawCount">画集 {{creatorHome.drawCount}}</span>
+				<span v-if="planInfo.audioCount">音频 {{planInfo.audioCount}}</span>
+				<span v-if="planInfo.drawCount">画集 {{planInfo.drawCount}}</span>
 			</div>
 		</div>
 		<div class="support-way" style="margin-top: 20upx;">

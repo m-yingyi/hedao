@@ -71,7 +71,7 @@ import API from '@/common/api.js';
 						this.isBottom = true
 					}
 					console.log(this.trendLists)
-				})
+				}, {noLogin: true})
 			},
 			// 下拉分页 TODO: 暂未实现
 			scrollPage() {

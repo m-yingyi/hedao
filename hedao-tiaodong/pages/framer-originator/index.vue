@@ -47,7 +47,7 @@ import API from '@/common/api.js';
 					this.imgList = data[0].imgList || [];
 					this.headTab = data
 					console.log(data)
-				})
+				}, {noLogin: true})
 			},
 
 			navigateTo() {

@@ -10,7 +10,7 @@ export default {
         register: '/auth/register',
         login: '/auth/login',
         sendCode: '/auth/send-code',
-        checkName: '/auth/check-name',
+        checkName: '/auth/check-username/',
         refreshToken: '/auth/refresh-token',
         tikTokLogin: '/auth/tik-tok-login'
     },

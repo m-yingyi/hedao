@@ -1,24 +1,28 @@
 <template>
 	<view class="content">
-		<div class="flex align-center register-box">
-			<input
-			 	type="text"
-				placeholder="输入账号"
-				@input="accountInput"
-				/>
+		<div>
+			<div class="flex align-center register-box">
+				<input
+					 type="text"
+					placeholder="输入账号"
+					@input="accountInput"
+					/>
+			</div>
+			<!-- <div class="flex align-center register-box">账号<div class="register-box-txt">
+				 
+			</div></div> -->
+			<div class="flex align-center register-item">
+				<input
+					type="number"
+					placeholder="输入密码"
+					@input="passWordInput"
+					password
+					/>
+			</div>
+			<BaseButton text="登录" @onClick="accountLogin()"/>
 		</div>
-		<!-- <div class="flex align-center register-box">账号<div class="register-box-txt">
-			 
-		</div></div> -->
-		<div class="flex align-center register-item">
-			<input
-				type="number"
-				placeholder="输入密码"
-				@input="passWordInput"
-				password
-				/>
-		</div>
-		<BaseButton text="登录" @onClick="accountLogin()"/>
+		
+		<div class="register" @click="goRegister()">注册账号</div>
 	</view>
 </template>
 
@@ -43,6 +47,11 @@ import API from '@/common/api.js';
 			navigateTo() {
 				uni.navigateTo({
 					url: '../../pages/question/index'
+				})
+			},
+			goRegister() {
+				uni.navigateTo({
+					url: '../../pages/register/index'
 				})
 			},
 			accountInput(e) {

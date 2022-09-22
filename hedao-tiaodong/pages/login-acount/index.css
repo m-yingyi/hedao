@@ -19,3 +19,13 @@
 	width: 100%;
 	border-bottom: 1upx solid #f0f0f0;
 }
+
+.register {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	color: #999;
+	text-align: center;
+	padding: 150upx 0;
+}

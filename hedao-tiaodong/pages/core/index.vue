@@ -41,8 +41,8 @@
 							v-if="coreInfo.fansTeamCount"
 							style="border-top: 0;border-bottom: 1upx solid #f0f0f0;margin-top: 10upx;margin-bottom:0;">
 							<div class="leftImg">
-								<template v-if="coreInfo.fansTeamHeadImgs && coreInfo.fansTeamHeadImgs.length">
-									<img v-for="imgItem in coreInfo.fansTeamHeadImgs" :src="imgItem"/>
+								<template v-if="fansTeamHeadImgs && fansTeamHeadImgs.length">
+									<img v-for="imgItem in fansTeamHeadImgs" :src="imgItem"/>
 								</template>
 								<template v-else>
 									<img
@@ -71,7 +71,7 @@
 								<div class="core-index-title">关于</div>
 								<p id="core-index-desc"><pre>{{aboutTip}}</pre></p>
 							</div>
-							<div class="core-index-box" v-if="memberList.length" style="padding-bottom: 72upx;">
+							<div class="core-index-box" v-if="memberList.length && coreInfo.isAssistancePlan == 1" style="padding-bottom: 72upx;">
 								<div class="core-index-title">会员</div>
 								<template>
 									<div class="support-wrap" v-for="item in memberList" v-key="item.id">
@@ -297,6 +297,7 @@ import API from '@/common/api.js';
 				idolconfig: {}, // 创作者配置
 				isIntroductionHide: false,
 				memberBasics: '', // 会员封面
+				fansTeamHeadImgs: [], // 粉丝团头像
 			}
 		},
 		onLoad(option) {
@@ -412,6 +413,7 @@ import API from '@/common/api.js';
 				Request.get(API.user.creatorInfo + this.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
 					this.coreInfo = data;
+					this.fansTeamHeadImgs = (data.fansTeamHeadImgs || []).reverse();
 					this.creatorId = data.creatorId;
 					this.getIdolConfig();
 					this.pageProps = this.$options.data().pageProps;
