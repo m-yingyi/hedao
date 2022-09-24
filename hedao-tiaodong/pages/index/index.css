@@ -146,6 +146,8 @@ figure .photoBox {
     justify-content: center;
     border-top: 1upx solid #f0f0f0;
     border-bottom: 1upx solid #f0f0f0;
+    padding-top: 20upx;
+    box-sizing: border-box;
 }
 .menu>div {
     width: 22%;
