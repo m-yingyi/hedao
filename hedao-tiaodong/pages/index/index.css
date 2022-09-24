@@ -132,5 +132,45 @@ figure .photoBox {
 }
 
 .cover-view-scroll {
-    height: 100vh;
+    height: calc(100vh - 100upx)
+}
+
+.menu {
+    width: 100%;
+    height: 97upx;
+    /* line-height: 97upx; */
+    align-items: center;
+    color: #999;
+    font-size: 32upx;
+    display: flex;
+    justify-content: center;
+    border-top: 1upx solid #f0f0f0;
+    border-bottom: 1upx solid #f0f0f0;
+}
+.menu>div {
+    width: 22%;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    height: 60upx;
+}
+.menu .menu-li {
+    width: 100% !important;
+    width: 197upx;
+    height: 60upx;
+    position: relative;
+}
+.menu .blackTxt {
+    color: #333;
+}
+.menu .redLine {
+    width: 44upx;
+    height: 6upx;
+    background-color: #37a2f2;
+    border-radius: 3upx;
+    position: absolute;
+    z-index: 9;
+    bottom: 6upx;
+    left: 50%;
+    margin-left: -22upx;
 }

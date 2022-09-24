@@ -2,23 +2,20 @@
 	<view class="content">
 		<div class="flex align-center register-box">账号<span class="register-box-txt">
 			 <input
-				type="number"
 				placeholder="输入账号"
 				@input="accountInput"
 				@blur="checkName"
 				/>
 		</span></div>
-		<div class="flex align-center register-box">
+		<div class="flex align-center register-item code">
 			<input
 				type="number"
 				placeholder="输入验证码"
 				@input="codeInput"
-				maxlength="11"
 				/>
-			<span @click="sendCode()">获取验证码</span></div>
+			<span :class="isClickCode ? 'get-code ' : 'time'" @click="sendCode()">{{isClickCode?'获取验证码':`重新获取(${seconds})`}}</span></div>
 		<div class="flex align-center register-item">
 			<input
-				type="number"
 				placeholder="输入密码"
 				@input="passWordInput"
 				password
@@ -26,7 +23,6 @@
 		</div>
 		<div class="flex align-center register-item">
 			<input
-				type="number"
 				placeholder="确认密码"
 				@input="comfirmPassWordInput"
 				password
@@ -52,6 +48,9 @@ import API from '@/common/api.js';
 				vCode: '',
 				isPassName: true,
 				isEmail: false,
+				seconds: 60,
+				isClickCode: true,
+				timer: null,
 			}
 		},
 		onLoad() {
@@ -124,7 +123,17 @@ import API from '@/common/api.js';
 					})
 					return
 				}
-
+				if (!this.isClickCode) return;
+				this.isClickCode = false;
+				this.timer = setInterval(()=> {
+					if (!this.seconds) {
+						clearInterval(this.timer);
+						this.isClickCode = true;
+						this.seconds = 60;
+					} else {
+						this.seconds -= 1;
+					}
+				}, 1000)
 				Require.post(API.auth.sendCode, {
 						account: this.account,
 						type: this.isEmail ? 1: 0,

@@ -19,3 +19,14 @@
 	width: 100%;
 	border-bottom: 1upx solid #f0f0f0;
 }
+
+.code {
+	justify-content: space-between;
+}
+
+.code .get-code {
+	color: #37a2f2;
+}
+.code .time {
+	color: #999;
+}

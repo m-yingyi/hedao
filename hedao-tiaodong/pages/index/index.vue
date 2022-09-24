@@ -1,6 +1,13 @@
 <template>
 	<view :class="isLogin ? 'content': 'content-noLogin'">
 		<view v-if="isLogin">
+			<div class="menu" v-if="tabLists.length > 1">
+				<div @click="changeTab(index)" v-for="(item, index) in tabLists">
+					<div :class="item.check ? 'menu-li blackTxt':'menu-li'">
+						{{item.label}}<p :class="item.check ? 'redLine':''"></p>
+					</div>
+				</div>
+			</div>
 			<scroll-view class="cover-view-scroll" :scroll-y="true" @scrolltolower="scrollPage">
 				<TrendItem :isNeedCore="true" :isBold="true" :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}"/>
 			</scroll-view>
@@ -37,6 +44,8 @@ import API from '@/common/api.js';
 					pageSize: 20,
 				},
 				isBottom: false,
+				tabLists: [{label: '推荐', check: true},{label: '关注', check: false }],
+				currentItem: 0,
 			}
 		},
 		onShow() {
@@ -53,6 +62,12 @@ import API from '@/common/api.js';
 					url: '/pages/find/index'
 				});
 			},
+			changeTab(index) {
+				this.tabLists.map((item) => item.check = false);
+				this.tabLists[index].check = true;
+				this.currentItem = index;
+				this.getTrendInfo(true);
+			},
 			// 获取首页关注
 			getTrendInfo(isRefash) {
 				if (isRefash) {
@@ -60,7 +75,7 @@ import API from '@/common/api.js';
 					this.pageProps.pageIndex = 1;
 				}
 				let params = {
-					type: 2, //首页关注
+					type: this.currentItem +1, //首页关注
 					...this.pageProps,
 				}
 				Request.get(API.works.trendsPage, params, ({data}) => {

@@ -24,21 +24,22 @@ const post = (url, data, callback, config ={}) => {
 			if (res.statusCode == 200) {
 				callback(res.data);
 			} else {
-				if (config.noLogin) return;
-				if (res.statusCode == 401) {
-					uni.showToast({
-						title: '请登录',
-						duration: 3000,
-						icon: 'none',
-						complete() {
-							uni.clearStorage();
-							uni.switchTab({
-								url: '../../pages/mine/index'
-							})
-						}
-					});
-					
-					return;
+				if (config.noLogin) {
+					if (res.statusCode == 401) {
+						uni.showToast({
+							title: '请登录',
+							duration: 3000,
+							icon: 'none',
+							complete() {
+								uni.clearStorage();
+								uni.switchTab({
+									url: '../../pages/mine/index'
+								})
+							}
+						});
+						
+						return;
+					}
 				}
 			}
 
@@ -69,21 +70,22 @@ const put = (url, data, callback, config={}) => {
 			if (res.statusCode == 200) {
 				callback(res.data);
 			} else {
-				if (config.noLogin) return;
-				if (res.statusCode == 401) {
-					uni.showToast({
-						title: '请登录',
-						duration: 3000,
-						icon: 'none',
-						complete() {
-							uni.clearStorage();
-							uni.switchTab({
-								url: '../../pages/mine/index'
-							})
-						}
-					});
-					
-					return;
+				if (config.noLogin) {
+					if (res.statusCode == 401) {
+						uni.showToast({
+							title: '请登录',
+							duration: 3000,
+							icon: 'none',
+							complete() {
+								uni.clearStorage();
+								uni.switchTab({
+									url: '../../pages/mine/index'
+								})
+							}
+						});
+						
+						return;
+					}
 				}
 			}
 
@@ -115,24 +117,25 @@ const get = (url, data, callback, config={}) => {
 		method: 'GET',
 		data,
 		success: (response) => {
-			if (config.noLogin) return;
-			if (response.statusCode == 401) {
-				uni.showToast({
-					title: '请登录',
-					duration: 3000,
-					icon: 'none',
-					complete() {
-						uni.clearStorage();
-						uni.switchTab({
-							url: '../../pages/mine/index'
-						})
-						// uni.reLaunch({
-						// 	url: '../../pages/mine/index'
-						// })
-					}
-				});
-				
-				return;
+			if (config.noLogin) {
+				if (response.statusCode == 401) {
+					uni.showToast({
+						title: '请登录',
+						duration: 3000,
+						icon: 'none',
+						complete() {
+							uni.clearStorage();
+							uni.switchTab({
+								url: '../../pages/mine/index'
+							})
+							// uni.reLaunch({
+							// 	url: '../../pages/mine/index'
+							// })
+						}
+					});
+					
+					return;
+				}
 			}
 			uni.hideLoading();
 			callback(response.data);
