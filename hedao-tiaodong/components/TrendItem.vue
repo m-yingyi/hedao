@@ -21,9 +21,9 @@
           <video id="myVideo" :width="item.videoWidth" :height="item.videoHeight" :src="item.videoUrl" :poster="item.imgList[0].originalImg"></video>
         </template>
         <div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
-          <image @click="imgPreview(item.imgList, index, item.id)" mode="widthFix" class="cont-pre-img"
+          <image @click="imgPreview(item.imgList, index, item.id)" :mode="!item.imgList[0].isLong && item.imgList.length <= 9? 'widthFix': 'top'" class="cont-pre-img"
             :src="item.imgList[0].originalImg"/>
-          <div class="previewsNum" v-if="item.imgList.length <= 9">1/{{item.imgList.length}}</div>
+          <div class="previewsNum" v-if="!item.imgList[0].isLong && item.imgList.length <= 9">1/{{item.imgList.length}}</div>
           <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>{{item.imgList[0].isLong ? '长图' : '多图' }}</div>
         </div>
       </template>

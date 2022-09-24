@@ -44,8 +44,8 @@ import API from '@/common/api.js';
 					pageSize: 20,
 				},
 				isBottom: false,
-				tabLists: [{label: '推荐', check: true},{label: '关注', check: false }],
-				currentItem: 0,
+				tabLists: [{label: '推荐', check: false},{label: '关注', check: true }],
+				currentItem: 1,
 			}
 		},
 		onShow() {

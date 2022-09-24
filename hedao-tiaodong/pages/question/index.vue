@@ -1,9 +1,5 @@
 <template>
 	<view class="content">
-		<!-- <pre>
-			{{description}}
-		</pre> -->
-		<!-- <rich-text style="word-break: break-all;" :nodes="`${replaceBr(description)}`"></rich-text> -->
 		<rich-text style="word-break: break-all;" :nodes="`<pre style='white-space: pre-wrap;'>${replaceBr(description)}</pre>`"></rich-text>
 	</view>
 </template>

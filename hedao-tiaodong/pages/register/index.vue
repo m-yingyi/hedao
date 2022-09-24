@@ -96,7 +96,7 @@ import API from '@/common/api.js';
 									icon: 'none'
 								})
 								uni.switchTab({
-									url: '../../pages/find/index'
+									url: '../../pages/index/index'
 								})
 							} else {
 								uni.showToast({
