@@ -1,18 +1,18 @@
 <template>
 	<view :class="isLogin ? 'content': 'content-noLogin'">
-		<view v-if="isLogin">
-			<div class="menu" v-if="tabLists.length > 1">
-				<div @click="changeTab(index)" v-for="(item, index) in tabLists">
-					<div :class="item.check ? 'menu-li blackTxt':'menu-li'">
-						{{item.label}}<p :class="item.check ? 'redLine':''"></p>
-					</div>
+		<div class="menu" v-if="tabLists.length > 1">
+			<div @click="changeTab(index)" v-for="(item, index) in tabLists">
+				<div :class="item.check ? 'menu-li blackTxt':'menu-li'">
+					{{item.label}}<p :class="item.check ? 'redLine':''"></p>
 				</div>
 			</div>
+		</div>
+		<view v-if="isLogin || !currentItem">
 			<scroll-view class="cover-view-scroll" :scroll-y="true" @scrolltolower="scrollPage">
 				<TrendItem :isNeedCore="true" :isBold="true" :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}"/>
 			</scroll-view>
 		</view>
-		<view class="noLogin" v-if="!isLogin">
+		<view class="noLogin" v-if="!isLogin && currentItem">
 			<view>
 				未关注创作者<text @click="this.goFind()">去发现</text>
 			</view>

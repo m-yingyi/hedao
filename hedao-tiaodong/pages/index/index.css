@@ -109,7 +109,7 @@ figure .photoBox {
 }
 
 .content-noLogin {
-    height: 100vh;
+    height: calc(100vh - 100upx);
 }
 
 /* 未登录 */
