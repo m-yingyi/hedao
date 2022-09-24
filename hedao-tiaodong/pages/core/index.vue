@@ -298,6 +298,7 @@ import API from '@/common/api.js';
 				isIntroductionHide: false,
 				memberBasics: '', // 会员封面
 				fansTeamHeadImgs: [], // 粉丝团头像
+				isLogin: false,
 			}
 		},
 		onLoad(option) {
@@ -311,6 +312,7 @@ import API from '@/common/api.js';
 				this.userId = uni.getStorageSync('userInfo')?.userId;
 			}
 			this.getCreateInfo();
+			this.isLogin = uni.getStorageSync('token');
 			// this.getMemberLists();
 		},
 		mounted() {
@@ -511,6 +513,13 @@ import API from '@/common/api.js';
 			 * 关注创作者
 			 */
 			focusHandle(createId) {
+				if (!this.isLogin) {
+					uni.showToast({
+						title: '请先登录账号',
+						duration: 3000,
+					});
+					return;
+				}
 				Request.post(API.user.focus, {createId}, ({data, statusCode, errors}) => {
 					if (statusCode == 200) {
 						uni.showToast({
@@ -562,7 +571,8 @@ import API from '@/common/api.js';
 					})
 					return
 				}
-				this.isIdolIdVisit = bool;
+				this.isIdolIdVisit = !bool;
+				console.log("🚀 ~ file: index.vue ~ line 566 ~ handleConfirmCreateId ~ his.isIdolIdVisit", this.isIdolIdVisit)
 			},
 			showRank() {
 				uni.showToast({

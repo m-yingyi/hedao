@@ -102,6 +102,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    isLogin: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -136,6 +140,13 @@ export default {
     },
     handleHeart(isLike, id, createId) {
       // TODO: 请求接口 /api/collection/model
+      if (!this.isLogin) {
+					uni.showToast({
+						title: '请先登录账号',
+						duration: 3000,
+					});
+					return;
+				}
       if(isLike) {
         uni.showToast({
           title: '你已经点过赞了',

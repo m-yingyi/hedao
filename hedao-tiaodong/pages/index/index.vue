@@ -9,7 +9,7 @@
 		</div>
 		<view v-if="isLogin || !currentItem">
 			<scroll-view class="cover-view-scroll" :scroll-y="true" @scrolltolower="scrollPage">
-				<TrendItem :isNeedCore="true" :isBold="true" :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}"/>
+				<TrendItem :isLogin="isLogin" :isNeedCore="true" :isBold="true" :source-data="trendLists" :isBottom="isBottom" @onRefash="() => {getTrendInfo(true)}"/>
 			</scroll-view>
 		</view>
 		<view class="noLogin" v-if="!isLogin && currentItem">
