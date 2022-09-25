@@ -133,7 +133,7 @@
     padding: 36upx;
     box-sizing: border-box;
     background-color: white;
-    margin-bottom: 88upx;
+    margin-bottom: 12upx;
 }
 .support-way .way-box {
     position: relative;
@@ -232,4 +232,19 @@
     white-space: nowrap;
     margin-top: 36upx;
     margin-right: 36upx;
+}
+
+.support-img {
+    width: 28upx;
+    height: 28upx;
+    margin-left: 36upx;
+    margin-right: 16upx;
+}
+
+.support-tip {
+    color: #999999;
+    font-size: 24upx;
+    margin-bottom: 90upx;
+    display: flex;
+    align-items: center;
 }

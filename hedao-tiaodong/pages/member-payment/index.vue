@@ -54,7 +54,12 @@
 				</li>
 			</ul>
 		</div>
-		<div style="height: 88upx;width: 100%;"></div>
+		<div class="support-tip">
+			<img class="support-img" src="/static/yun/imgs1.6/icon_xcx_23.png" />
+			订阅内容为购买性质，非网络打赏，订阅后无法进行退款
+		</div>
+		<div style="height: 88upx;width: 100%;">
+		</div>
 		<div class="support-footer-wrap">
 			<div class="support-price">
 				<span>共计</span>

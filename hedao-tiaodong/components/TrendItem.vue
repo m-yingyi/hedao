@@ -143,6 +143,7 @@ export default {
       if (!this.isLogin) {
 					uni.showToast({
 						title: '请先登录账号',
+            icon: 'none',
 						duration: 3000,
 					});
 					return;
@@ -323,7 +324,8 @@ figure .photoBox {
     height: auto;
 }
 .cont-pre-img {
-    width: 100%;
+    width: 101%;
+    height: 600upx;
 }
 .more-imgs-txt{
   margin-right: 2upx;
@@ -349,6 +351,7 @@ figure .photoBox {
 .mask-img {
   position: relative;
   width: 101%;
+  height: 600upx;
 }
 
 .mask-content {

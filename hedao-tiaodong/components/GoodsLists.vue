@@ -3,7 +3,8 @@
         <ul id="CoreGoodsContent">
             <template v-for="(item, index) in lists">
                 <li v-if="index%2" v-key="item.id"> 
-                    <a v-if="item.isLock" style="" href="/yun/photolist?pid=3101" data-isopen="1" class="mask"> <image
+                    <a v-if="item.isLock" style="" href="/yun/photolist?pid=3101" data-isopen="1" class="mask"> 
+                        <image
                         mode="widthFix"
                             :src="item.imgVague"
                             class="mask-img"
@@ -15,6 +16,12 @@
                             </div>
                         </a>
                         <a v-else @click="clickGoods">
+                            <template v-if="item.templateCover">
+                                <image
+                                    mode="widthFix"
+                                :src="item.templateCover"
+                                class="cover-img"/> 
+                            </template>
                             <image
                             mode="widthFix"
                                 :src="item.imgUrl"
@@ -51,6 +58,12 @@
                             </div>
                         </a>
                     <a v-else @click="clickGoods">
+                        <template v-if="item.templateCover">
+                                <image
+                                    mode="widthFix"
+                                :src="item.templateCover"
+                                class="cover-img"/> 
+                            </template>
                             <image
                             mode="widthFix"
                                 :src="item.imgUrl"
@@ -205,6 +218,14 @@ export default {
    /* width: 100%; */
 }
 
+.cover-img {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 
 
 .mask-img {

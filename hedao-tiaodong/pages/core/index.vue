@@ -516,6 +516,7 @@ import API from '@/common/api.js';
 				if (!this.isLogin) {
 					uni.showToast({
 						title: '请先登录账号',
+						icon: 'none',
 						duration: 3000,
 					});
 					return;

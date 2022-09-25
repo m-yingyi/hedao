@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
-		<div @click="goframerOriginator()">
-			<image class="find-balance" :src="advertisementList.length && advertisementList[0].imgUrl ? advertisementList[0].imgUrl :'/static/yun/images/icon_xcx_05.jpg'" mode="widthFix" />
+		<div @click="goframerOriginator()" v-if="advertisementList.length && advertisementList[0].imgUrl">
+			<image class="find-balance" :src="advertisementList[0].imgUrl" mode="widthFix" />
 		</div>
 		<div class="find-tab">
 			<!-- <div class="find-tab-check">全部</div>
