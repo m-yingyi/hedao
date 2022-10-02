@@ -13,7 +13,7 @@
         <div class="mask-content" @click="goPlan(item.levelId)">
           <image class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
           <p class="filter-txt">{{item.levelTitle}}</p>
-          <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">开通</div>
+          <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">订阅</div>
         </div>
       </div>
       <template v-if="!item.isLock">
@@ -21,7 +21,7 @@
           <video id="myVideo" :width="item.videoWidth" :height="item.videoHeight" :src="item.videoUrl" :poster="item.imgList[0].originalImg"></video>
         </template>
         <div class="contentPreViews" v-if="!item.videoUrl && item.imgList.length">
-          <image @click="imgPreview(item.imgList, index, item.id)" :mode="!item.imgList[0].isLong && item.imgList.length <= 9? 'widthFix': 'top'" class="cont-pre-img"
+          <image @click="imgPreview(item.imgList, index, item.id)" :mode="!item.imgList[0].isLong && item.imgList.length <= 9? 'widthFix': 'aspectFill'" class="cont-pre-img"
             :src="item.imgList[0].originalImg"/>
           <div class="previewsNum" v-if="!item.imgList[0].isLong && item.imgList.length <= 9">1/{{item.imgList.length}}</div>
           <div class="previewsNum" v-else style="z-index: 19;"><image mode="widthFix" src="/static/yun/icons-video/icon_app_73.png" class="more-imgs-txt"/>{{item.imgList[0].isLong ? '长图' : '多图' }}</div>
