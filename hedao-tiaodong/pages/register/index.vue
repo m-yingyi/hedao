@@ -95,9 +95,7 @@ import API from '@/common/api.js';
 									title: '注册成功',
 									icon: 'none'
 								})
-								uni.switchTab({
-									url: '../../pages/index/index'
-								})
+							this.accountLogin()
 							} else {
 								uni.showToast({
 									title: res.errors,
@@ -155,6 +153,33 @@ import API from '@/common/api.js';
 							this.isPassName = res.data;
 						 }
 					})
+			},
+			accountLogin() {
+				Require.post(API.auth.login, {
+					account: this.account,
+					password: this.password,
+				}, (res) => {
+					try {
+						if (res.statusCode == 200) {
+							const data = res.data;
+							uni.setStorageSync('token', data.token);
+							uni.setStorageSync('refreshToken', data.refreshToken);
+							uni.setStorageSync('userInfo', data.userInfo);
+							uni.switchTab({
+								url: '../../pages/index/index'
+							})
+						} else {
+							uni.showToast({
+								title: res.errors,
+								icon: 'none'
+							})
+						}
+					} catch (e) {
+						console.log('e', e)
+						// error
+					}
+					uni.hideLoading();
+				})
 			}
 		}
 	}
