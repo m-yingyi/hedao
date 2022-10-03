@@ -10,7 +10,7 @@
        <!-- :style="{'backgroundSize': 'cover', 'backgroundImage': `url(${item.imgList[0].originalImg})`}" -->
       <div v-if="item.isLock" class="mask">
         <image mode="top" class="mask-img" :src="item.maskImg" />
-        <div class="mask-content" @click="goPlan(item.levelId)">
+        <div class="mask-content" @click="goPlan(item)">
           <image class="filter-lock" src="/static/yun/idolIcon/png_suo_02.png" alt="锁" />
           <p class="filter-txt">{{item.levelTitle}}</p>
           <div class="filter-btn temp-link" data-href="/yun/confirmAssistance?apId=1054">订阅</div>
@@ -188,14 +188,9 @@ export default {
     scrollRefash() {
       this.$emit('onscrollRefash')
     },
-    goPlan(id) {
+    goPlan(item) {
       uni.navigateTo({
-					url: `../../pages/member-payment/index?id=${id}`
-				})
-    },
-    goLongImg(id) {
-      uni.navigateTo({
-					url: `../../pages/member-payment/index?id=${id}`
+        url: `../../pages/member-payment/index?id=${item.levelId}&nickName=${item.nickName}&IdLetter=${item.IdLetter || 0}&headImg=${item.headImg}`
 				})
     },
     replaceBr(str) {

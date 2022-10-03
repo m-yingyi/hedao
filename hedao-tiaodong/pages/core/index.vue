@@ -113,7 +113,7 @@
 											<!-- {{item.introduction}} -->
 											</p>
 											<image v-if="item.imgUrl && !item.isBasics" mode="widthFix" style="width: 100%;margin-top: 36upx;margin-bottom: 20upx;border-radius: 3px;" :src="item.imgUrl"/>
-											<a href="/yun/confirmAssistance?apId=6" @click="navigateTo(`../../pages/member-payment/index?id=${item.id}&userId=${userId}&img=${memberBasics}`)">
+											<a href="/yun/confirmAssistance?apId=6" @click="goMemberPay(item)">
 												<div class="btn-redlong core-index-txtBlue-btn" style="margin: 36upx auto; width: 100%;">
 													订阅
 												</div>
@@ -494,9 +494,10 @@ import API from '@/common/api.js';
 					console.log(this.trendLists)
 				})
 			},
-			goMemberPay(id) {
+			goMemberPay(item) {
+				console.log(item, 'item')
 				uni.navigateTo({
-					url: `../../pages/member-payment/index?id=${id}`
+					url: `../../pages/member-payment/index?id=${item.id}&userId=${this.userId}&img=${this.memberBasics}&nickName=${this.coreInfo.nickName}&headImg=${this.coreInfo.headImg}&showId=${this.coreInfo.showId}`
 				})
 			},
 			goIndex() {

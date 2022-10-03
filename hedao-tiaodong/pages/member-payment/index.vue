@@ -4,7 +4,7 @@
             <h3 style="font-size: 26upx;color: #999999;padding: 28upx 0 20upx 0;">{{planInfo.tilte}}</h3>
             
             <div style="font-size: 26upx;"><span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span style="font-size: 60upx;padding-right:22upx;">{{(planInfo.price/100).toFixed(2)}}</span>元/月
-				<span v-if="planInfo.buys && idolconfig.isShowAssistanceNum" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{planInfo.buys || 0}}次购买</span>
+				<span v-if="planInfo.buys && idolConfig.isShowAssistanceNum" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{planInfo.buys || 0}}次购买</span>
 			</div>
             <p style="font-size: 30upx;padding: 18upx 0 32upx 0;">
 				<!-- {{planInfo.introduction}} -->
@@ -15,13 +15,13 @@
         </div>
 		<div class="member-card" style="padding: 36upx;border-top: 1px solid #f0f0f0;">
             <div style="padding: 0 0 36upx 0;color:black;font-weight: bold;font-size: 32upx;line-height: 32upx;">获得会员卡和特权</div>
-            <div class="member-card-new" :style="{'background': `url(${memberImg ? memberImg : 'http://i.hedaoapp.com/image/jpg/2022/6/14/232002e714c16f5af84e9f86a245c3de02902e.jpg'}) no-repeat center`, 'background-size': '100% 100%',}">
+            <div class="member-card-new" :style="{'background': `url(${option.memberImg}) no-repeat center`, 'background-size': '100% 100%',}">
                 <div class="opacity"></div>
                 <div class="box">
-					<img class="member-user-img" :src="coreInfo.headImg||'http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300'">
+					<img class="member-user-img" :src="option.headImg">
                     <div class="size-wrap">
-						<span class="size-title">{{planInfo.userName}}的会员</span>
-                        <span class="size-txt">创作者ID：1001O</span>
+						<span class="size-title">{{option.nickName || planInfo.userName}}的会员</span>
+                        <span class="size-txt">创作者ID：{{planInfo.createdId}}</span>
                     </div>
                     <img class="member-vip-img" src="/static/yun/imgs1.6/icon_xcx_21.png">
 					<!-- <image class="member-vip-img" v-if="planInfo.imgUrl" mode="widthFix" :src="planInfo.imgUrl"/> -->
@@ -82,6 +82,15 @@ import API from '@/common/api.js';
 		},
 		data() {
 			return {
+				option: {
+					id: '',
+					userId: '',
+					memberImg: 'http://hedaoapp.com/Content/yun/idolMember/png_app1.4_01.jpg',
+					headImg: 'http//i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300',
+					nickName: '',
+					IdLetter: 0,
+					showId: 0,
+				}, // 存储外部传进来的数据
 				memberTimeList: [
 					{label: '一个月', check: true, times: 1, rate: 1},
 					{label: '三个月', check: false, times: 3, rate: 1},
@@ -89,29 +98,27 @@ import API from '@/common/api.js';
 					{label: '一年', check: false, times: 12, rate: 0.95, discount:'95%折扣'},
 					{label: '二年', check: false, times: 24, rate: 0.9, discount:'90%折扣'},
 					{label: '三年', check: false, times: 36, rate: 0.85, discount:'85%折扣'}],
-				planId: null,
 				planInfo: {},
 				planPrice: 0, // 以分为单位
 				planPriceOriginal: 0, // 以分为单位
 				planTimes: 1,
 				orderDatas: {}, // 订单数据
-				userId: null,
 				creatorHome: {},
 				coreInfo: {},
-				idolconfig: {},
-				memberImg: '',
+				idolConfig: {},
 			}
 		},
 		onLoad(option) {
-			this.planId = option.id;
-			this.userId = option.userId;
-			this.memberImg = option.img;
-			if(this.planId) {
+			this.option = { ...this.option, ...option}
+			if (option.img) {
+				this.option.memberImg = option.img;
+			}
+			if (this.option.id) {
 				this.getMemberPlan()
 			}
-			if(this.userId) {
-				this.getcreatorHome();
-				this.getcreatorInfo();
+			if (this.option.userId) {
+				this.getCreatorHome();
+				this.getCreatorInfo();
 			}
 		},
 		methods: {
@@ -120,16 +127,16 @@ import API from '@/common/api.js';
 					url: '../../pages/question/index'
 				})
 			},
-			getcreatorHome() {
+			getCreatorHome() {
 				// 接口请求
-				Require.get(API.user.creatorHome + this.userId, null, ({statusCode, data}) => {
+				Require.get(API.user.creatorHome + this.option.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
 					this.creatorHome = data;
 					console.log("🚀 ~ file: index.vue ~ line 103 ~ Request.get ~ this.creatorHome", this.creatorHome)
 				})
 			},
-			getcreatorInfo() {
-				Require.get(API.user.creatorInfo + this.userId, null, ({statusCode, data}) => {
+			getCreatorInfo() {
+				Require.get(API.user.creatorInfo + this.option.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
 					this.coreInfo = data;
 					this.creatorId = data.creatorId;
@@ -138,9 +145,9 @@ import API from '@/common/api.js';
 			},
 			// 获取创作者配置
 			getIdolConfig() {
-				Require.get(API.user.idolconfig + this.creatorId, null, ({statusCode, data}) => {
+				Require.get(API.user.idolConfig + this.creatorId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
-					this.idolconfig = data;
+					this.idolConfig = data;
 				})
 			},
 			handleCheckTime(index) {
@@ -150,9 +157,11 @@ import API from '@/common/api.js';
 				this.calculatePrice(this.memberTimeList[index]);
 			},
 			getMemberPlan() {
-				Require.get(API.member.memberPlan + this.planId, null , ({statusCode, data}) => {
+				Require.get(API.member.memberPlan + this.option.id, null , ({statusCode, data}) => {
 					if(statusCode!=200) return;
 					this.planInfo = data;
+					this.option.memberImg = data.imgUrl || this.option.memberImg
+					this.planInfo.createdId = this.option.showId || Number(data.womanId) + 1000 + Number(this.option.IdLetter || 0)
 					this.planPrice = this.planInfo.price;
 					this.planPriceOriginal = this.planInfo.price;
 				})
@@ -168,7 +177,7 @@ import API from '@/common/api.js';
 					title: '正在创建订单',
 				});
 				Require.post(API.member.memberPlanVoucher, {
-					apId: this.planId, // 会员方案id
+					apId: this.option.id, // 会员方案id
 					dayNum: this.planTimes * 30, // 购买天数
 				}, ({statusCode, data}) => {
 					if(statusCode!=200) return;
