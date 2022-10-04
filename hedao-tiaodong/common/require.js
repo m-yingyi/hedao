@@ -8,6 +8,9 @@ const baseUrl = 'https://api.hedaoapp.com/api';
 const tokenHead = 'Bearer ';
 
 const post = (url, data, callback, config ={}) => {
+	uni.showLoading({
+		title: '加载中'
+	});
 	let token = uni.getStorageSync('token') || '';
 	uni.request({
 		url: baseUrl + url,
@@ -21,6 +24,7 @@ const post = (url, data, callback, config ={}) => {
 		method: 'POST',
 		success: (res) => {
 			console.log(res)
+			uni.hideLoading();
 			if (res.statusCode == 200) {
 				callback(res.data);
 			} else {
@@ -42,10 +46,12 @@ const post = (url, data, callback, config ={}) => {
 					}
 				}
 			}
-
 		},
 		fail:(err)=>{
-			
+			uni.hideLoading();
+			if (error && error.response) {
+				showError(error.response);
+			}
 		}
 	})
 
