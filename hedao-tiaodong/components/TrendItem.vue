@@ -2,7 +2,7 @@
   <view class="content">
     <!-- <scroll-view :style="{height: '100vh'}" :scroll-y="true" @scrolltolower="scrollRefash">
     </scroll-view> -->
-    <figure v-for="(item, index) in sourceData" v-key="item.id">
+    <figure v-for="(item, index) in sourceData" :key="item.id">
       <div class="user-name" @click="goCore(item.userId)">
         <UserItem :isBold="isBold" :name="item.nickName" :img="item.headImg"/>
         <img v-if="isNeedCore" class="go-core" src="/static/yun/imgs1.6/icon_xcx_16.png" />
@@ -30,7 +30,7 @@
       <div v-if="[0].includes(item.publishType)" class="photoBox contentUserWrap justify-between">
         <div class="contentFootImg">
           <template v-if="item.fansTeamHeadImgs && item.fansTeamHeadImgs.length">
-              <img v-for="imgItem in reverseImgs(item.fansTeamHeadImgs)" :src="imgItem"/>
+              <img v-for="(imgItem, imgIdx) in reverseImgs(item.fansTeamHeadImgs)" :src="imgItem" :key="imgIdx"/>
             </template>
           <!-- <img
             src="http://i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300">
@@ -189,9 +189,11 @@ export default {
       this.$emit('onscrollRefash')
     },
     goPlan(item) {
+      const url = `../../pages/member-payment/index?id=${item.levelId}&userId=${item.userId}`
+      console.log('url===', url)
       uni.navigateTo({
-        url: `../../pages/member-payment/index?id=${item.levelId}&nickName=${item.nickName}&IdLetter=${item.IdLetter || 0}&headImg=${item.headImg}`
-				})
+        url
+			})
     },
     replaceBr(str) {
       if(!str) return '';

@@ -3,7 +3,7 @@
 		<div class="support-wrap">
             <h3 style="font-size: 26upx;color: #999999;padding: 28upx 0 20upx 0;">{{planInfo.tilte}}</h3>
             
-            <div style="font-size: 26upx;"><span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span style="font-size: 60upx;padding-right:22upx;">{{(planInfo.price/100).toFixed(2)}}</span>元/月
+            <div style="font-size: 26upx;"><span style="font-size: 28upx;float: left;padding-top: 6upx">￥</span><span style="font-size: 60upx;padding-right:22upx;">{{planInfo.price ? (planInfo.price/100).toFixed(2) : 0}}</span>元/月
 				<span v-if="planInfo.buys && idolConfig.isShowAssistanceNum" style="font-size: 24upx;color: #999999;margin-left: 36upx">{{planInfo.buys || 0}}次购买</span>
 			</div>
             <p style="font-size: 30upx;padding: 18upx 0 32upx 0;">
@@ -15,13 +15,13 @@
         </div>
 		<div class="member-card" style="padding: 36upx;border-top: 1px solid #f0f0f0;">
             <div style="padding: 0 0 36upx 0;color:black;font-weight: bold;font-size: 32upx;line-height: 32upx;">获得会员卡和特权</div>
-            <div class="member-card-new" :style="{'background': `url(${option.memberImg}) no-repeat center`, 'background-size': '100% 100%',}">
+            <div class="member-card-new" :style="{'background': `url(${memberBasics}) no-repeat center`, 'background-size': '100% 100%',}">
                 <div class="opacity"></div>
                 <div class="box">
-					<img class="member-user-img" :src="option.headImg">
+					<img class="member-user-img" :src="coreInfo.headImg">
                     <div class="size-wrap">
-						<span class="size-title">{{option.nickName || planInfo.userName}}的会员</span>
-                        <span class="size-txt">创作者ID：{{planInfo.createdId}}</span>
+						<span class="size-title">{{coreInfo.nickName || planInfo.userName}}的会员</span>
+                        <span class="size-txt">创作者ID：{{coreInfo.showId}}</span>
                     </div>
                     <img class="member-vip-img" src="/static/yun/imgs1.6/icon_xcx_21.png">
 					<!-- <image class="member-vip-img" v-if="planInfo.imgUrl" mode="widthFix" :src="planInfo.imgUrl"/> -->
@@ -85,11 +85,6 @@ import API from '@/common/api.js';
 				option: {
 					id: '',
 					userId: '',
-					memberImg: 'http://hedaoapp.com/Content/yun/idolMember/png_app1.4_01.jpg',
-					headImg: 'http//i.hedaoapp.com/image/jpg/2022/5/6/2241404c2bd01a6e36416995b85453f7fafd04.jpg?x-oss-process=image/resize,l_300',
-					nickName: '',
-					IdLetter: 0,
-					showId: 0,
 				}, // 存储外部传进来的数据
 				memberTimeList: [
 					{label: '一个月', check: true, times: 1, rate: 1},
@@ -102,17 +97,15 @@ import API from '@/common/api.js';
 				planPrice: 0, // 以分为单位
 				planPriceOriginal: 0, // 以分为单位
 				planTimes: 1,
-				orderDatas: {}, // 订单数据
+				orderData: {}, // 订单数据
 				creatorHome: {},
 				coreInfo: {},
 				idolConfig: {},
+				memberBasics: '',
 			}
 		},
 		onLoad(option) {
 			this.option = { ...this.option, ...option}
-			if (option.img) {
-				this.option.memberImg = option.img;
-			}
 			if (this.option.id) {
 				this.getMemberPlan()
 			}
@@ -132,6 +125,7 @@ import API from '@/common/api.js';
 				Require.get(API.user.creatorHome + this.option.userId, null, ({statusCode, data}) => {
 					if(statusCode!=200) return;
 					this.creatorHome = data;
+					this.memberBasics = (data.memberPlanDatas.find(v => v.isBasics) || {}).imgUrl || 'http://hedaoapp.com/Content/yun/idolMember/png_app1.4_01.jpg';
 					console.log("🚀 ~ file: index.vue ~ line 103 ~ Request.get ~ this.creatorHome", this.creatorHome)
 				})
 			},
@@ -160,8 +154,6 @@ import API from '@/common/api.js';
 				Require.get(API.member.memberPlan + this.option.id, null , ({statusCode, data}) => {
 					if(statusCode!=200) return;
 					this.planInfo = data;
-					this.option.memberImg = data.imgUrl || this.option.memberImg
-					this.planInfo.createdId = this.option.showId || Number(data.womanId) + 1000 + Number(this.option.IdLetter || 0)
 					this.planPrice = this.planInfo.price;
 					this.planPriceOriginal = this.planInfo.price;
 				})
@@ -181,7 +173,7 @@ import API from '@/common/api.js';
 					dayNum: this.planTimes * 30, // 购买天数
 				}, ({statusCode, data}) => {
 					if(statusCode!=200) return;
-					this.orderDatas = data;
+					this.orderData = data;
 					this.payOrder(data.id);
 				})
 				uni.hideLoading();
@@ -210,29 +202,6 @@ import API from '@/common/api.js';
 									// 支付成功处理逻辑，只有res.code=0时，才表示支付成功
 									// 但是最终状态要以商户后端结果为准
 								}
-								// let title = '';
-								// switch(res.code) {
-								// 	case 0:
-								// 		title = '支付成功～';
-								// 		break;
-								// 	case 1:
-								// 		title = '支付超时～';
-								// 		break;
-								// 	case 2:
-								// 		title = '支付失败～';
-								// 		break;
-								// 	case 3:
-								// 		title = '支付关闭～';
-								// 		break;
-								// 	case 4:
-								// 		title = '支付取消～';
-								// 		break;
-								// }
-								// uni.showToast({
-								// 	title,
-								// 	icon: 'none',
-								// 	duration: 2000
-								// });
 							},
 							fail(res) {
 								console.log('%c [ res ]-147', 'font-size:13px; background:pink; color:#bf2c9f;', res)

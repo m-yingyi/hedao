@@ -162,6 +162,7 @@ export default {
         {
           account: this.account,
           password: this.password,
+          platform: 4
         },
         (res) => {
           try {

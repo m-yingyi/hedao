@@ -21,10 +21,10 @@
 		</div>
 		<BaseSpace v-if="isLogin&&userInfo.creatorId" right-arrow left-txt="我的主页" left-url="/static/yun/icons/icon_xcx_01.png" @onClick="navigateTo('../../pages/core/index')"/>
 		<BaseSpace right-arrow left-txt="认证创作者" @onClick="navigateTo('../../pages/framer-originator/index')"/>
-		<div class="goMyBought" v-if="!isHide">
-			<div class="mybought-box"><a href="/yun/mycollection"><span>{{userInfo.focus || 0}}</span><span class="sect-txt">我的收藏</span></a></div>
-			<div class="mybought-box"><a href="/yun/mybought"><span>{{userInfo.trends || 0}}</span><span class="sect-txt">在线作品</span></a></div>
-			<div class="mybought-box"><a href="/yun/assistanceVoucherList?wid=1"><span>{{userInfo.myBought || 0}}</span><span class="sect-txt">电子凭证</span></a></div>
+		<div class="goMyBought" v-if="isLogin&&isAppletJumpWeb">
+			<div class="mybought-box"><a @click="navigateTo('../../pages/web-view/index?href=https://www.hedaoapp.com/yun/mycollection')"><span>{{userInfo.focus || 0}}</span><span class="sect-txt">我的收藏</span></a></div>
+			<div class="mybought-box"><a @click="navigateTo('../../pages/web-view/index?href=https://www.hedaoapp.com/yun/mybought')"><span>{{userInfo.trends || 0}}</span><span class="sect-txt">在线作品</span></a></div>
+			<div class="mybought-box"><a @click="navigateTo(`../../pages/web-view/index?href=https://www.hedaoapp.com/yun/assistanceVoucherList?wid=${userInfo.id}`)"><span>{{userInfo.myBought || 0}}</span><span class="sect-txt">电子凭证</span></a></div>
 		</div>
 		<BaseSpace class="link" right-arrow left-txt="联系客服" @onClick="navigateTo('../../pages/call/index')"/>
 	</view>
@@ -39,7 +39,7 @@ import BaseSpace from '@/components/BaseSpace.vue';
 		data() {
 			return {
 				isLogin: false,
-				isHide:  true, // 我的：隐藏
+				isAppletJumpWeb: uni.getStorageSync('isAppletJumpWeb') || false,
 				userInfo: {},
 			}
 		},
@@ -59,6 +59,16 @@ import BaseSpace from '@/components/BaseSpace.vue';
 		},
 		methods: {
 			navigateTo(url) {
+				// Require.post(
+				// 	API.auth.login,
+				// 	{
+				// 		account: this.account,
+				// 		password: this.password,
+				// 		platform: 4
+				// 	},
+				// 	(res) => {
+
+				// 	})
 				uni.navigateTo({
 					url
 				})

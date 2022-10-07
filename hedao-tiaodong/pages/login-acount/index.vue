@@ -71,6 +71,7 @@ import API from '@/common/api.js';
 					Require.post(API.auth.login, {
 						account: this.account,
 						password: this.password,
+						platform: 4
 					}, (res) => {
 						try {
 							console.log('res',res)

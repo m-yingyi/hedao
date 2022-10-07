@@ -6,7 +6,7 @@
 		<template v-if="imgList.length">
 			<image v-for="item in imgList" class="tab-img" mode="widthFix" :src="item"/>
 		</template>
-		<!-- <FixedFoot :text="text"/> -->
+		<FixedFoot v-if="isAppletJumpWeb" @onClick="navigateTo"/>
 	</view>
 </template>
 
@@ -20,10 +20,10 @@ import API from '@/common/api.js';
 		},
 		data() {
 			return {
-				text: '前往盒岛官网认证',
 				headTab: [],
 				currentIndex: 0,
 				imgList: [],
+				isAppletJumpWeb: uni.getStorageSync('isAppletJumpWeb') || false
 			}
 		},
 		onLoad() {
@@ -46,15 +46,14 @@ import API from '@/common/api.js';
 					data[0].check = true
 					this.imgList = data[0].imgList || [];
 					this.headTab = data
-					console.log(data)
 				}, {noLogin: true})
 			},
 
 			navigateTo() {
 				uni.navigateTo({
-					url: '../../pages/question/index'
+					url: '../../pages/web-view/index?href=http://hedaoapp.com/yun'
 				})
-			}
+			},
 		}
 	}
 </script>

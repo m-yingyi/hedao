@@ -41,7 +41,7 @@ import API from '@/common/api.js';
 				trendLists: [],
 				pageProps: {
 					pageIndex: 1,
-					pageSize: 20,
+					pageSize: 6,
 				},
 				isBottom: false,
 				tabLists: [{label: '推荐', check: false},{label: '关注', check: true }],

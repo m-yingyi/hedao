@@ -9,7 +9,7 @@ export default {
   props: {
     text: {
       type: String,
-      default: "",
+      default: "前往盒岛官网认证",
     },
   },
   methods: {
